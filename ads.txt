@@ -1,0 +1,2 @@
+# Add the exact ads.txt line provided by your Google AdSense account here before monetization.
+# Do not use a placeholder publisher ID.
