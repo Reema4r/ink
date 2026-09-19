@@ -419,7 +419,7 @@ html[dir="rtl"] .recent-files{padding:1px 0 2px 4px}
 
 .straight-hold-hint{display:block;margin-top:8px;padding-top:8px;border-top:1px solid #edf0f5;color:#7b8498;font-size:9.5px;line-height:1.55;font-weight:600}
 
-/* v17 — iPhone/iPad input maintenance */
+/* v18 — iPhone/iPad input maintenance */
 .annotation-canvas,
 .signature-pad-wrap canvas{
   -webkit-user-select:none;
@@ -538,3 +538,151 @@ html[dir="rtl"] .recent-files{padding:1px 0 2px 4px}
   .palette-grid{grid-template-columns:repeat(6,minmax(30px,1fr))}
   .magic-popover .palette-grid{grid-template-columns:repeat(5,minmax(30px,1fr))}
 }
+
+
+/* v18 — continuous handwriting on iOS / touch devices */
+.annotation-canvas,
+.signature-pad-wrap canvas{
+  -webkit-user-drag:none;
+  -webkit-tap-highlight-color:transparent;
+}
+@media (pointer:coarse){
+  .annotation-canvas{touch-action:none!important}
+  .document-viewport{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+}
+
+
+/* v19 — touch-selection lock + clean phone/iPad editor toolbar ---------------- */
+/* The editor is an ink surface, not selectable document text. Prevent Safari's
+   blue text/image selection, callout and drag UI while handwriting. Form fields
+   live in dialogs outside #editorView and remain editable/selectable. */
+#editorView,
+#editorView *,
+.document-viewport,
+.pages-stack,
+.pdf-page,
+.whiteboard-page,
+.pdf-page canvas,
+.whiteboard-page canvas{
+  -webkit-user-select:none!important;
+  user-select:none!important;
+  -webkit-touch-callout:none!important;
+  -webkit-user-drag:none!important;
+  -webkit-tap-highlight-color:transparent!important;
+}
+.annotation-canvas{touch-action:none!important;overscroll-behavior:none}
+
+/* Tablet/iPad: a deliberate two-row toolbar. Row one is navigation/save/export;
+   row two contains the complete horizontally scrollable tool set. This avoids
+   squeezing or overlapping tools in portrait and landscape. */
+@media (min-width:621px) and (max-width:1180px) and (pointer:coarse){
+  .context-bar{
+    top:max(8px,env(safe-area-inset-top))!important;
+    left:auto!important;
+    right:auto!important;
+    inset-inline-start:max(10px,env(safe-area-inset-left))!important;
+    inset-inline-end:max(10px,env(safe-area-inset-right))!important;
+    transform:none!important;
+    width:auto!important;
+    max-width:none!important;
+    height:112px!important;
+    padding:8px 10px!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto auto!important;
+    grid-template-rows:44px 48px!important;
+    align-items:center!important;
+    gap:4px 8px!important;
+    border-radius:20px!important;
+    overflow:visible!important;
+  }
+  .document-actions{grid-column:1;grid-row:1;min-width:0;max-width:100%;overflow:visible}
+  .floating-file-name{display:grid!important;min-width:0}
+  .floating-file-name span{max-width:min(42vw,300px)!important}
+  .top-save-state{position:absolute!important;top:47px!important;inset-inline-start:54px!important;z-index:122}
+  .save-work-btn{grid-column:2;grid-row:1;width:44px!important;min-width:44px!important;height:40px!important;padding:0!important;border-radius:12px!important}
+  .save-work-btn span{display:none!important}
+  .editor-download{grid-column:3;grid-row:1;width:44px!important;min-width:44px!important;height:40px!important;padding:0!important;border-radius:12px!important;margin:0!important}
+  .editor-download span{display:none!important}
+  .editor-lang,.history-actions,.zoom-actions{display:none!important}
+  .toolbar-tools{
+    grid-column:1/-1!important;grid-row:2!important;
+    width:100%!important;min-width:0!important;max-width:100%!important;
+    display:flex!important;align-items:center!important;justify-content:flex-start!important;
+    gap:5px!important;padding:2px 1px!important;
+    overflow-x:auto!important;overflow-y:hidden!important;
+    scrollbar-width:none!important;overscroll-behavior-inline:contain!important;
+    scroll-snap-type:x proximity!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+  .toolbar-tools::-webkit-scrollbar{display:none!important}
+  .toolbar-tools .tool{width:44px!important;min-width:44px!important;height:44px!important;flex:0 0 44px!important;border-radius:12px!important;scroll-snap-align:center}
+  .toolbar-divider{height:25px!important;margin-inline:2px!important;display:block!important}
+  .ink-pens{display:flex!important;flex:0 0 auto!important;gap:3px!important}
+  .ink-pens .pen-preset{display:inline-flex!important}
+  .document-viewport{padding-top:142px!important}
+  .pages-panel{top:132px!important;bottom:76px!important}
+  .tool-popover{
+    position:fixed!important;
+    top:max(132px,calc(env(safe-area-inset-top) + 122px))!important;
+    inset-inline-start:auto!important;inset-inline-end:auto!important;
+    left:50%!important;right:auto!important;
+    transform:translateX(-50%)!important;
+    width:min(430px,calc(100vw - 28px))!important;
+    max-height:min(56dvh,430px)!important;
+    overflow:auto!important;
+    border-radius:18px!important;
+    z-index:140!important;
+  }
+  .palette-grid{grid-template-columns:repeat(6,minmax(36px,1fr))!important}
+  .magic-popover .palette-grid{grid-template-columns:repeat(5,minmax(38px,1fr))!important}
+  .palette-grid button{width:36px!important;height:36px!important}
+}
+
+/* Phone: keep one compact bar, but make its centre a real scrollable tool strip.
+   Save and download remain visible at the edge; no toolbar item can overlap. */
+@media (max-width:620px){
+  .context-bar{
+    top:max(7px,env(safe-area-inset-top))!important;
+    left:auto!important;
+    right:auto!important;
+    inset-inline-start:max(7px,env(safe-area-inset-left))!important;
+    inset-inline-end:max(7px,env(safe-area-inset-right))!important;
+    transform:none!important;
+    width:auto!important;max-width:none!important;
+    height:56px!important;padding:6px!important;
+    display:flex!important;align-items:center!important;gap:4px!important;
+    overflow:visible!important;
+  }
+  .document-actions{flex:0 0 40px!important;min-width:40px!important;overflow:visible!important}
+  .floating-file-name{display:none!important}
+  .editor-back{width:40px!important;min-width:40px!important;height:40px!important;padding:0!important}
+  .editor-back span{display:none!important}
+  .toolbar-tools{
+    flex:1 1 auto!important;min-width:0!important;width:auto!important;
+    display:flex!important;justify-content:flex-start!important;gap:3px!important;
+    overflow-x:auto!important;overflow-y:hidden!important;padding:0 1px!important;
+    scrollbar-width:none!important;overscroll-behavior-inline:contain!important;
+    -webkit-overflow-scrolling:touch!important;scroll-snap-type:x proximity!important;
+  }
+  .toolbar-tools::-webkit-scrollbar{display:none!important}
+  .toolbar-tools .tool{width:40px!important;min-width:40px!important;height:40px!important;flex:0 0 40px!important;scroll-snap-align:center!important}
+  .ink-pens{display:flex!important;flex:0 0 auto!important}
+  .ink-pens .pen-preset:not(:first-child){display:none!important}
+  .toolbar-divider{display:none!important}
+  .history-actions,.zoom-actions,.editor-lang{display:none!important}
+  .save-work-btn{width:40px!important;min-width:40px!important;height:40px!important;padding:0!important;flex:0 0 40px!important}
+  .save-work-btn span{display:none!important}
+  .editor-download{width:40px!important;min-width:40px!important;height:40px!important;padding:0!important;flex:0 0 40px!important;margin:0!important}
+  .editor-download span{display:none!important}
+  .document-viewport{padding-top:76px!important}
+  .top-save-state{top:50px!important;inset-inline-start:46px!important}
+  .tool-popover{
+    top:max(70px,calc(env(safe-area-inset-top) + 62px))!important;
+    left:10px!important;right:10px!important;
+    width:auto!important;max-height:60dvh!important;
+    transform:none!important;
+  }
+}
+
+/* v19 visibility: keep export unmistakable on touch toolbars. */
+@media (max-width:1180px) and (pointer:coarse){.editor-download{background:var(--accent)!important;color:#fff!important;border:0!important}.editor-download svg{stroke:currentColor!important}}

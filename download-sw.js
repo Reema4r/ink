@@ -1,4 +1,4 @@
-/* InkNote direct-download service worker.
+/* InkNote v19 direct-download service worker.
  * Stores client-generated files briefly in memory and serves them back with
  * Content-Disposition: attachment so browsers can treat them as downloads.
  */
@@ -42,6 +42,7 @@ self.addEventListener('fetch', event => {
     return new Response(item.bytes, {
       headers: {
         'Content-Type': item.mime,
+        'Content-Length': String(item.bytes.byteLength || item.bytes.length || 0),
         'Content-Disposition': `attachment; filename="${safeName}"; filename*=UTF-8''${encodeURIComponent(safeName)}`,
         'Cache-Control': 'no-store, max-age=0',
         'X-Content-Type-Options': 'nosniff'

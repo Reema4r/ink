@@ -62,8 +62,8 @@
       };
     }
 
-    var module = await import('./vendor/pdf.min.js?v=9');
-    module.GlobalWorkerOptions.workerSrc = './vendor/pdf.worker.min.js?v=9';
+    var module = await import('./vendor/pdf.min.js?v=19');
+    module.GlobalWorkerOptions.workerSrc = './vendor/pdf.worker.min.js?v=19';
     window.pdfjsLib = module;
     return module;
   }
@@ -85,6 +85,21 @@
     ];
 
     var lastError = null;
+    var ua = navigator.userAgent || '';
+    var appleTouch = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    // Newer PDF.js fixed a number of font and Safari rendering issues. On iPhone/iPad
+    // prefer the bundled build so embedded Arabic fonts are handled by the browser's
+    // font engine instead of the older path-renderer fallback.
+    if (appleTouch) {
+      try {
+        return await loadModernBundledPdfJs();
+      } catch (err) {
+        lastError = err;
+        console.warn('[InkNote] Bundled PDF.js failed on Apple device, falling back.', err);
+      }
+    }
+
     for (var i = 0; i < sources.length; i++) {
       try {
         return await loadClassicPdfJs(sources[i].lib, sources[i].worker);
@@ -94,12 +109,15 @@
       }
     }
 
-    try {
-      return await loadModernBundledPdfJs();
-    } catch (err) {
-      console.error('[InkNote] All PDF.js loaders failed.', err, lastError);
-      throw err;
+    if (!appleTouch) {
+      try {
+        return await loadModernBundledPdfJs();
+      } catch (err) {
+        console.error('[InkNote] All PDF.js loaders failed.', err, lastError);
+        throw err;
+      }
     }
+    throw lastError || new Error('Could not load PDF.js');
   })();
 
   window.ensurePdfLib = function () {
@@ -107,7 +125,7 @@
     if (window.pdfLibReady) return window.pdfLibReady;
     window.pdfLibReady = new Promise(function (resolve, reject) {
       var script = document.createElement('script');
-      script.src = './vendor/pdf-lib.min.js?v=9';
+      script.src = './vendor/pdf-lib.min.js?v=19';
       script.onload = function () { resolve(window.PDFLib); };
       script.onerror = reject;
       document.head.appendChild(script);

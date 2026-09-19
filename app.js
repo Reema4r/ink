@@ -144,15 +144,21 @@
       }
       if(token!==state.loadToken)return false;
       const appleMobile=isAppleMobile();
+      const pdfVersion=String(pdfjs?.version||'3.11.174');
+      const assetVersion=/^5\./.test(pdfVersion)?'5.6.205':'3.11.174';
       const loadingTask=pdfjs.getDocument({
         data:state.pdfBytes.slice(),useWorkerFetch:false,isEvalSupported:false,
-        // Safari/iOS may mis-render complex Arabic glyph runs through dynamically loaded font faces.
-        // The internal PDF.js glyph renderer is more stable for those files on iPhone/iPad.
-        disableFontFace:appleMobile,
-        useSystemFonts:!appleMobile,
-        cMapUrl:appleMobile?'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/':undefined,
+        // Important for Arabic PDFs on Safari/iOS: allow @font-face so WebKit can
+        // shape embedded Arabic glyph runs. The old internal path renderer can
+        // paint letters as isolated forms in some generated PDFs.
+        disableFontFace:false,
+        useSystemFonts:false,
+        fontExtraProperties:true,
+        isOffscreenCanvasSupported:appleMobile?false:undefined,
+        isImageDecoderSupported:appleMobile?false:undefined,
+        cMapUrl:`https://cdn.jsdelivr.net/npm/pdfjs-dist@${assetVersion}/cmaps/`,
         cMapPacked:true,
-        standardFontDataUrl:appleMobile?'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/standard_fonts/':undefined
+        standardFontDataUrl:`https://cdn.jsdelivr.net/npm/pdfjs-dist@${assetVersion}/standard_fonts/`
       });
       state.pdf=await loadingTask.promise;
       if(token!==state.loadToken)return false;
@@ -288,9 +294,13 @@
 
   function pointFromEvent(e,canvas){
     const r=canvas.getBoundingClientRect();
-    const pressure=(typeof e.pressure==='number'&&e.pressure>0)?e.pressure:(e.pointerType==='pen'?.5:.55);
+    // iOS reports noisy pressure values for finger input. Keep finger width stable;
+    // Apple Pencil/stylus pressure is still preserved.
+    const pressure=e.pointerType==='touch'?.55:((typeof e.pressure==='number'&&e.pressure>0)?e.pressure:.5);
     return {x:clamp((e.clientX-r.left)/Math.max(1,r.width),0,1),y:clamp((e.clientY-r.top)/Math.max(1,r.height),0,1),p:pressure,tiltX:e.tiltX||0,tiltY:e.tiltY||0};
   }
+  function touchContactSize(e){return Math.max(Number(e.width||0),Number(e.height||0));}
+  function isLikelyPalmTouch(e){return e.pointerType==='touch'&&touchContactSize(e)>34;}
   function rememberPointer(e){
     if(e.pointerType==='pen'){state.lastPenAt=Date.now();state.activePenPointer=e.pointerId;}
     if(e.pointerType==='touch')state.touchPointers.set(e.pointerId,{x:e.clientX,y:e.clientY,w:e.width||0,h:e.height||0});
@@ -304,10 +314,37 @@
     if(e.pointerType==='pen'){state.lastPenAt=Date.now();return false;}
     if(e.pointerType!=='touch')return false;
     if(state.tool==='hand')return false;
-    // Single-finger writing stays enabled. Palm rejection only engages around an active/recent stylus.
-    const penIsActive=state.activePenPointer!=null || Date.now()-state.lastPenAt<650;
-    const likelyPalm=Math.max(Number(e.width||0),Number(e.height||0))>30;
-    return penIsActive && likelyPalm;
+    // Never reject the pointer that is already producing an intentional finger stroke.
+    // iOS changes touch width/height while a finger moves; treating that as a palm used
+    // to cut handwriting in the middle of a word.
+    if(state.drawing?.pointerId===e.pointerId)return false;
+    // Palm rejection is only aggressive while a real stylus is active (or has just
+    // lifted). Without a stylus, a broad finger contact is still legitimate input.
+    const penIsActive=state.activePenPointer!=null || Date.now()-state.lastPenAt<260;
+    if(!penIsActive)return false;
+    return isLikelyPalmTouch(e);
+  }
+  function canStartTwoFingerGesture(){
+    // Touches that reached rememberPointer have already passed palm rejection.
+    // Do not use contact width here: real fingers on iPad frequently exceed the old
+    // 34px threshold and would otherwise break pinch/pan and handwriting continuity.
+    return state.activePenPointer==null&&state.touchPointers.size>=2;
+  }
+  function appendInterpolatedStrokePoints(stroke,points,canvas){
+    let prev=stroke.points.at(-1),moved=false;
+    const maxStep=Math.max(.0015,2.1/Math.max(320,canvas.getBoundingClientRect().width||canvas.width||760));
+    for(const cp of points){
+      if(!prev){stroke.points.push(cp);prev=cp;moved=true;continue;}
+      const dist=Math.hypot(cp.x-prev.x,cp.y-prev.y);
+      if(dist<.00045)continue;
+      const steps=Math.min(28,Math.max(1,Math.ceil(dist/maxStep)));
+      for(let i=1;i<=steps;i++){
+        const f=i/steps,next={x:prev.x+(cp.x-prev.x)*f,y:prev.y+(cp.y-prev.y)*f,p:prev.p+(cp.p-prev.p)*f,tiltX:cp.tiltX||0,tiltY:cp.tiltY||0};
+        stroke.points.push(next);drawLiveSegment(canvas,stroke,stroke.points.at(-2),next);moved=true;
+      }
+      prev=cp;
+    }
+    return moved;
   }
   function clearStraightHold(d){ if(d?.straightTimer){clearTimeout(d.straightTimer);d.straightTimer=0;} }
   function armStraightHold(canvas,pageNum,d){
@@ -350,16 +387,25 @@
     });
   }
   function coalescedPoints(e,canvas){
-    const events=(typeof e.getCoalescedEvents==='function'&&e.getCoalescedEvents().length)?e.getCoalescedEvents():[e];
+    let events=[e];
+    if(typeof e.getCoalescedEvents==='function'){
+      try{const list=e.getCoalescedEvents();if(list&&list.length)events=list;}catch{}
+    }
     return events.map(ev=>pointFromEvent(ev,canvas));
+  }
+  function clearNativeSelection(){
+    try{const sel=window.getSelection?.();if(sel&&sel.rangeCount)sel.removeAllRanges();}catch{}
   }
   function bindCanvas(canvas,pageNum){
     canvas.addEventListener('pointerdown',e=>{
+      clearNativeSelection();
+      // Reject a palm before adding it to the gesture set. Previously a resting
+      // palm could become a second pointer and cancel an active finger stroke.
+      if(shouldIgnoreTouch(e)){e.preventDefault();return;}
       rememberPointer(e);
-      if(e.pointerType==='touch'&&state.touchPointers.size>=2){
+      if(e.pointerType==='touch'&&canStartTwoFingerGesture()){
         e.preventDefault();safeCapture(canvas,e.pointerId);beginTouchGesture(canvas,pageNum);return;
       }
-      if(shouldIgnoreTouch(e))return;
       const p=pointFromEvent(e,canvas),viewport=$('#documentViewport');
       // Stylus eraser end / eraser button when the browser exposes it through Pointer Events.
       if(e.pointerType==='pen'&&(e.button===5||(e.buttons&32)===32)){
@@ -388,7 +434,7 @@
     canvas.addEventListener('pointermove',e=>{
       if(e.pointerType==='touch'&&state.touchPointers.has(e.pointerId)){
         state.touchPointers.set(e.pointerId,{x:e.clientX,y:e.clientY,w:e.width||0,h:e.height||0});
-        if(state.touchPointers.size>=2){e.preventDefault();if(!state.touchGesture)beginTouchGesture(canvas,pageNum);updateTouchGesture();return;}
+        if(canStartTwoFingerGesture()){e.preventDefault();if(!state.touchGesture)beginTouchGesture(canvas,pageNum);updateTouchGesture();return;}
       }
       if(!state.drawing||state.drawing.pageNum!==pageNum||state.drawing.pointerId!==e.pointerId||shouldIgnoreTouch(e))return;
       const p=pointFromEvent(e,canvas);
@@ -400,11 +446,7 @@
       const d=state.drawing,s=d.stroke;
       if(d.straightLocked){s.points[1]={...p};redrawPage(pageNum,s);return;}
       const pts=coalescedPoints(e,canvas);
-      let prev=s.points.at(-1),moved=false;
-      for(const cp of pts){
-        if(prev&&Math.hypot(cp.x-prev.x,cp.y-prev.y)<.0008)continue;
-        s.points.push(cp);drawLiveSegment(canvas,s,prev,cp);prev=cp;moved=true;
-      }
+      const moved=appendInterpolatedStrokePoints(s,pts,canvas);
       if(moved)armStraightHold(canvas,pageNum,d);
     },{passive:false});
     const finish=e=>{
@@ -439,6 +481,9 @@
     const pts=s.points;if(!pts.length)return;ctx.save();ctx.strokeStyle=s.color;const high=s.tool==='highlighter',magic=s.tool==='magic';
     ctx.globalAlpha=(high?.34:(magic?.94:1))*alphaMultiplier;ctx.globalCompositeOperation='source-over';ctx.lineCap='round';ctx.lineJoin='round';
     if(!high&&!magic&&pts.length>1){
+      // Resampled points make finger handwriting continuous on iOS even when
+      // Safari delivers sparse touch frames. Draw tiny connected segments with
+      // stable round caps while retaining Pencil pressure.
       for(let i=1;i<pts.length;i++){
         const a=pts[i-1],b=pts[i],pressure=.62+.72*clamp(((a.p||.5)+(b.p||.5))/2,.05,1);
         ctx.lineWidth=s.size*(w/760)*pressure;ctx.beginPath();ctx.moveTo(a.x*w,a.y*h);ctx.lineTo(b.x*w,b.y*h);ctx.stroke();
@@ -539,26 +584,44 @@
   function clearSignature(){ const c=$('#signaturePad');c.getContext('2d').clearRect(0,0,c.width,c.height);c.dataset.used='false'; }
   function useSignature(){ const c=$('#signaturePad');if(c.dataset.used!=='true'){toast(t('emptySignature'));return;} state.signatureData=c.toDataURL('image/png');$('#signatureModal').close();setTool('signature');toast(t('signatureReady')); }
 
+  let downloadWorkerPromise=null;
+  function warmDownloadWorker(){
+    if(downloadWorkerPromise)return downloadWorkerPromise;
+    if(!('serviceWorker' in navigator)||!window.isSecureContext||location.protocol!=='https:')return Promise.resolve(null);
+    downloadWorkerPromise=(async()=>{
+      try{
+        const reg=await navigator.serviceWorker.register('./download-sw.js?v=19',{scope:'./',updateViaCache:'none'});
+        await navigator.serviceWorker.ready;
+        try{await reg.update();}catch{}
+        if(!navigator.serviceWorker.controller){
+          await new Promise(resolve=>{
+            let done=false;const finish=()=>{if(done)return;done=true;resolve();};
+            navigator.serviceWorker.addEventListener('controllerchange',finish,{once:true});setTimeout(finish,1800);
+          });
+        }
+        return reg;
+      }catch(err){console.warn('[InkNote] Could not warm download worker:',err);return null;}
+    })();
+    return downloadWorkerPromise;
+  }
   async function serviceWorkerDownload(blob,filename){
-    if(!('serviceWorker' in navigator) || !window.isSecureContext || location.protocol!=='https:')return false;
     try{
-      const reg=await navigator.serviceWorker.register('./download-sw.js?v=17',{scope:'./'});
-      await navigator.serviceWorker.ready;
-      if(!navigator.serviceWorker.controller){
-        await new Promise(resolve=>{
-          let done=false;const finish=()=>{if(done)return;done=true;resolve();};
-          navigator.serviceWorker.addEventListener('controllerchange',finish,{once:true});setTimeout(finish,900);
-        });
-      }
+      const reg=await warmDownloadWorker();if(!reg)return false;
       const worker=navigator.serviceWorker.controller||reg.active||reg.waiting;if(!worker)return false;
       const token=`${Date.now()}-${Math.random().toString(36).slice(2)}`,bytes=await blob.arrayBuffer();
       await new Promise((resolve,reject)=>{
-        const channel=new MessageChannel();const timer=setTimeout(()=>reject(new Error('download worker timeout')),1800);
+        const channel=new MessageChannel();const timer=setTimeout(()=>reject(new Error('download worker timeout')),2600);
         channel.port1.onmessage=ev=>{clearTimeout(timer);ev.data?.ok?resolve():reject(new Error('download worker rejected file'));};
         worker.postMessage({type:'INKNOTE_DOWNLOAD',token,filename,mime:'application/pdf',bytes},[bytes,channel.port2]);
       });
       const href=`./__inknote_download__/${encodeURIComponent(token)}/${encodeURIComponent(filename)}`;
-      const a=document.createElement('a');a.href=href;a.download=filename;a.rel='noopener';a.style.display='none';document.body.append(a);a.click();setTimeout(()=>a.remove(),1500);
+      if(isAppleMobile()){
+        // A same-origin navigation that returns Content-Disposition: attachment
+        // is what makes iOS Safari show its native Download / View prompt.
+        window.location.assign(href);
+      }else{
+        const a=document.createElement('a');a.href=href;a.download=filename;a.rel='noopener';a.style.display='none';document.body.append(a);a.click();setTimeout(()=>a.remove(),1500);
+      }
       return true;
     }catch(err){console.warn('[InkNote] Service-worker download fallback:',err);return false;}
   }
@@ -570,13 +633,8 @@
       }catch(err){if(err?.name==='AbortError')return false;}
     }
     if(await serviceWorkerDownload(blob,filename))return true;
-    // WKWebView/Safari fall back: small PDFs use a downloadable data URL rather than navigating to a PDF blob preview.
-    if(isAppleMobile()&&blob.size<=10*1024*1024){
-      try{
-        const dataUrl=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result).replace(/^data:application\/pdf/i,'data:application/octet-stream'));r.onerror=reject;r.readAsDataURL(blob);});
-        const a=document.createElement('a');a.href=dataUrl;a.download=filename;a.rel='noopener';a.style.display='none';document.body.append(a);a.click();a.remove();return true;
-      }catch(err){console.warn('[InkNote] iOS data-download fallback:',err);}
-    }
+    // If a Service Worker cannot run (for example file:// or non-HTTPS), Safari
+    // controls the final behavior. Use a normal blob download as the last fallback.
     const a=document.createElement('a'),url=URL.createObjectURL(blob);
     a.href=url;a.download=filename;a.rel='noopener';a.style.display='none';document.body.append(a);a.click();a.remove();
     setTimeout(()=>URL.revokeObjectURL(url),60000);
@@ -681,6 +739,12 @@
     $('#clearSignature').onclick=clearSignature;$('#useSignature').onclick=useSignature;
     const renameDocument=()=>{const n=prompt(t('rename'),state.filename);if(n){state.filename=n.toLowerCase().endsWith('.pdf')?n:n+'.pdf';$('#documentName').textContent=state.filename;$('#floatingDocumentName').textContent=state.filename;scheduleSave()}};
     $('#renameBtn').onclick=renameDocument;$('#floatingRenameBtn').onclick=renameDocument;$('#exitEditor').onclick=async()=>{await saveDocument();resetToWelcome()};
+    const editorRoot=$('#editorView'),viewport=$('#documentViewport');
+    const isEditorNonEditableTarget=target=>editorRoot&&!editorRoot.hidden&&editorRoot.contains(target)&&!target.closest('input,textarea,[contenteditable="true"]');
+    document.addEventListener('selectstart',e=>{if(isEditorNonEditableTarget(e.target)){e.preventDefault();clearNativeSelection();}},{passive:false});
+    document.addEventListener('dragstart',e=>{if(isEditorNonEditableTarget(e.target))e.preventDefault();},{passive:false});
+    document.addEventListener('contextmenu',e=>{if(viewport?.contains(e.target)){e.preventDefault();clearNativeSelection();}},{passive:false});
+    document.addEventListener('selectionchange',()=>{if(!editorRoot||editorRoot.hidden)return;const sel=window.getSelection?.();const node=sel?.anchorNode;if(node&&editorRoot.contains(node.nodeType===1?node:node.parentElement))clearNativeSelection();});
     document.addEventListener('pointerdown',e=>{if(!e.target.closest('.toolbar-popover-wrap'))closeToolPopovers()}); window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();e.shiftKey?redo():undo()}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();if(state.mode)openSaveModal();}});
     window.addEventListener('beforeunload',()=>{if(state.mode)saveDocument()});
     $('#documentViewport').addEventListener('wheel',e=>{if(state.mode==='whiteboard'&&(e.ctrlKey||e.metaKey)){e.preventDefault();setZoom(state.zoom+(e.deltaY<0?.1:-.1));}},{passive:false});
@@ -697,5 +761,5 @@
     register({name:'open_pdf_export_review',title:'Review export',description:'Open the export review for the current PDF or whiteboard. This does not download until the user confirms.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute:()=>{if(!state.mode)throw new Error('Open a document first.');updateExportMeta();$('#exportModal').showModal();return{status:'export_review_opened',watermark:false}}});
   }
 
-  window.addEventListener('DOMContentLoaded',()=>{ setLanguage(state.lang); bindUI(); resetToWelcome(); updateAdUI(); loadAds(); registerWebMCP(); setInterval(updateRecentFiles,30*60*1000); });
+  window.addEventListener('DOMContentLoaded',()=>{ setLanguage(state.lang); bindUI(); resetToWelcome(); warmDownloadWorker(); updateAdUI(); loadAds(); registerWebMCP(); setInterval(updateRecentFiles,30*60*1000); });
 })();
