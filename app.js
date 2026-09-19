@@ -147,13 +147,15 @@
       const pdfVersion=String(pdfjs?.version||'3.11.174');
       const assetVersion=/^5\./.test(pdfVersion)?'5.6.205':'3.11.174';
       const loadingTask=pdfjs.getDocument({
-        data:state.pdfBytes.slice(),useWorkerFetch:false,isEvalSupported:false,
-        // Important for Arabic PDFs on Safari/iOS: allow @font-face so WebKit can
-        // shape embedded Arabic glyph runs. The old internal path renderer can
-        // paint letters as isolated forms in some generated PDFs.
+        data:state.pdfBytes.slice(),
+        useWorkerFetch:false,
+        isEvalSupported:true,
+        // Safari must use normal font faces here. Turning fonts into glyph paths
+        // or disabling system fallback causes visible character spacing errors
+        // in both Arabic and Latin PDFs.
         disableFontFace:false,
-        useSystemFonts:false,
-        fontExtraProperties:true,
+        useSystemFonts:true,
+        fontExtraProperties:false,
         isOffscreenCanvasSupported:appleMobile?false:undefined,
         isImageDecoderSupported:appleMobile?false:undefined,
         cMapUrl:`https://cdn.jsdelivr.net/npm/pdfjs-dist@${assetVersion}/cmaps/`,
@@ -590,13 +592,24 @@
     if(!('serviceWorker' in navigator)||!window.isSecureContext||location.protocol!=='https:')return Promise.resolve(null);
     downloadWorkerPromise=(async()=>{
       try{
-        const reg=await navigator.serviceWorker.register('./download-sw.js?v=19',{scope:'./',updateViaCache:'none'});
+        const reg=await navigator.serviceWorker.register('./download-sw-v21.js?v=21',{scope:'./',updateViaCache:'none'});
         await navigator.serviceWorker.ready;
         try{await reg.update();}catch{}
-        if(!navigator.serviceWorker.controller){
+        const isV20=w=>!!w&&/download-sw-v21\.js(?:\?|$)/.test(w.scriptURL||'');
+        if(!isV20(navigator.serviceWorker.controller)){
+          const candidate=reg.installing||reg.waiting||reg.active;
+          if(candidate&&candidate.state!=='activated'){
+            await new Promise(resolve=>{
+              let done=false;const finish=()=>{if(done)return;done=true;resolve();};
+              candidate.addEventListener('statechange',()=>{if(candidate.state==='activated')finish();});
+              setTimeout(finish,2600);
+            });
+          }
           await new Promise(resolve=>{
             let done=false;const finish=()=>{if(done)return;done=true;resolve();};
-            navigator.serviceWorker.addEventListener('controllerchange',finish,{once:true});setTimeout(finish,1800);
+            if(isV20(navigator.serviceWorker.controller))return finish();
+            navigator.serviceWorker.addEventListener('controllerchange',finish,{once:true});
+            setTimeout(finish,2600);
           });
         }
         return reg;
@@ -607,12 +620,12 @@
   async function serviceWorkerDownload(blob,filename){
     try{
       const reg=await warmDownloadWorker();if(!reg)return false;
-      const worker=navigator.serviceWorker.controller||reg.active||reg.waiting;if(!worker)return false;
-      const token=`${Date.now()}-${Math.random().toString(36).slice(2)}`,bytes=await blob.arrayBuffer();
+      const worker=navigator.serviceWorker.controller;if(!worker||!/download-sw-v21\.js(?:\?|$)/.test(worker.scriptURL||''))return false;
+      const token=`${Date.now()}-${Math.random().toString(36).slice(2)}`;
       await new Promise((resolve,reject)=>{
-        const channel=new MessageChannel();const timer=setTimeout(()=>reject(new Error('download worker timeout')),2600);
+        const channel=new MessageChannel();const timer=setTimeout(()=>reject(new Error('download worker timeout')),3500);
         channel.port1.onmessage=ev=>{clearTimeout(timer);ev.data?.ok?resolve():reject(new Error('download worker rejected file'));};
-        worker.postMessage({type:'INKNOTE_DOWNLOAD',token,filename,mime:'application/pdf',bytes},[bytes,channel.port2]);
+        worker.postMessage({type:'INKNOTE_DOWNLOAD',token,filename,mime:'application/pdf',blob},[channel.port2]);
       });
       const href=`./__inknote_download__/${encodeURIComponent(token)}/${encodeURIComponent(filename)}`;
       if(isAppleMobile()){

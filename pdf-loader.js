@@ -62,8 +62,8 @@
       };
     }
 
-    var module = await import('./vendor/pdf.min.js?v=19');
-    module.GlobalWorkerOptions.workerSrc = './vendor/pdf.worker.min.js?v=19';
+    var module = await import('./vendor/pdf.min.js?v=21');
+    module.GlobalWorkerOptions.workerSrc = './vendor/pdf.worker.min.js?v=21';
     window.pdfjsLib = module;
     return module;
   }
@@ -88,18 +88,10 @@
     var ua = navigator.userAgent || '';
     var appleTouch = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-    // Newer PDF.js fixed a number of font and Safari rendering issues. On iPhone/iPad
-    // prefer the bundled build so embedded Arabic fonts are handled by the browser's
-    // font engine instead of the older path-renderer fallback.
-    if (appleTouch) {
-      try {
-        return await loadModernBundledPdfJs();
-      } catch (err) {
-        lastError = err;
-        console.warn('[InkNote] Bundled PDF.js failed on Apple device, falling back.', err);
-      }
-    }
-
+    // iPhone/iPad: prefer the stable classic 3.11 renderer first.
+    // The previous bundled 5.x path produced incorrect glyph spacing on Safari
+    // with a broad set of Arabic and Latin PDFs. Keep the modern build only
+    // as a fallback when every classic source is unavailable.
     for (var i = 0; i < sources.length; i++) {
       try {
         return await loadClassicPdfJs(sources[i].lib, sources[i].worker);
@@ -109,15 +101,12 @@
       }
     }
 
-    if (!appleTouch) {
-      try {
-        return await loadModernBundledPdfJs();
-      } catch (err) {
-        console.error('[InkNote] All PDF.js loaders failed.', err, lastError);
-        throw err;
-      }
+    try {
+      return await loadModernBundledPdfJs();
+    } catch (err) {
+      console.error('[InkNote] All PDF.js loaders failed.', err, lastError);
+      throw (lastError || err);
     }
-    throw lastError || new Error('Could not load PDF.js');
   })();
 
   window.ensurePdfLib = function () {
@@ -125,7 +114,7 @@
     if (window.pdfLibReady) return window.pdfLibReady;
     window.pdfLibReady = new Promise(function (resolve, reject) {
       var script = document.createElement('script');
-      script.src = './vendor/pdf-lib.min.js?v=19';
+      script.src = './vendor/pdf-lib.min.js?v=21';
       script.onload = function () { resolve(window.PDFLib); };
       script.onerror = reject;
       document.head.appendChild(script);
