@@ -8,11 +8,11 @@
   <meta name="robots" content="index,follow">
   <title>InkNote — اكتب على ملفات PDF والسبورة بسهولة</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="styles.css?v=24">
+  <link rel="stylesheet" href="styles.css?v=28">
   <script src="config.js"></script>
   <script defer src="site-meta.js"></script>
-  <script src="pdf-loader.js?v=24"></script>
-  <script defer src="app.js?v=24"></script>
+  <script src="pdf-loader.js?v=28"></script>
+  <script defer src="app.js?v=28"></script>
 </head>
 <body>
   <svg class="svg-sprite" aria-hidden="true">
@@ -80,7 +80,7 @@
           </div>
           <button class="whiteboard-start" id="startWhiteboard" type="button">
             <span class="board-icon"><svg><use href="#i-board"/></svg></span>
-            <span><strong data-i18n="whiteboard">سبورة بيضاء</strong><small data-i18n="whiteboardHint">اكتب وارسم ثم حمّلها PDF</small></span>
+            <span><span class="smart-board-tag" data-i18n="smartBoardTag">مرنة · بالقلم أو اللمس</span><strong data-i18n="whiteboard">سبورة ذكية</strong><small data-i18n="whiteboardHint">ابدأ مساحة فارغة للكتابة والرسم والأفكار ثم صدّرها PDF.</small></span>
             <svg class="board-arrow"><use href="#i-plus"/></svg>
           </button>
         </div>
@@ -126,7 +126,6 @@
           </div>
 
           <div class="toolbar-tools" role="toolbar" aria-label="أدوات الكتابة">
-            <button class="tool" data-tool="select" type="button" data-tip-ar="تحديد وتحريك" data-tip-en="Select & move"><svg><use href="#i-select"/></svg></button>
             <button class="tool" data-tool="hand" type="button" data-tip-ar="تحريك اللوحة" data-tip-en="Pan"><svg><use href="#i-hand"/></svg></button>
             <span class="toolbar-divider" aria-hidden="true"></span>
 
@@ -157,7 +156,7 @@
                     <button type="button" data-size="2"><i></i></button><button type="button" class="active" data-size="4"><i></i></button><button type="button" data-size="7"><i></i></button>
                   </div>
                 </div>
-                <label class="smart-toggle popover-smart"><input type="checkbox" id="smartInk" checked><span></span><b data-i18n="smart">تثبيت الخط</b></label><small class="straight-hold-hint" data-i18n="straightHoldHint">ثبّت القلم 3 ثوانٍ ليصبح الخط مستقيماً.</small>
+                <label class="smart-toggle popover-smart"><input type="checkbox" id="smartInk" checked><span></span><b data-i18n="smart">الأشكال الذكية</b></label><small class="straight-hold-hint" data-i18n="straightHoldHint">ارسم شكلاً ثم ثبّت القلم 3 ثوانٍ لتحويله تلقائياً إلى خط أو مستطيل أو دائرة.</small>
               </div>
             </div>
 
@@ -165,6 +164,11 @@
               <button class="tool color-tool" id="highlighterBtn" data-tool="highlighter" type="button" data-tip-ar="قلم تمييز" data-tip-en="Highlighter"><svg><use href="#i-marker"/></svg><span class="tool-color-dot" id="highlighterDot" aria-hidden="true"></span></button>
               <div class="tool-popover color-palette-popover" id="highlighterPopover" hidden>
                 <strong data-i18n="highlightColors">ألوان التمييز</strong>
+                <label class="palette-master compact-palette" aria-label="اختيار لون تمييز مخصص">
+                  <input id="highlighterColorInput" type="color" value="#ffd84d">
+                  <span class="palette-wheel" aria-hidden="true"><i id="highlighterPaletteSelected"></i></span>
+                  <b data-i18n="moreColors">ألوان أكثر</b>
+                </label>
                 <div class="palette-grid" id="highlighterColors">
                   <button type="button" data-highlight-color="#ffd84d" style="--swatch:#ffd84d" aria-label="أصفر"></button>
                   <button type="button" data-highlight-color="#ff7db3" style="--swatch:#ff7db3" aria-label="وردي"></button>
@@ -180,6 +184,11 @@
               <div class="tool-popover color-palette-popover magic-popover" id="magicPopover" hidden>
                 <strong data-i18n="magicPen">القلم السحري</strong>
                 <small data-i18n="magicHint">اكتب أثناء لمس الشاشة، وعند رفع يدك تختفي الكتابة.</small>
+                <label class="palette-master compact-palette" aria-label="اختيار لون سحري مخصص">
+                  <input id="magicColorInput" type="color" value="#536df6">
+                  <span class="palette-wheel" aria-hidden="true"><i id="magicPaletteSelected"></i></span>
+                  <b data-i18n="moreColors">ألوان أكثر</b>
+                </label>
                 <div class="palette-grid" id="magicColors">
                   <button type="button" data-magic-color="#536df6" style="--swatch:#536df6" aria-label="أزرق"></button>
                   <button type="button" data-magic-color="#ff4f9a" style="--swatch:#ff4f9a" aria-label="وردي"></button>
@@ -197,7 +206,16 @@
                 </div>
               </div>
             </div>
-            <button class="tool" data-tool="eraser" type="button" data-tip-ar="ممحاة" data-tip-en="Eraser"><svg><use href="#i-eraser"/></svg></button>
+            <div class="toolbar-popover-wrap">
+              <button class="tool" id="eraserBtn" data-tool="eraser" type="button" data-tip-ar="ممحاة" data-tip-en="Eraser"><svg><use href="#i-eraser"/></svg></button>
+              <div class="tool-popover eraser-popover" id="eraserPopover" hidden>
+                <strong data-i18n="eraserMode">طريقة المسح</strong>
+                <div class="eraser-mode-grid" role="group" aria-label="طريقة المسح">
+                  <button type="button" data-eraser-mode="partial" class="active"><span class="eraser-preview partial"></span><b data-i18n="erasePartial">مسح دقيق</b><small data-i18n="erasePartialHint">يمسح جزءاً من الخط أو حرفاً من النص.</small></button>
+                  <button type="button" data-eraser-mode="object"><span class="eraser-preview object"></span><b data-i18n="eraseObject">مسح كامل</b><small data-i18n="eraseObjectHint">يحذف العنصر أو النص كاملاً بلمسة.</small></button>
+                </div>
+              </div>
+            </div>
             <button class="tool quick-undo-tool" id="quickUndoBtn" type="button" data-tip-ar="تراجع" data-tip-en="Undo" aria-label="تراجع" disabled><svg><use href="#i-undo"/></svg></button>
             <button class="tool calculator-tool" id="calculatorBtn" type="button" data-tip-ar="الحاسبة" data-tip-en="Calculator" aria-label="الحاسبة"><svg><use href="#i-calc"/></svg></button>
             <span class="toolbar-divider" aria-hidden="true"></span>
@@ -216,6 +234,8 @@
             <div class="toolbar-popover-wrap">
               <button class="tool more-tool" id="moreToolsBtn" type="button" data-tip-ar="المزيد" data-tip-en="More" aria-expanded="false"><svg><use href="#i-more"/></svg></button>
               <div class="tool-popover more-tools-popover" id="moreToolsPopover" hidden>
+                <button class="popover-tool" data-menu-tool="select" type="button"><svg><use href="#i-select"/></svg><span data-i18n="selectTool">تحديد وتحريك</span></button>
+                <span class="popover-divider"></span>
                 <button class="popover-tool" id="menuUndoBtn" type="button"><svg><use href="#i-undo"/></svg><span data-i18n="undo">تراجع</span></button>
                 <button class="popover-tool" id="menuRedoBtn" type="button"><svg><use href="#i-redo"/></svg><span data-i18n="redo">إعادة</span></button>
                 <span class="popover-divider"></span>
@@ -263,7 +283,7 @@
 
   <dialog class="modal whiteboard-modal" id="whiteboardModal">
     <button class="modal-close" data-close="whiteboardModal" type="button"><svg><use href="#i-close"/></svg></button>
-    <div class="modal-title"><small data-i18n="whiteboard">سبورة بيضاء</small><h2 data-i18n="chooseBoardOrientation">اختر اتجاه السبورة</h2><p data-i18n="chooseBoardOrientationHint">اختر الاتجاه المناسب للسبورة قبل البدء. يمكنك إنشاء سبورة جديدة بالاتجاه الآخر لاحقاً.</p></div>
+    <div class="modal-title"><small data-i18n="whiteboard">سبورة ذكية</small><h2 data-i18n="chooseBoardOrientation">اختر اتجاه السبورة</h2><p data-i18n="chooseBoardOrientationHint">اختر الاتجاه المناسب للسبورة قبل البدء. يمكنك إنشاء سبورة جديدة بالاتجاه الآخر لاحقاً.</p></div>
     <div class="orientation-grid">
       <button class="orientation-option active" data-orientation="portrait" type="button">
         <span class="orientation-preview portrait"></span><strong data-i18n="portrait">عمودي</strong><small>A4</small>
@@ -317,9 +337,10 @@
     <div class="calculator-head"><small data-i18n="calculator">الحاسبة</small><div class="calculator-mode"><button type="button" data-calc-mode="basic" class="active" data-i18n="basicCalc">أساسية</button><button type="button" data-calc-mode="scientific" data-i18n="scientificCalc">علمية</button></div></div>
     <div class="calculator-display"><small id="calcExpression"></small><output id="calcDisplay">0</output></div>
     <div class="calculator-keys" id="calculatorKeys">
-      <button data-calc="clear" class="calc-fn">AC</button><button data-calc="back" class="calc-fn">⌫</button><button data-calc="(" class="calc-fn">(</button><button data-calc=")" class="calc-fn">)</button>
+      <button data-calc="clear" class="calc-fn">AC</button><button data-calc="back" class="calc-fn">⌫</button><button data-calc="sign" class="calc-fn">±</button><button data-calc="percent" class="calc-fn">%</button>
+      <button class="scientific-key" data-calc="(">(</button><button class="scientific-key" data-calc=")">)</button><button class="scientific-key" data-calc="π">π</button><button class="scientific-key" data-calc="e">e</button>
       <button class="scientific-key" data-calc="sin(">sin</button><button class="scientific-key" data-calc="cos(">cos</button><button class="scientific-key" data-calc="tan(">tan</button><button class="scientific-key" data-calc="sqrt(">√</button>
-      <button class="scientific-key" data-calc="log(">log</button><button class="scientific-key" data-calc="ln(">ln</button><button class="scientific-key" data-calc="π">π</button><button class="scientific-key" data-calc="^">xʸ</button>
+      <button class="scientific-key" data-calc="log(">log</button><button class="scientific-key" data-calc="ln(">ln</button><button class="scientific-key" data-calc="square">x²</button><button class="scientific-key" data-calc="^">xʸ</button>
       <button data-calc="7">7</button><button data-calc="8">8</button><button data-calc="9">9</button><button data-calc="÷" class="calc-op">÷</button>
       <button data-calc="4">4</button><button data-calc="5">5</button><button data-calc="6">6</button><button data-calc="×" class="calc-op">×</button>
       <button data-calc="1">1</button><button data-calc="2">2</button><button data-calc="3">3</button><button data-calc="−" class="calc-op">−</button>
@@ -342,11 +363,12 @@
   </dialog>
   <dialog class="modal download-choice-modal" id="downloadChoiceModal">
     <button class="modal-close" data-close="downloadChoiceModal" type="button"><svg><use href="#i-close"/></svg></button>
-    <div class="modal-title"><small>PDF</small><h2 data-i18n="downloadChoiceTitle">ملفك جاهز</h2><p data-i18n="downloadChoiceText">اختر عرض الملف أو تنزيله مباشرة.</p></div>
-    <div class="download-choice-file"><span class="pdf-badge">PDF</span><strong id="downloadChoiceName">document-inknote.pdf</strong></div>
+    <div class="modal-title"><small>PDF</small><h2 data-i18n="downloadChoiceTitle">ملفك جاهز</h2><p data-i18n="downloadChoiceText">سمّ الملف ثم اختر عرضه أو تنزيله بصيغة PDF.</p></div>
+    <div class="download-choice-file"><span class="pdf-badge">PDF</span><div class="download-name-wrap"><label for="downloadFilenameInput" data-i18n="downloadFilename">اسم الملف</label><div class="download-name-input"><input id="downloadFilenameInput" type="text" maxlength="120" autocomplete="off" spellcheck="false"><span>.pdf</span></div></div></div>
+    <strong class="download-choice-preview-name" id="downloadChoiceName">document-inknote.pdf</strong>
     <div class="download-choice-actions">
-      <button class="quiet-btn download-view-btn" id="viewDownloadBtn" type="button"><svg><use href="#i-pages"/></svg><span data-i18n="viewFile">عرض</span></button>
-      <button class="primary-btn" id="directDownloadBtn" type="button"><svg><use href="#i-download"/></svg><span data-i18n="downloadNow">تنزيل</span></button>
+      <button class="quiet-btn download-view-btn" id="viewDownloadBtn" type="button"><svg><use href="#i-pages"/></svg><span data-i18n="viewPdf">عرض PDF</span></button>
+      <button class="primary-btn" id="directDownloadBtn" type="button"><svg><use href="#i-download"/></svg><span data-i18n="downloadPdfNow">تنزيل PDF</span></button>
     </div>
   </dialog>
   <dialog class="modal save-modal" id="saveModal">
