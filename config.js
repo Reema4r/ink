@@ -5,5 +5,5 @@ window.INKNOTE_CONFIG = {
   siteUrl: "",
   defaultRetentionHours: 24,
   maxRetentionDays: 15,
-  maxFileSizeMB: 25
+  maxFileSizeMB: 300
 };

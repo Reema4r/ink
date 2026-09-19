@@ -74,7 +74,7 @@
           <div class="upload-zone" id="dropZone" role="button" tabindex="0" aria-label="رفع ملف PDF">
             <input type="file" id="fileInput" accept="application/pdf,.pdf" hidden>
             <span class="upload-icon"><svg><use href="#i-upload"/></svg></span>
-            <div><strong data-i18n="uploadTitle">ارفع ملف PDF</strong><small data-i18n="uploadHint">اسحبه هنا أو اختره — حتى 25 MB</small></div>
+            <div><strong data-i18n="uploadTitle">ارفع ملف PDF</strong><small data-i18n="uploadHint">اسحبه هنا أو اختره — حتى 300 MB</small></div>
             <button class="primary-btn" id="chooseFile" type="button" data-i18n="chooseFile">اختيار ملف</button>
           </div>
           <button class="whiteboard-start" id="startWhiteboard" type="button">
@@ -278,6 +278,15 @@
     <div class="modal-title"><small>PDF</small><h2 data-i18n="exportTitle">ملفك جاهز</h2><p data-i18n="exportText">سيتم دمج كتابتك داخل الملف ليعمل على أي جهاز.</p></div>
     <div class="export-summary"><span class="pdf-badge">PDF</span><div><strong id="exportName">document.pdf</strong><small id="exportMeta"></small></div></div>
     <button class="primary-btn export-btn" id="confirmExport" type="button"><svg><use href="#i-download"/></svg><span data-i18n="downloadPdf">تنزيل PDF</span></button>
+  </dialog>
+  <dialog class="modal download-choice-modal" id="downloadChoiceModal">
+    <button class="modal-close" data-close="downloadChoiceModal" type="button"><svg><use href="#i-close"/></svg></button>
+    <div class="modal-title"><small>PDF</small><h2 data-i18n="downloadChoiceTitle">ملفك جاهز</h2><p data-i18n="downloadChoiceText">اختر عرض الملف أو تنزيله مباشرة.</p></div>
+    <div class="download-choice-file"><span class="pdf-badge">PDF</span><strong id="downloadChoiceName">document-inknote.pdf</strong></div>
+    <div class="download-choice-actions">
+      <button class="quiet-btn download-view-btn" id="viewDownloadBtn" type="button"><svg><use href="#i-pages"/></svg><span data-i18n="viewFile">عرض</span></button>
+      <button class="primary-btn" id="directDownloadBtn" type="button"><svg><use href="#i-download"/></svg><span data-i18n="downloadNow">تنزيل</span></button>
+    </div>
   </dialog>
   <dialog class="modal save-modal" id="saveModal">
     <button class="modal-close" data-close="saveModal" type="button"><svg><use href="#i-close"/></svg></button>

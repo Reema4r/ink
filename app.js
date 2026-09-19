@@ -6,11 +6,11 @@
   const cfg = window.INKNOTE_CONFIG || window.INKSY_CONFIG || {};
   const tr = {
     ar: {
-      savedLocal:'',back:'رجوع',upgrade:'',download:'تنزيل',privateBadge:'',heroTitle:'اكتب على ملفك<br><em>كأنه ورق.</em>',heroText:'للكتابة والرسم والتعليق والتوقيع. افتح أي PDF وابدأ فوراً بالقلم أو اللمس.',uploadTitle:'ارفع ملف PDF',uploadHint:'اسحبه هنا أو اختره — حتى 25 MB',chooseFile:'اختيار ملف',continueWork:'متابعة العمل',noUpload:'',penReady:'متوافق مع أقلام الأجهزة',smartInk:'حبر ذكي',palm:'راحة اليد',smart:'تثبيت الخط',straightHoldHint:'ثبّت القلم 3 ثوانٍ ليصبح الخط مستقيماً.',openingFile:'نفتح ملفك…',pages:'الصفحات',saved:'تم الحفظ',adLabel:'إعلان',adSpace:'مساحة إعلانية',removeAds:'',pricingTitle:'',pricingText:'',monthly:'',free:'مجاني',sar:'',perMonth:'',featureNoWatermark:'',featureNoAds:'',featureSave:'',subscriptionDuration:'',featureQuality:'',featureBasicTools:'',featureLocalSave:'',featurePremiumTools:'',freeWatermarkFeature:'',subscribe:'',securePay:'',continueFree:'',signature:'التوقيع',drawSignature:'ارسم توقيعك',signatureHint:'استخدم القلم أو إصبعك.',signHere:'وقّع هنا',clear:'مسح',useSignature:'استخدام التوقيع',exportTitle:'ملفك جاهز',exportText:'سيتم دمج كتابتك داخل الملف ليعمل على أي جهاز.',freeWatermark:'',upgradeRemoves:'',downloadPdf:'تنزيل PDF',privacy:'الخصوصية',terms:'الشروط',about:'عن InkNote',howToUse:'طريقة الاستخدام',faq:'الأسئلة الشائعة',contact:'تواصل',expires:'محفوظ حتى',invalidPdf:'اختر ملف PDF صالحًا.',pdfReadFail:'تعذر قراءة الملف من جهازك. جرّب اختياره مرة أخرى.',pdfEngineFail:'تعذر تشغيل قارئ PDF. تحقق من اتصال الإنترنت ثم أعد المحاولة.',pdfOpenFail:'تعذر فتح هذا الملف. قد يكون تالفًا أو محميًا بكلمة مرور.',tooLarge:'الملف أكبر من الحد المسموح.',opened:'تم فتح الملف',saveFailed:'تعذر الحفظ في هذا المتصفح.',restored:'تمت استعادة ملفك',textPrompt:'اكتب النص الذي تريد إضافته',placeSignature:'اضغط على الصفحة لوضع التوقيع',signatureReady:'توقيعك جاهز للوضع',exporting:'جارٍ تجهيز الملف…',exported:'تم تنزيل الملف',exportFail:'تعذر تجهيز الملف. جرّب مرة أخرى.',checkoutMissing:'',emptySignature:'ارسم توقيعك أولًا.',adRemoved:'',pagesCount:'صفحة',freePlan:'مجاني · جميع المزايا',plusPlan:'',rewardPlan:'',rename:'اسم الملف الجديد',whiteboard:'سبورة بيضاء',whiteboardHint:'اكتب وارسم ثم حمّلها PDF',whiteboardName:'سبورة جديدة.pdf',yourFiles:'ملفاتك',recentFiles:'الملفات السابقة',pdfType:'ملف PDF',boardType:'سبورة',openFile:'فتح',deleteFile:'حذف',deleted:'تم حذف الملف',boardLabel:'سبورة بيضاء',inkColor:'اللون',inkSize:'السماكة',panTool:'تحريك الصفحة',undo:'تراجع',redo:'إعادة',chooseBoardOrientation:'اختر اتجاه السبورة',chooseBoardOrientationHint:'اختر الاتجاه المناسب للسبورة قبل البدء. يمكنك تغييره بإنشاء سبورة جديدة.',portrait:'عمودي',landscape:'أفقي',textTool:'نص',stickyNote:'ملاحظة لاصقة',notePrompt:'اكتب الملاحظة',selectTool:'تحديد وتحريك',zoomIn:'تكبير',zoomOut:'تصغير',saveWork:'حفظ',myFiles:'ملفاتي',saveTitle:'احفظ عملك للعودة إليه',saveText:'يُحذف الملف تلقائياً بعد المدة التي تختارها.',hours24:'24 ساعة',hours48:'48 ساعة',hours72:'72 ساعة',days7:'7 أيام',days15:'15 يوماً',defaultChoice:'الافتراضي',maxChoice:'الحد الأقصى',deleteNow:'حذف من ملفاتي الآن',localSaveNote:'',savedUntil:'محفوظ حتى',notSaved:'غير محفوظ',saveExtended:'تم حفظ الملف وتحديث مدة الاحتفاظ',savedDeleted:'تم حذف النسخة المحفوظة',editSticky:'اكتب داخل الملاحظة',stickyHint:'تم وضع الملاحظة أولاً. اكتب الآن ثم عدّل لونها ومحاذاة النص، ويمكنك تغيير حجمها من زوايا التحديد.',stickyPlaceholder:'اكتب ملاحظتك هنا…',noteColor:'لون الملاحظة',textAlign:'محاذاة النص',textSize:'حجم النص',cancel:'إلغاء',done:'تم',bookmarkPage:'علّم الصفحة',bookmarkAdded:'تم تعليم الصفحة',bookmarkRemoved:'تم إلغاء تعليم الصفحة',studyTimer:'مؤقت 25 دقيقة',timerStarted:'بدأ مؤقت 25 دقيقة',timerFinished:'انتهى المؤقت',stop:'إيقاف',focusMode:'وضع التركيز',focusOn:'تم تفعيل وضع التركيز',focusOff:'تم إلغاء وضع التركيز',demoHand:'احتفظ بهذه الفكرة',magicHint:'اكتب أو أشر أثناء لمس الشاشة. تبقى الكتابة لحظة قصيرة بعد رفع يدك ثم تختفي.',
+      savedLocal:'',back:'رجوع',upgrade:'',download:'تنزيل',privateBadge:'',heroTitle:'اكتب على ملفك<br><em>كأنه ورق.</em>',heroText:'للكتابة والرسم والتعليق والتوقيع. افتح أي PDF وابدأ فوراً بالقلم أو اللمس.',uploadTitle:'ارفع ملف PDF',uploadHint:'اسحبه هنا أو اختره — حتى 300 MB',chooseFile:'اختيار ملف',continueWork:'متابعة العمل',noUpload:'',penReady:'متوافق مع أقلام الأجهزة',smartInk:'حبر ذكي',palm:'راحة اليد',smart:'تثبيت الخط',straightHoldHint:'ثبّت القلم 3 ثوانٍ ليصبح الخط مستقيماً.',openingFile:'نفتح ملفك…',pages:'الصفحات',saved:'تم الحفظ',adLabel:'إعلان',adSpace:'مساحة إعلانية',removeAds:'',pricingTitle:'',pricingText:'',monthly:'',free:'مجاني',sar:'',perMonth:'',featureNoWatermark:'',featureNoAds:'',featureSave:'',subscriptionDuration:'',featureQuality:'',featureBasicTools:'',featureLocalSave:'',featurePremiumTools:'',freeWatermarkFeature:'',subscribe:'',securePay:'',continueFree:'',signature:'التوقيع',drawSignature:'ارسم توقيعك',signatureHint:'استخدم القلم أو إصبعك.',signHere:'وقّع هنا',clear:'مسح',useSignature:'استخدام التوقيع',exportTitle:'ملفك جاهز',exportText:'سيتم دمج كتابتك داخل الملف ليعمل على أي جهاز.',freeWatermark:'',upgradeRemoves:'',downloadPdf:'تنزيل PDF',downloadChoiceTitle:'ملفك جاهز',downloadChoiceText:'اختر عرض الملف أو تنزيله مباشرة.',viewFile:'عرض',downloadNow:'تنزيل',privacy:'الخصوصية',terms:'الشروط',about:'عن InkNote',howToUse:'طريقة الاستخدام',faq:'الأسئلة الشائعة',contact:'تواصل',expires:'محفوظ حتى',invalidPdf:'اختر ملف PDF صالحًا.',pdfReadFail:'تعذر قراءة الملف من جهازك. جرّب اختياره مرة أخرى.',pdfEngineFail:'تعذر تشغيل قارئ PDF. تحقق من اتصال الإنترنت ثم أعد المحاولة.',pdfOpenFail:'تعذر فتح هذا الملف. قد يكون تالفًا أو محميًا بكلمة مرور.',tooLarge:'الملف أكبر من الحد المسموح.',opened:'تم فتح الملف',saveFailed:'تعذر الحفظ في هذا المتصفح.',restored:'تمت استعادة ملفك',textPrompt:'اكتب النص الذي تريد إضافته',placeSignature:'اضغط على الصفحة لوضع التوقيع',signatureReady:'توقيعك جاهز للوضع',exporting:'جارٍ تجهيز الملف…',exported:'تم تنزيل الملف',exportFail:'تعذر تجهيز الملف. جرّب مرة أخرى.',checkoutMissing:'',emptySignature:'ارسم توقيعك أولًا.',adRemoved:'',pagesCount:'صفحة',freePlan:'مجاني · جميع المزايا',plusPlan:'',rewardPlan:'',rename:'اسم الملف الجديد',whiteboard:'سبورة بيضاء',whiteboardHint:'اكتب وارسم ثم حمّلها PDF',whiteboardName:'سبورة جديدة.pdf',yourFiles:'ملفاتك',recentFiles:'الملفات السابقة',pdfType:'ملف PDF',boardType:'سبورة',openFile:'فتح',deleteFile:'حذف',deleted:'تم حذف الملف',boardLabel:'سبورة بيضاء',inkColor:'اللون',inkSize:'السماكة',panTool:'تحريك الصفحة',undo:'تراجع',redo:'إعادة',chooseBoardOrientation:'اختر اتجاه السبورة',chooseBoardOrientationHint:'اختر الاتجاه المناسب للسبورة قبل البدء. يمكنك تغييره بإنشاء سبورة جديدة.',portrait:'عمودي',landscape:'أفقي',textTool:'نص',stickyNote:'ملاحظة لاصقة',notePrompt:'اكتب الملاحظة',selectTool:'تحديد وتحريك',zoomIn:'تكبير',zoomOut:'تصغير',saveWork:'حفظ',myFiles:'ملفاتي',saveTitle:'احفظ عملك للعودة إليه',saveText:'يُحذف الملف تلقائياً بعد المدة التي تختارها.',hours24:'24 ساعة',hours48:'48 ساعة',hours72:'72 ساعة',days7:'7 أيام',days15:'15 يوماً',defaultChoice:'الافتراضي',maxChoice:'الحد الأقصى',deleteNow:'حذف من ملفاتي الآن',localSaveNote:'',savedUntil:'محفوظ حتى',notSaved:'غير محفوظ',saveExtended:'تم حفظ الملف وتحديث مدة الاحتفاظ',savedDeleted:'تم حذف النسخة المحفوظة',editSticky:'اكتب داخل الملاحظة',stickyHint:'تم وضع الملاحظة أولاً. اكتب الآن ثم عدّل لونها ومحاذاة النص، ويمكنك تغيير حجمها من زوايا التحديد.',stickyPlaceholder:'اكتب ملاحظتك هنا…',noteColor:'لون الملاحظة',textAlign:'محاذاة النص',textSize:'حجم النص',cancel:'إلغاء',done:'تم',bookmarkPage:'علّم الصفحة',bookmarkAdded:'تم تعليم الصفحة',bookmarkRemoved:'تم إلغاء تعليم الصفحة',studyTimer:'مؤقت 25 دقيقة',timerStarted:'بدأ مؤقت 25 دقيقة',timerFinished:'انتهى المؤقت',stop:'إيقاف',focusMode:'وضع التركيز',focusOn:'تم تفعيل وضع التركيز',focusOff:'تم إلغاء وضع التركيز',demoHand:'احتفظ بهذه الفكرة',magicHint:'اكتب أو أشر أثناء لمس الشاشة. تبقى الكتابة لحظة قصيرة بعد رفع يدك ثم تختفي.',
       demoKicker:'ملاحظات — 04',demoTitle:'صمّم بوضوح<br>واكتب بتركيز.',demoText:'الملاحظات الجيدة لا تحفظ كل شيء، بل تجعل الفكرة التالية أسهل في الوصول.',demoFocus:'تركيز',highlightColors:'ألوان التمييز',magicPen:'القلم السحري',magicHint:'اكتب أو أشر أثناء لمس الشاشة. تبقى الكتابة لحظة قصيرة بعد رفع يدك ثم تختفي.',magicSize:'المقاس',small:'صغير',medium:'متوسط',large:'كبير',addImage:'إضافة صورة',imageReady:'اضغط على الصفحة لوضع الصورة',invalidImage:'اختر صورة PNG أو JPG أو WebP أو GIF.',imageReadFail:'تعذر قراءة الصورة.',watchAdUnlock:'',watchAdOnce:'',rewardTitle:'',rewardText:'',rewardDemo:'',rewardProviderHint:'',rewardWatchDemo:'',rewardWatching:'',rewardReady:'',rewardCredits:'',rewardNoCredit:'',recommended:'',googleLogin:'',googleConfigMissing:'',googleLoading:'',googleSigned:'',googleFailed:'',payAppleSahlah:'',loginFirst:'',paymentOpening:'',cleanPassUsed:'',rewardReadyLabel:'',chooseReward:'',rewardCleanTitle:'',rewardCleanText:'',rewardQualityTitle:'',rewardQualityText:'',rewardAdvancedTitle:'',rewardAdvancedText:'',qualityRewardReady:'',advancedRewardReady:'',advancedLocked:'',qualityPassUsed:''
     },
     en: {
-      savedLocal:'',back:'Back',upgrade:'',download:'Download',privateBadge:'',heroTitle:'Write on your file<br><em>like paper.</em>',heroText:'For writing, drawing, annotation, and signatures. Open any PDF and begin with a pen or touch.',uploadTitle:'Upload a PDF',uploadHint:'Drop it here or choose one — up to 25 MB',chooseFile:'Choose file',continueWork:'Continue working',noUpload:'',penReady:'Works with device pens',smartInk:'Smart ink',palm:'Palm rejection',smart:'Straighten',straightHoldHint:'Hold the pen still for 3 seconds to make the stroke straight.',openingFile:'Opening your file…',pages:'Pages',saved:'Saved',adLabel:'Ad',adSpace:'Advertising space',removeAds:'',pricingTitle:'',pricingText:'',monthly:'',free:'Free',sar:'',perMonth:'',featureNoWatermark:'',featureNoAds:'',featureSave:'',subscriptionDuration:'',featureQuality:'',featureBasicTools:'',featureLocalSave:'',featurePremiumTools:'',freeWatermarkFeature:'',subscribe:'',securePay:'',continueFree:'',signature:'Signature',drawSignature:'Draw your signature',signatureHint:'Use a pen or your finger.',signHere:'Sign here',clear:'Clear',useSignature:'Use signature',exportTitle:'Your file is ready',exportText:'Your writing will be embedded in the PDF for use on any device.',freeWatermark:'',upgradeRemoves:'',downloadPdf:'Download PDF',privacy:'Privacy',terms:'Terms',about:'About',howToUse:'How to use',faq:'FAQ',contact:'Contact',expires:'Saved until',invalidPdf:'Choose a valid PDF file.',pdfReadFail:'Could not read the file from your device. Please choose it again.',pdfEngineFail:'Could not start the PDF reader. Check your internet connection and try again.',pdfOpenFail:'Could not open this PDF. It may be damaged or password-protected.',tooLarge:'This file exceeds the size limit.',opened:'File opened',saveFailed:'This browser could not save your work.',restored:'Your file was restored',textPrompt:'Type the text you want to add',placeSignature:'Tap the page to place your signature',signatureReady:'Your signature is ready to place',exporting:'Preparing your file…',exported:'Your PDF was downloaded',exportFail:'Could not prepare the file. Please try again.',checkoutMissing:'',emptySignature:'Draw your signature first.',adRemoved:'',pagesCount:'pages',freePlan:'Free · all features',plusPlan:'',rewardPlan:'',rename:'New file name',whiteboard:'Whiteboard',whiteboardHint:'Write, draw, then download as PDF',whiteboardName:'New whiteboard.pdf',yourFiles:'Your files',recentFiles:'Recent files',pdfType:'PDF document',boardType:'Whiteboard',openFile:'Open',deleteFile:'Delete',deleted:'File deleted',boardLabel:'Whiteboard',inkColor:'Color',inkSize:'Size',panTool:'Pan page',undo:'Undo',redo:'Redo',chooseBoardOrientation:'Choose whiteboard orientation',chooseBoardOrientationHint:'Choose a portrait or landscape page before you start.',portrait:'Portrait',landscape:'Landscape',textTool:'Text',stickyNote:'Sticky note',notePrompt:'Type your note',selectTool:'Select & move',zoomIn:'Zoom in',zoomOut:'Zoom out',saveWork:'Save',myFiles:'My files',saveTitle:'Save your work for later',saveText:'The file is deleted automatically after the retention period you choose.',hours24:'24 hours',hours48:'48 hours',hours72:'72 hours',days7:'7 days',days15:'15 days',defaultChoice:'Default',maxChoice:'Maximum',deleteNow:'Delete saved copy now',localSaveNote:'',savedUntil:'Saved until',notSaved:'Not saved',saveExtended:'File saved and retention updated',savedDeleted:'Saved copy deleted',editSticky:'Write inside the note',stickyHint:'The note is placed first. Add text now, then change its color and alignment. Resize it from the selection corners.',stickyPlaceholder:'Type your note here…',noteColor:'Note color',textAlign:'Text alignment',textSize:'Text size',cancel:'Cancel',done:'Done',bookmarkPage:'Mark page',bookmarkAdded:'Page marked',bookmarkRemoved:'Page unmarked',studyTimer:'25-minute timer',timerStarted:'25-minute timer started',timerFinished:'Timer finished',stop:'Stop',focusMode:'Focus mode',focusOn:'Focus mode enabled',focusOff:'Focus mode disabled',demoHand:'Keep this idea',magicHint:'Write or point while touching the screen. The ink stays briefly after you lift, then fades away.',
+      savedLocal:'',back:'Back',upgrade:'',download:'Download',privateBadge:'',heroTitle:'Write on your file<br><em>like paper.</em>',heroText:'For writing, drawing, annotation, and signatures. Open any PDF and begin with a pen or touch.',uploadTitle:'Upload a PDF',uploadHint:'Drop it here or choose one — up to 300 MB',chooseFile:'Choose file',continueWork:'Continue working',noUpload:'',penReady:'Works with device pens',smartInk:'Smart ink',palm:'Palm rejection',smart:'Straighten',straightHoldHint:'Hold the pen still for 3 seconds to make the stroke straight.',openingFile:'Opening your file…',pages:'Pages',saved:'Saved',adLabel:'Ad',adSpace:'Advertising space',removeAds:'',pricingTitle:'',pricingText:'',monthly:'',free:'Free',sar:'',perMonth:'',featureNoWatermark:'',featureNoAds:'',featureSave:'',subscriptionDuration:'',featureQuality:'',featureBasicTools:'',featureLocalSave:'',featurePremiumTools:'',freeWatermarkFeature:'',subscribe:'',securePay:'',continueFree:'',signature:'Signature',drawSignature:'Draw your signature',signatureHint:'Use a pen or your finger.',signHere:'Sign here',clear:'Clear',useSignature:'Use signature',exportTitle:'Your file is ready',exportText:'Your writing will be embedded in the PDF for use on any device.',freeWatermark:'',upgradeRemoves:'',downloadPdf:'Download PDF',downloadChoiceTitle:'Your file is ready',downloadChoiceText:'Choose to view the file or download it directly.',viewFile:'View',downloadNow:'Download',privacy:'Privacy',terms:'Terms',about:'About',howToUse:'How to use',faq:'FAQ',contact:'Contact',expires:'Saved until',invalidPdf:'Choose a valid PDF file.',pdfReadFail:'Could not read the file from your device. Please choose it again.',pdfEngineFail:'Could not start the PDF reader. Check your internet connection and try again.',pdfOpenFail:'Could not open this PDF. It may be damaged or password-protected.',tooLarge:'This file exceeds the size limit.',opened:'File opened',saveFailed:'This browser could not save your work.',restored:'Your file was restored',textPrompt:'Type the text you want to add',placeSignature:'Tap the page to place your signature',signatureReady:'Your signature is ready to place',exporting:'Preparing your file…',exported:'Your PDF was downloaded',exportFail:'Could not prepare the file. Please try again.',checkoutMissing:'',emptySignature:'Draw your signature first.',adRemoved:'',pagesCount:'pages',freePlan:'Free · all features',plusPlan:'',rewardPlan:'',rename:'New file name',whiteboard:'Whiteboard',whiteboardHint:'Write, draw, then download as PDF',whiteboardName:'New whiteboard.pdf',yourFiles:'Your files',recentFiles:'Recent files',pdfType:'PDF document',boardType:'Whiteboard',openFile:'Open',deleteFile:'Delete',deleted:'File deleted',boardLabel:'Whiteboard',inkColor:'Color',inkSize:'Size',panTool:'Pan page',undo:'Undo',redo:'Redo',chooseBoardOrientation:'Choose whiteboard orientation',chooseBoardOrientationHint:'Choose a portrait or landscape page before you start.',portrait:'Portrait',landscape:'Landscape',textTool:'Text',stickyNote:'Sticky note',notePrompt:'Type your note',selectTool:'Select & move',zoomIn:'Zoom in',zoomOut:'Zoom out',saveWork:'Save',myFiles:'My files',saveTitle:'Save your work for later',saveText:'The file is deleted automatically after the retention period you choose.',hours24:'24 hours',hours48:'48 hours',hours72:'72 hours',days7:'7 days',days15:'15 days',defaultChoice:'Default',maxChoice:'Maximum',deleteNow:'Delete saved copy now',localSaveNote:'',savedUntil:'Saved until',notSaved:'Not saved',saveExtended:'File saved and retention updated',savedDeleted:'Saved copy deleted',editSticky:'Write inside the note',stickyHint:'The note is placed first. Add text now, then change its color and alignment. Resize it from the selection corners.',stickyPlaceholder:'Type your note here…',noteColor:'Note color',textAlign:'Text alignment',textSize:'Text size',cancel:'Cancel',done:'Done',bookmarkPage:'Mark page',bookmarkAdded:'Page marked',bookmarkRemoved:'Page unmarked',studyTimer:'25-minute timer',timerStarted:'25-minute timer started',timerFinished:'Timer finished',stop:'Stop',focusMode:'Focus mode',focusOn:'Focus mode enabled',focusOff:'Focus mode disabled',demoHand:'Keep this idea',magicHint:'Write or point while touching the screen. The ink stays briefly after you lift, then fades away.',
       demoKicker:'NOTES — 04',demoTitle:'Design with clarity<br>and write with focus.',demoText:'Good notes do not capture everything. They make the next idea easier to find.',demoFocus:'focus',highlightColors:'Highlight colors',magicPen:'Magic pen',magicHint:'Write or point while touching the screen. The ink stays briefly after you lift, then fades away.',magicSize:'Size',small:'Small',medium:'Medium',large:'Large',addImage:'Add image',imageReady:'Tap the page to place the image',invalidImage:'Choose a PNG, JPG, WebP, or GIF image.',imageReadFail:'Could not read this image.',watchAdUnlock:'',watchAdOnce:'',rewardTitle:'',rewardText:'',rewardDemo:'',rewardProviderHint:'',rewardWatchDemo:'',rewardWatching:'',rewardReady:'',rewardCredits:'',rewardNoCredit:'',recommended:'',googleLogin:'',googleConfigMissing:'',googleLoading:'',googleSigned:'',googleFailed:'',payAppleSahlah:'',loginFirst:'',paymentOpening:'',cleanPassUsed:'',rewardReadyLabel:'',chooseReward:'',rewardCleanTitle:'',rewardCleanText:'',rewardQualityTitle:'',rewardQualityText:'',rewardAdvancedTitle:'',rewardAdvancedText:'',qualityRewardReady:'',advancedRewardReady:'',advancedLocked:'',qualityPassUsed:''
     }
   };
@@ -155,12 +155,16 @@
     highlighterColor: localStorage.getItem('inksyHighlighterColor') || '#ffd84d', magicColor: localStorage.getItem('inksyMagicColor') || '#536df6', magicSize: Math.max(3,Math.min(8,Number(localStorage.getItem('inksyMagicSize')||5))), pendingImage: null,
     retentionHours: Math.max(24,Math.min(360,Number(cfg.defaultRetentionHours||24))), saveDisabled:false, currentExpiresAt:0,
     stickyEditing:null, magicGhosts:{}, magicAnimations:{}, bookmarks:[], studyTimerEnd:0, studyTimerInterval:0, focusMode:false,
-    activePenPointer:null, touchPointers:new Map(), touchGesture:null, gestureFrame:0
+    activePenPointer:null, touchPointers:new Map(), touchGesture:null, gestureFrame:0, pendingDownload:null, basePageGap:28, zoomRenderTimer:0
   };
   let dbPromise;
   const imageCache = new Map();
 
   function t(key){ return tr[state.lang][key] || key; }
+  function dateFormatter(options={}){
+    const locale=state.lang==='ar'?'ar-SA-u-ca-gregory':'en-US-u-ca-gregory';
+    return new Intl.DateTimeFormat(locale,options);
+  }
   function icon(id){ return `<svg><use href="#${id}"/></svg>`; }
   function isAppleMobile(){
     const ua=navigator.userAgent||'';
@@ -208,7 +212,7 @@
       for(const item of valid){
         const type=item.type||'pdf',card=document.createElement('article');card.className='recent-file-card';
         const open=document.createElement('button');open.type='button';open.className='recent-open';open.innerHTML=`<span class="recent-type-icon">${icon(type==='whiteboard'?'i-board':'i-pages')}</span><span class="recent-info"><strong></strong><small></small></span><span class="recent-open-label">${t('openFile')}</span>`;
-        open.querySelector('strong').textContent=item.name||'document.pdf';const fmt=new Intl.DateTimeFormat(state.lang==='ar'?'ar-SA':'en-US',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});const expiry=item.expiresAt?` · ${t('savedUntil')} ${fmt.format(item.expiresAt)}`:'';open.querySelector('small').textContent=`${type==='whiteboard'?t('boardType'):t('pdfType')} · ${fmt.format(item.savedAt||Date.now())}${expiry}`;
+        open.querySelector('strong').textContent=item.name||'document.pdf';const fmt=dateFormatter({day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});const expiry=item.expiresAt?` · ${t('savedUntil')} ${fmt.format(item.expiresAt)}`:'';open.querySelector('small').textContent=`${type==='whiteboard'?t('boardType'):t('pdfType')} · ${fmt.format(item.savedAt||Date.now())}${expiry}`;
         open.onclick=()=>openRecentFile(item);
         const del=document.createElement('button');del.type='button';del.className='recent-delete';del.setAttribute('aria-label',t('deleteFile'));del.innerHTML=icon('i-trash');del.onclick=async()=>{await dbDelete(item.id);toast(t('deleted'));updateRecentFiles();};
         card.append(open,del);list.append(card);
@@ -236,7 +240,7 @@
   }
   async function openFile(file){
     if(!file || (file.type!=='application/pdf' && !file.name.toLowerCase().endsWith('.pdf'))){ toast(t('invalidPdf')); return; }
-    if(file.size>(cfg.maxFileSizeMB||25)*1024*1024){ toast(t('tooLarge')); return; }
+    if(file.size>(cfg.maxFileSizeMB||300)*1024*1024){ toast(t('tooLarge')); return; }
     const zone=$('#dropZone');
     zone?.classList.add('is-opening');
     try{
@@ -256,7 +260,7 @@
   function enterEditor(name,mode){
     $('#welcomeView').hidden=true;$('#siteFooter').hidden=true;$('#editorView').hidden=false;document.body.classList.add('editor-active');document.body.classList.toggle('whiteboard-mode',mode==='whiteboard');$('#fileHeader').hidden=true;$('#downloadBtn').hidden=true;
     state.mode=mode;state.filename=name;state.annotations=state.annotations||{};state.pages=[];state.renderQueue=[];state.renderBusy=false;state.zoom=1;state.currentPage=1;state.history=[];state.historyIndex=-1;state.selected=null;state.magicGhosts={};state.magicAnimations={};state.focusMode=false;document.body.classList.remove('focus-mode');$('#saveState')?.classList.toggle('is-off',state.saveDisabled);
-    $('#documentName').textContent=name;$('#floatingDocumentName').textContent=name;$('#pagesStack').innerHTML='';$('#thumbnails').innerHTML='';$('#pagesStack').style.transform='scale(1)';$('#pagesStack').style.marginBottom='0';$('#zoomLabel').textContent='100%';const preset=state.penPresets[state.activePen];state.color=preset.color;state.size=preset.size;syncPenUI();
+    $('#documentName').textContent=name;$('#floatingDocumentName').textContent=name;$('#pagesStack').innerHTML='';$('#thumbnails').innerHTML='';$('#pagesStack').style.transform='none';$('#pagesStack').style.marginBottom='0';$('#pagesStack').style.removeProperty('gap');state.basePageGap=parseFloat(getComputedStyle($('#pagesStack')).gap)||28;$('#zoomLabel').textContent='100%';const preset=state.penPresets[state.activePen];state.color=preset.color;state.size=preset.size;syncPenUI();
   }
   async function loadPdf(bytes,name,annotations={},docId=null){
     const token=++state.loadToken;closeActivePdfEngine();
@@ -300,7 +304,7 @@
     const wrap=document.createElement('div');wrap.className=`pdf-page whiteboard-page ${state.boardOrientation}`;wrap.dataset.page='1';wrap.style.width=`${cssWidth}px`;wrap.style.height=`${cssHeight}px`;
     const base=document.createElement('canvas');base.width=Math.round(cssWidth*pixelRatio);base.height=Math.round(cssHeight*pixelRatio);base.style.width=`${cssWidth}px`;base.style.height=`${cssHeight}px`;const baseCtx=base.getContext('2d',{alpha:false});baseCtx.fillStyle='#fff';baseCtx.fillRect(0,0,base.width,base.height);
     const overlay=document.createElement('canvas');overlay.className='annotation-canvas';overlay.width=base.width;overlay.height=base.height;overlay.style.width=`${cssWidth}px`;overlay.style.height=`${cssHeight}px`;
-    wrap.append(base,overlay);$('#pagesStack').append(wrap);state.pages=[{number:1,wrap,base,overlay,cssWidth,cssHeight,pixelRatio,rendered:true,page:null,thumb:null}];
+    wrap.append(base,overlay);$('#pagesStack').append(wrap);state.pages=[{number:1,wrap,base,overlay,cssWidth,cssHeight,baseCssWidth:cssWidth,baseCssHeight:cssHeight,pixelRatio,rendered:true,page:null,thumb:null}];
     $('#floatingPageCount').textContent=t('boardLabel');$('#pageLabel').textContent=t('boardLabel');bindCanvas(overlay,1);redrawPage(1);pushHistory(true);updateToolMode();scheduleSave();
   }
   function getPageWidth(naturalWidth=595){
@@ -309,13 +313,51 @@
     const mobileFactor=window.innerWidth<620?.94:.82;
     return Math.max(250,Math.min(naturalWidth*1.08,viewport*mobileFactor,cap));
   }
+  function getRenderPixelRatio(cssWidth,cssHeight){
+    // PDFium already preserves the original PDF geometry. Render at a Retina-grade
+    // backing resolution so text looks as close as possible to the native viewer,
+    // while keeping each page below a safe pixel budget on iPhone/iPad.
+    const dpr=Math.max(1,Number(devicePixelRatio||1));
+    const desired=isAppleMobile()?Math.min(3.35,Math.max(2.65,dpr*1.08)):Math.min(3.1,Math.max(2.35,dpr));
+    const maxPixels=isAppleMobile()?9_500_000:12_500_000;
+    const byPixels=Math.sqrt(maxPixels/Math.max(1,cssWidth*cssHeight));
+    return Math.max(2,Math.min(desired,byPixels));
+  }
+  function releaseRenderedPage(number){
+    if(state.mode!=='pdf')return;
+    const entry=state.pages[number-1];
+    if(!entry?.rendered||state.drawing?.pageNum===number)return;
+    entry.overlay?.remove();entry.base?.remove();
+    if(!entry.wrap.querySelector('.page-placeholder')){
+      const placeholder=document.createElement('div');placeholder.className='page-placeholder';placeholder.innerHTML=`<span>${String(number).padStart(2,'0')}</span>`;
+      entry.wrap.insertBefore(placeholder,entry.wrap.querySelector('.page-number-chip'));
+    }
+    entry.base=null;entry.overlay=null;entry.rendered=false;entry.renderPromise=null;
+  }
+  function releaseFarPages(center=state.currentPage){
+    if(state.mode!=='pdf')return;
+    const radius=2;
+    state.pages.forEach(p=>{if(Math.abs(p.number-center)>radius)releaseRenderedPage(p.number);});
+  }
+  function scheduleZoomRerender(){
+    clearTimeout(state.zoomRenderTimer);
+    state.zoomRenderTimer=setTimeout(async()=>{
+      if(!state.mode)return;
+      const nums=state.mode==='whiteboard'?[1]:[state.currentPage-1,state.currentPage,state.currentPage+1].filter(n=>n>=1&&n<=state.pages.length);
+      for(const n of nums){
+        const p=state.pages[n-1];if(!p?.rendered||state.drawing?.pageNum===n)continue;
+        releaseRenderedPage(n);await renderPage(n);
+      }
+      releaseFarPages(state.currentPage);
+    },220);
+  }
   function createPageShell(number,ratio){
     const cssWidth=getPageWidth(),cssHeight=cssWidth*ratio;
     const wrap=document.createElement('div'); wrap.className='pdf-page is-pending'; wrap.dataset.page=number; wrap.style.width=`${cssWidth}px`; wrap.style.height=`${cssHeight}px`;
     const placeholder=document.createElement('div');placeholder.className='page-placeholder';placeholder.innerHTML=`<span>${String(number).padStart(2,'0')}</span>`;
     const badge=document.createElement('span'); badge.className='page-number-chip'; badge.textContent=String(number).padStart(2,'0'); wrap.append(placeholder,badge); $('#pagesStack').append(wrap);
     const thumb=document.createElement('button'); thumb.className='thumbnail is-pending'; thumb.type='button'; thumb.dataset.page=number; thumb.innerHTML=`<div class="thumb-placeholder"></div><span>${number}</span>`; thumb.onclick=()=>scrollToPage(number); $('#thumbnails').append(thumb);
-    state.pages[number-1]={number,wrap,thumb,cssWidth,cssHeight,rendered:false,renderPromise:null,page:null,base:null,overlay:null};
+    state.pages[number-1]={number,wrap,thumb,cssWidth,cssHeight,baseCssWidth:cssWidth,baseCssHeight:cssHeight,rendered:false,renderPromise:null,page:null,base:null,overlay:null};
   }
   async function renderPage(number){
     const entry=state.pages[number-1];if(!entry||entry.rendered)return entry;if(entry.renderPromise)return entry.renderPromise;
@@ -323,13 +365,28 @@
       let naturalWidth,naturalHeight,page=null;
       if(state.pdfEngine==='pdfium'){const size=await state.pdfiumDoc.getPageSize(number-1);naturalWidth=size.width;naturalHeight=size.height;}
       else{page=entry.page||await state.pdf.getPage(number);const n=page.getViewport({scale:1});naturalWidth=n.width;naturalHeight=n.height;}
-      const cssWidth=getPageWidth(naturalWidth),cssScale=cssWidth/naturalWidth,pixelRatio=Math.min(devicePixelRatio||1,isAppleMobile()?(cssWidth<=520?2.2:1.85):1.9),cssHeight=naturalHeight*cssScale;
-      const base=document.createElement('canvas'),overlay=document.createElement('canvas');overlay.className='annotation-canvas';base.style.width=overlay.style.width=`${cssWidth}px`;base.style.height=overlay.style.height=`${cssHeight}px`;
-      entry.wrap.style.width=`${cssWidth}px`;entry.wrap.style.height=`${cssHeight}px`;entry.wrap.querySelector('.page-placeholder')?.replaceWith(base);entry.wrap.insertBefore(overlay,entry.wrap.querySelector('.page-number-chip'));entry.wrap.classList.remove('is-pending');
-      if(state.pdfEngine==='pdfium'){const dims=await state.pdfiumDoc.renderPage(number-1,base,cssWidth,pixelRatio);overlay.width=base.width;overlay.height=base.height;overlay.style.width=`${dims.width}px`;overlay.style.height=`${dims.height}px`;entry.cssHeight=dims.height;}
-      else{const viewport=page.getViewport({scale:cssScale*pixelRatio});base.width=Math.ceil(viewport.width);base.height=Math.ceil(viewport.height);overlay.width=base.width;overlay.height=base.height;await page.render({canvasContext:base.getContext('2d',{alpha:false}),viewport,intent:'display'}).promise;entry.page=page;}
+      const baseCssWidth=getPageWidth(naturalWidth),baseCssHeight=naturalHeight*(baseCssWidth/naturalWidth);
+      const cssWidth=baseCssWidth*state.zoom,cssHeight=baseCssHeight*state.zoom;
+      const cssScale=cssWidth/naturalWidth,pixelRatio=getRenderPixelRatio(cssWidth,cssHeight);
+      entry.baseCssWidth=baseCssWidth;entry.baseCssHeight=baseCssHeight;
+      const base=document.createElement('canvas'),overlay=document.createElement('canvas');overlay.className='annotation-canvas';
+      base.style.width=overlay.style.width=`${cssWidth}px`;base.style.height=overlay.style.height=`${cssHeight}px`;
+      entry.wrap.style.width=`${cssWidth}px`;entry.wrap.style.height=`${cssHeight}px`;
+      const placeholder=entry.wrap.querySelector('.page-placeholder');if(placeholder)placeholder.replaceWith(base);else entry.wrap.insertBefore(base,entry.wrap.firstChild);
+      entry.wrap.insertBefore(overlay,entry.wrap.querySelector('.page-number-chip'));entry.wrap.classList.remove('is-pending');
+      if(state.pdfEngine==='pdfium'){
+        const dims=await state.pdfiumDoc.renderPage(number-1,base,cssWidth,pixelRatio);
+        overlay.width=base.width;overlay.height=base.height;overlay.style.width=`${dims.width}px`;overlay.style.height=`${dims.height}px`;entry.cssHeight=dims.height;
+      }else{
+        const viewport=page.getViewport({scale:cssScale*pixelRatio});base.width=Math.ceil(viewport.width);base.height=Math.ceil(viewport.height);overlay.width=base.width;overlay.height=base.height;
+        await page.render({canvasContext:base.getContext('2d',{alpha:false}),viewport,intent:'display'}).promise;entry.page=page;
+      }
       entry.base=base;entry.overlay=overlay;entry.cssWidth=cssWidth;entry.cssHeight=parseFloat(base.style.height)||cssHeight;entry.pixelRatio=pixelRatio;
-      const tc=document.createElement('canvas'),tw=154,th=Math.round(tw*(base.height/base.width));tc.width=tw;tc.height=th;tc.getContext('2d',{alpha:false}).drawImage(base,0,0,tw,th);entry.thumb.querySelector('.thumb-placeholder')?.replaceWith(tc);entry.thumb.classList.remove('is-pending');
+      if(entry.thumb){
+        let tc=entry.thumb.querySelector('canvas');
+        if(!tc){tc=document.createElement('canvas');entry.thumb.querySelector('.thumb-placeholder')?.replaceWith(tc);}
+        const tw=154,th=Math.round(tw*(base.height/base.width));tc.width=tw;tc.height=th;tc.getContext('2d',{alpha:false}).drawImage(base,0,0,tw,th);entry.thumb.classList.remove('is-pending');
+      }
       entry.rendered=true;entry.renderPromise=null;bindCanvas(overlay,number);redrawPage(number);entry.wrap.classList.toggle('hand-mode',state.tool==='hand');syncBookmarksUI();return entry;
     })().catch(err=>{entry.renderPromise=null;console.error('[InkNote] Page render failed:',err);return entry;});return entry.renderPromise;
   }
@@ -346,7 +403,7 @@
   }
   function observePages(){
     if(state.observer) state.observer.disconnect();
-    state.observer=new IntersectionObserver(entries=>{ const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0]; if(visible){ state.currentPage=+visible.target.dataset.page; updatePageLabel(); $$('.thumbnail').forEach(x=>x.classList.toggle('active',+x.dataset.page===state.currentPage)); } },{root:$('#documentViewport'),threshold:[.2,.5,.8]}); state.pages.forEach(p=>state.observer.observe(p.wrap));
+    state.observer=new IntersectionObserver(entries=>{ const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0]; if(visible){ state.currentPage=+visible.target.dataset.page; updatePageLabel(); $$('.thumbnail').forEach(x=>x.classList.toggle('active',+x.dataset.page===state.currentPage)); releaseFarPages(state.currentPage); } },{root:$('#documentViewport'),threshold:[.2,.5,.8]}); state.pages.forEach(p=>state.observer.observe(p.wrap));
   }
   async function scrollToPage(number){ const p=state.pages[number-1]; if(p){renderPage(number);p.wrap.scrollIntoView({behavior:'smooth',block:'start'});} $('#pagesPanel').classList.remove('open'); }
   function updatePageLabel(){ if(state.mode==='whiteboard'){$('#pageLabel').textContent=t('boardLabel');return;}if(!state.pdf)return;$('#pageLabel').textContent=`${state.currentPage} / ${state.pdf.numPages}`;syncBookmarksUI(); }
@@ -368,7 +425,7 @@
   function toggleFocusMode(){state.focusMode=!state.focusMode;document.body.classList.toggle('focus-mode',state.focusMode);toast(t(state.focusMode?'focusOn':'focusOff'));closeToolPopovers();}
 
   function retentionLabel(hours){if(hours===24)return t('hours24');if(hours===48)return t('hours48');if(hours===72)return t('hours72');if(hours===168)return t('days7');if(hours===360)return t('days15');return `${hours}h`;}
-  function formatExpiry(ts){if(!ts)return '';return new Intl.DateTimeFormat(state.lang==='ar'?'ar-SA':'en-US',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).format(ts);}
+  function formatExpiry(ts){if(!ts)return '';return dateFormatter({day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(ts);}
   function openSaveModal(){
     if(!state.mode)return;const hours=Math.max(24,Math.min(360,Number(state.retentionHours||24)));const radio=$(`input[name="retention"][value="${hours}"]`)||$('input[name="retention"][value="24"]');if(radio)radio.checked=true;updateSaveExpiryPreview();$('#saveModal').showModal();
   }
@@ -476,11 +533,11 @@
     const pts=[...state.touchPointers.values()].slice(0,2);
     const mid={x:(pts[0].x+pts[1].x)/2,y:(pts[0].y+pts[1].y)/2};
     const dist=Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y)||1;
-    const viewport=$('#documentViewport');
-    if(state.drawing?.pageNum===pageNum && state.drawing?.stroke && state.drawing.pointerType==='touch'){
-      clearStraightHold(state.drawing);state.drawing=null;redrawPage(pageNum);
+    const viewport=$('#documentViewport'),vr=viewport.getBoundingClientRect(),localX=mid.x-vr.left,localY=mid.y-vr.top;
+    if(state.drawing?.stroke&&state.drawing.pointerType==='touch'){
+      const drawingPage=state.drawing.pageNum;clearStraightHold(state.drawing);state.drawing=null;if(drawingPage)redrawPage(drawingPage);
     }
-    state.touchGesture={pageNum,startMid:mid,lastMid:mid,startDist:dist,startZoom:state.zoom,startScroll:{x:viewport.scrollLeft,y:viewport.scrollTop}};
+    state.touchGesture={pageNum:pageNum||state.currentPage,startMid:mid,startDist:dist,startZoom:state.zoom,contentX:(viewport.scrollLeft+localX)/Math.max(.01,state.zoom),contentY:(viewport.scrollTop+localY)/Math.max(.01,state.zoom)};
     return true;
   }
   function updateTouchGesture(){
@@ -491,11 +548,8 @@
     if(state.gestureFrame)return;
     state.gestureFrame=requestAnimationFrame(()=>{
       state.gestureFrame=0;
-      const viewport=$('#documentViewport'),target=clamp(g.startZoom*(dist/g.startDist),.65,1.65);
-      if(Math.abs(target-state.zoom)>.006)setZoom(target);
-      viewport.scrollLeft=g.startScroll.x-(mid.x-g.startMid.x);
-      viewport.scrollTop=g.startScroll.y-(mid.y-g.startMid.y);
-      g.lastMid=mid;
+      const target=clamp(g.startZoom*(dist/g.startDist),.5,3);
+      setZoom(target,{clientX:mid.x,clientY:mid.y,contentX:g.contentX,contentY:g.contentY});
     });
   }
   function coalescedPoints(e,canvas){
@@ -684,8 +738,23 @@
     if(openSettings)openToolPopover('toolSettingsPopover',$$('.pen-preset')[state.activePen]);
   }
   function updateToolMode(){ state.pages.forEach(p=>{p.wrap.classList.toggle('hand-mode',state.tool==='hand');p.wrap.classList.toggle('select-mode',state.tool==='select');}); }
-  function resetToWelcome(){ closeActivePdfEngine();state.loadToken++;state.renderQueue=[];state.observer?.disconnect();state.renderObserver?.disconnect();stopStudyTimer(false);state.focusMode=false;document.body.classList.remove('editor-active','whiteboard-mode','focus-mode');$('#welcomeView').hidden=false;$('#siteFooter').hidden=false;$('#editorView').hidden=true;$('#fileHeader').hidden=true;$('#downloadBtn').hidden=true;state.mode=null;state.currentDocId=null;state.pdf=null;state.pdfBytes=null;state.selected=null;state.magicGhosts={};state.magicAnimations={};state.touchPointers.clear();state.touchGesture=null;state.activePenPointer=null;$('#fileInput').value='';updateRecentFiles(); }
-  function setZoom(value){ state.zoom=Math.max(.65,Math.min(1.65,value)); $('#pagesStack').style.transform=`scale(${state.zoom})`; $('#pagesStack').style.marginBottom=`${(state.zoom-1)*($('#pagesStack').offsetHeight||0)}px`; $('#zoomLabel').textContent=`${Math.round(state.zoom*100)}%`; }
+  function resetToWelcome(){ clearPendingDownload(); closeActivePdfEngine();state.loadToken++;state.renderQueue=[];state.observer?.disconnect();state.renderObserver?.disconnect();stopStudyTimer(false);state.focusMode=false;document.body.classList.remove('editor-active','whiteboard-mode','focus-mode');$('#welcomeView').hidden=false;$('#siteFooter').hidden=false;$('#editorView').hidden=true;$('#fileHeader').hidden=true;$('#downloadBtn').hidden=true;state.mode=null;state.currentDocId=null;state.pdf=null;state.pdfBytes=null;state.selected=null;state.magicGhosts={};state.magicAnimations={};state.touchPointers.clear();state.touchGesture=null;state.activePenPointer=null;$('#fileInput').value='';updateRecentFiles(); }
+  function setZoom(value,anchor=null){
+    const viewport=$('#documentViewport'),oldZoom=Math.max(.01,state.zoom||1),next=clamp(value,.5,3);
+    if(Math.abs(next-oldZoom)<.001)return;
+    const vr=viewport.getBoundingClientRect(),localX=anchor?anchor.clientX-vr.left:viewport.clientWidth/2,localY=anchor?anchor.clientY-vr.top:viewport.clientHeight/2;
+    const contentX=anchor&&Number.isFinite(anchor.contentX)?anchor.contentX:(viewport.scrollLeft+localX)/oldZoom;
+    const contentY=anchor&&Number.isFinite(anchor.contentY)?anchor.contentY:(viewport.scrollTop+localY)/oldZoom;
+    state.zoom=next;const stack=$('#pagesStack');stack.style.transform='none';stack.style.marginBottom='0';stack.style.gap=`${Math.max(8,state.basePageGap*next)}px`;
+    state.pages.forEach(p=>{
+      const bw=p.baseCssWidth||p.cssWidth/oldZoom||p.cssWidth,bh=p.baseCssHeight||p.cssHeight/oldZoom||p.cssHeight;
+      p.baseCssWidth=bw;p.baseCssHeight=bh;const w=bw*next,h=bh*next;p.cssWidth=w;p.cssHeight=h;p.wrap.style.width=`${w}px`;p.wrap.style.height=`${h}px`;
+      if(p.base){p.base.style.width=`${w}px`;p.base.style.height=`${h}px`;}
+      if(p.overlay){p.overlay.style.width=`${w}px`;p.overlay.style.height=`${h}px`;}
+    });
+    viewport.scrollLeft=Math.max(0,contentX*next-localX);viewport.scrollTop=Math.max(0,contentY*next-localY);
+    $('#zoomLabel').textContent=`${Math.round(next*100)}%`;scheduleZoomRerender();
+  }
 
   function openSignature(){ $('#signatureModal').showModal(); requestAnimationFrame(setupSignaturePad); }
   function setupSignaturePad(){ const c=$('#signaturePad'),r=c.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,2); c.width=r.width*ratio;c.height=r.height*ratio; const ctx=c.getContext('2d');ctx.strokeStyle='#17213d';ctx.lineCap='round';ctx.lineJoin='round'; let drawing=false,last=null,pointerId=null;c.dataset.used='false';
@@ -697,76 +766,80 @@
   function useSignature(){ const c=$('#signaturePad');if(c.dataset.used!=='true'){toast(t('emptySignature'));return;} state.signatureData=c.toDataURL('image/png');$('#signatureModal').close();setTool('signature');toast(t('signatureReady')); }
 
   let downloadWorkerPromise=null;
+  const DOWNLOAD_CACHE_V26='inknote-native-downloads-v26';
+  function safeAttachmentName(name){
+    let value=String(name||'inknote.pdf').replace(/[\/\r\n]/g,'_').trim();if(!value.toLowerCase().endsWith('.pdf'))value+='.pdf';return value||'inknote.pdf';
+  }
+  function attachmentDisposition(name){
+    const real=safeAttachmentName(name),ascii=real.normalize('NFKD').replace(/[^\x20-\x7E]+/g,'_').replace(/[";]+/g,'_').replace(/_+/g,'_').slice(0,120)||'inknote.pdf';
+    const encoded=encodeURIComponent(real).replace(/[!'()*]/g,c=>'%'+c.charCodeAt(0).toString(16).toUpperCase());
+    return `attachment; filename="${ascii}"; filename*=UTF-8''${encoded}`;
+  }
   function warmDownloadWorker(){
     if(downloadWorkerPromise)return downloadWorkerPromise;
     if(!('serviceWorker' in navigator)||!window.isSecureContext||location.protocol!=='https:')return Promise.resolve(null);
     downloadWorkerPromise=(async()=>{
       try{
-        const reg=await navigator.serviceWorker.register('./download-sw-v24.js?v=24',{scope:'./',updateViaCache:'none'});
-        await navigator.serviceWorker.ready;
-        try{await reg.update();}catch{}
-        const isV24=w=>!!w&&/download-sw-v24\.js(?:\?|$)/.test(w.scriptURL||'');
-        const candidate=reg.installing||reg.waiting||reg.active;
-        if(candidate&&candidate.state!=='activated'){
-          await new Promise(resolve=>{
-            let done=false;const finish=()=>{if(done)return;done=true;resolve();};
-            candidate.addEventListener('statechange',()=>{if(candidate.state==='activated')finish();});
-            setTimeout(finish,2800);
-          });
-        }
-        if(!isV24(navigator.serviceWorker.controller)){
-          await new Promise(resolve=>{
-            let done=false;const finish=()=>{if(done)return;done=true;resolve();};
-            navigator.serviceWorker.addEventListener('controllerchange',finish,{once:true});
-            setTimeout(finish,1800);
-          });
-        }
+        const reg=await navigator.serviceWorker.register('./download-sw-v26.js?v=26',{scope:'./',updateViaCache:'none'});await navigator.serviceWorker.ready;try{await reg.update();}catch{}
+        const active=()=>navigator.serviceWorker.controller&&/download-sw-v26\.js(?:\?|$)/.test(navigator.serviceWorker.controller.scriptURL||'');
+        if(!active())await new Promise(resolve=>{let done=false;const finish=()=>{if(done)return;done=true;resolve();};navigator.serviceWorker.addEventListener('controllerchange',finish,{once:true});setTimeout(finish,2200);});
         return reg;
-      }catch(err){console.warn('[InkNote] Could not prepare native download worker:',err);return null;}
-    })();
-    return downloadWorkerPromise;
+      }catch(err){console.warn('[InkNote] Native download worker unavailable:',err);return null;}
+    })();return downloadWorkerPromise;
+  }
+  async function stageAttachment(blob,filename){
+    const reg=await warmDownloadWorker();if(!reg||!('caches' in window))return null;
+    const controller=navigator.serviceWorker.controller;if(!controller||!/download-sw-v26\.js(?:\?|$)/.test(controller.scriptURL||''))return null;
+    const token=`${Date.now()}-${Math.random().toString(36).slice(2)}`,safe=safeAttachmentName(filename);
+    const href=new URL(`./__inknote_download__/${encodeURIComponent(token)}/${encodeURIComponent(safe)}`,location.href).href;
+    try{
+      const cache=await caches.open(DOWNLOAD_CACHE_V26);for(const req of await cache.keys())await cache.delete(req);const headers=new Headers({'Content-Type':'application/pdf','Content-Disposition':attachmentDisposition(safe),'Cache-Control':'no-store, max-age=0','X-Content-Type-Options':'nosniff'});
+      await cache.put(href,new Response(blob,{status:200,headers}));
+      if(!(await cache.match(href)))return null;
+      return href;
+    }catch(err){console.warn('[InkNote] Could not stage native attachment:',err);return null;}
   }
   async function serviceWorkerDownload(blob,filename){
+    const href=await stageAttachment(blob,filename);if(!href)return false;
     try{
-      const reg=await warmDownloadWorker();if(!reg)return false;
-      const worker=(navigator.serviceWorker.controller&&/download-sw-v24\.js(?:\?|$)/.test(navigator.serviceWorker.controller.scriptURL||''))?navigator.serviceWorker.controller:(reg.active||reg.waiting);
-      if(!worker)return false;
-      const token=`${Date.now()}-${Math.random().toString(36).slice(2)}`;
-      const safePathName=String(filename||'inknote.pdf').replace(/[\\/]/g,'_');
-      const href=`./__inknote_download__/${encodeURIComponent(token)}/${encodeURIComponent(safePathName)}`;
-      const bytes=await blob.arrayBuffer();
-      await new Promise((resolve,reject)=>{
-        const channel=new MessageChannel();const timer=setTimeout(()=>reject(new Error('download worker timeout')),6000);
-        channel.port1.onmessage=ev=>{clearTimeout(timer);ev.data?.ok?resolve():reject(new Error(ev.data?.error||'download worker rejected file'));};
-        worker.postMessage({type:'INKNOTE_DOWNLOAD_V24',token,path:href,filename:safePathName,mime:'application/pdf',buffer:bytes},[bytes,channel.port2]);
-      });
-      // Safari shows its own native "View / Download" sheet when a same-origin
-      // navigation returns Content-Disposition: attachment. This is intentional.
-      if(isAppleMobile())window.location.assign(href);
-      else{
-        const a=document.createElement('a');a.href=href;a.rel='noopener';a.style.display='none';document.body.append(a);a.click();setTimeout(()=>a.remove(),1200);
+      if(isAppleMobile()){
+        // Top-level navigation to a same-origin attachment response is the route
+        // Safari uses for its native View / Download sheet and Downloads manager.
+        window.location.assign(href);
+      }else{
+        const a=document.createElement('a');a.href=href;a.download=safeAttachmentName(filename);a.rel='noopener';a.style.display='none';document.body.append(a);a.click();setTimeout(()=>a.remove(),1200);
       }
       return true;
-    }catch(err){console.warn('[InkNote] Native download path failed:',err);return false;}
+    }catch(err){console.warn('[InkNote] Native attachment navigation failed:',err);return false;}
   }
   async function directDownload(blob,filename){
-    if(isAppleMobile()){
-      // Prefer the Safari-native attachment prompt. Do not open a PDF preview tab.
-      if(await serviceWorkerDownload(blob,filename))return true;
-    }else if(typeof window.showSaveFilePicker==='function'){
-      try{
-        const handle=await window.showSaveFilePicker({suggestedName:filename,types:[{description:'PDF',accept:{'application/pdf':['.pdf']}}]});
-        const writable=await handle.createWritable();await writable.write(blob);await writable.close();return true;
-      }catch(err){if(err?.name==='AbortError')return false;}
-      if(await serviceWorkerDownload(blob,filename))return true;
-    }else if(await serviceWorkerDownload(blob,filename))return true;
+    if(await serviceWorkerDownload(blob,filename))return true;
+    if(!isAppleMobile()&&typeof window.showSaveFilePicker==='function'){
+      try{const handle=await window.showSaveFilePicker({suggestedName:filename,types:[{description:'PDF',accept:{'application/pdf':['.pdf']}}]});const writable=await handle.createWritable();await writable.write(blob);await writable.close();return true;}catch(err){if(err?.name==='AbortError')return false;}
+    }
+    const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=filename;a.rel='noopener';a.style.display='none';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),120000);return true;
+  }
 
-    // Last-resort browser download. This is used only when Service Workers are
-    // unavailable (for example file:// or non-HTTPS development).
-    const a=document.createElement('a'),url=URL.createObjectURL(blob);
-    a.href=url;a.download=filename;a.rel='noopener';a.style.display='none';document.body.append(a);a.click();a.remove();
-    setTimeout(()=>URL.revokeObjectURL(url),60000);
-    return true;
+  function clearPendingDownload(){
+    const pending=state.pendingDownload;
+    if(pending?.previewUrl){try{URL.revokeObjectURL(pending.previewUrl)}catch{}}
+    state.pendingDownload=null;
+  }
+  function showDownloadChoice(blob,filename){
+    clearPendingDownload();
+    state.pendingDownload={blob,filename,previewUrl:null};
+    const name=$('#downloadChoiceName');if(name)name.textContent=filename;
+    $('#downloadChoiceModal')?.showModal();
+  }
+  function viewPendingDownload(){
+    const pending=state.pendingDownload;if(!pending)return;
+    if(!pending.previewUrl)pending.previewUrl=URL.createObjectURL(pending.blob);
+    window.open(pending.previewUrl,'_blank','noopener');
+  }
+  async function downloadPendingFile(){
+    const pending=state.pendingDownload;if(!pending)return;
+    const ok=await directDownload(pending.blob,pending.filename);
+    if(ok){toast(t('exported'));$('#downloadChoiceModal')?.close();}
   }
 
   function updateExportMeta(){
@@ -813,9 +886,10 @@
         }
       }
       const out=await pdfDoc.save(),blob=new Blob([out],{type:'application/pdf'}),downloadName=state.filename.replace(/\.pdf$/i,'')+'-inknote.pdf';
-      await directDownload(blob,downloadName);
-      toast(t('exported'));
       $('#exportModal').close();
+      if(isAppleMobile()){
+        const ok=await directDownload(blob,downloadName);if(ok)toast(t('exported'));else showDownloadChoice(blob,downloadName);
+      }else showDownloadChoice(blob,downloadName);
     }catch(e){
       console.error(e);toast(t('exportFail'));
     }finally{
@@ -842,20 +916,28 @@
   }
   function clearPopoverPosition(pop){
     for(const prop of ['top','bottom','left','right','inset-inline-start','inset-inline-end','width','max-width','transform'])pop.style.removeProperty(prop);
-    pop.removeAttribute('data-touch-sheet');
+    pop.removeAttribute('data-touch-sheet');pop.removeAttribute('data-touch-anchor');
   }
   function positionToolPopover(pop,button){
     clearPopoverPosition(pop);
     if(isTouchToolbar()){
-      pop.setAttribute('data-touch-sheet','1');
+      pop.setAttribute('data-touch-anchor','1');
       pop.style.setProperty('position','fixed','important');
-      pop.style.setProperty('top','auto','important');
-      pop.style.setProperty('bottom','max(12px, env(safe-area-inset-bottom))','important');
-      pop.style.setProperty('left','12px','important');
-      pop.style.setProperty('right','12px','important');
+      pop.style.setProperty('bottom','auto','important');
+      pop.style.setProperty('right','auto','important');
       pop.style.setProperty('transform','none','important');
-      pop.style.setProperty('width','auto','important');
-      pop.style.setProperty('max-width','none','important');
+      const rect=button.getBoundingClientRect();
+      const preferred=pop.classList.contains('ink-settings-popover')?292:(pop.classList.contains('more-tools-popover')?210:244);
+      const width=Math.min(preferred,innerWidth-20);
+      pop.style.setProperty('width',`${width}px`,'important');
+      pop.style.setProperty('max-width',`${innerWidth-20}px`,'important');
+      // The menu visually belongs to the tool: place it directly above that button.
+      const measured=Math.min(pop.scrollHeight||220,Math.max(150,innerHeight*.55));
+      let top=rect.top-measured-10;
+      if(top<8)top=rect.bottom+10;
+      const left=Math.max(10,Math.min(innerWidth-width-10,rect.left+rect.width/2-width/2));
+      pop.style.setProperty('top',`${Math.round(top)}px`,'important');
+      pop.style.setProperty('left',`${Math.round(left)}px`,'important');
       return;
     }
     const rect=button.getBoundingClientRect();
@@ -919,6 +1001,16 @@
     const renameDocument=()=>{const n=prompt(t('rename'),state.filename);if(n){state.filename=n.toLowerCase().endsWith('.pdf')?n:n+'.pdf';$('#documentName').textContent=state.filename;$('#floatingDocumentName').textContent=state.filename;scheduleSave()}};
     $('#renameBtn').onclick=renameDocument;$('#floatingRenameBtn').onclick=renameDocument;$('#exitEditor').onclick=async()=>{await saveDocument();resetToWelcome()};
     const editorRoot=$('#editorView'),viewport=$('#documentViewport');
+    // Global two-finger gesture tracking: works even if the two touches start on
+    // different canvases/pages. It cancels a one-finger stroke only when a real
+    // second finger joins, then keeps the pinch midpoint anchored under the fingers.
+    const trackViewportTouch=e=>{if(e.pointerType!=='touch')return;state.touchPointers.set(e.pointerId,{x:e.clientX,y:e.clientY,w:e.width||0,h:e.height||0});if(state.touchPointers.size>=2){e.preventDefault();if(!state.touchGesture)beginTouchGesture(null,state.currentPage);}};
+    const moveViewportTouch=e=>{if(e.pointerType!=='touch'||!state.touchPointers.has(e.pointerId))return;state.touchPointers.set(e.pointerId,{x:e.clientX,y:e.clientY,w:e.width||0,h:e.height||0});if(state.touchGesture&&state.touchPointers.size>=2){e.preventDefault();updateTouchGesture();}};
+    const endViewportTouch=e=>{if(e.pointerType!=='touch')return;state.touchPointers.delete(e.pointerId);if(state.touchPointers.size<2){state.touchGesture=null;scheduleZoomRerender();}};
+    viewport.addEventListener('pointerdown',trackViewportTouch,{capture:true,passive:false});
+    viewport.addEventListener('pointermove',moveViewportTouch,{capture:true,passive:false});
+    viewport.addEventListener('pointerup',endViewportTouch,{capture:true,passive:false});
+    viewport.addEventListener('pointercancel',endViewportTouch,{capture:true,passive:false});
     const isEditorNonEditableTarget=target=>editorRoot&&!editorRoot.hidden&&editorRoot.contains(target)&&!target.closest('input,textarea,[contenteditable="true"]');
     document.addEventListener('selectstart',e=>{if(isEditorNonEditableTarget(e.target)){e.preventDefault();clearNativeSelection();}},{passive:false});
     document.addEventListener('dragstart',e=>{if(isEditorNonEditableTarget(e.target))e.preventDefault();},{passive:false});
