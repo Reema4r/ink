@@ -791,7 +791,42 @@ html[dir="rtl"] .toolbar-tools .color-tool:after{left:auto!important;right:5px!i
 
 /* The popover itself is portaled to <body>, so toolbar overflow can never clip it. */
 body>.tool-popover.portal-popover{contain:none!important}
-\n\n/* v25 — anchored tool palettes + Gregorian retention dates + download choice */\n.tool-popover.portal-popover[data-touch-anchor="1"]{\n  position:fixed!important;\n  margin:0!important;\n  border-radius:15px!important;\n  padding:12px!important;\n  max-height:min(55dvh,390px)!important;\n  overflow:auto!important;\n  box-shadow:0 14px 38px rgba(23,33,61,.18)!important;\n}\n.tool-popover.portal-popover[data-touch-anchor="1"]:after{\n  content:"";position:absolute;bottom:-6px;left:50%;width:12px;height:12px;\n  background:#fff;border-right:1px solid #e2e7f0;border-bottom:1px solid #e2e7f0;\n  transform:translateX(-50%) rotate(45deg);\n}\n.tool-popover.portal-popover[data-touch-anchor="1"][style*="top: 0"]:after{display:none}\n@media (hover:none), (pointer:coarse){\n  .tool-popover.portal-popover[data-touch-anchor="1"]{\n    left:auto;right:auto;bottom:auto;inset-inline:auto!important;width:auto;max-width:calc(100vw - 20px)!important;\n    padding-bottom:12px!important;\n  }\n  .ink-settings-popover.portal-popover[data-touch-anchor="1"]{min-width:280px!important}\n  .color-palette-popover.portal-popover[data-touch-anchor="1"]{min-width:228px!important}\n  .more-tools-popover.portal-popover[data-touch-anchor="1"]{min-width:190px!important}\n}\n.download-choice-modal{width:min(430px,calc(100vw - 26px))!important}\n.download-choice-file{display:flex;align-items:center;gap:12px;margin:4px 0 18px;padding:13px 14px;border:1px solid #e5e9f2;border-radius:14px;background:#f8f9fc;min-width:0}\n.download-choice-file strong{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:left;min-width:0}\n.download-choice-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}\n.download-choice-actions button{min-height:50px;display:inline-flex;align-items:center;justify-content:center;gap:8px}\n.download-choice-actions svg{width:19px;height:19px}\n.download-view-btn{border:1px solid #dfe5ef!important;background:#fff!important}\n@media(max-width:480px){.download-choice-actions{grid-template-columns:1fr}.download-choice-actions button{min-height:48px}}\n
+
+
+/* v25 — anchored tool palettes + Gregorian retention dates + download choice */
+.tool-popover.portal-popover[data-touch-anchor="1"]{
+  position:fixed!important;
+  margin:0!important;
+  border-radius:15px!important;
+  padding:12px!important;
+  max-height:min(55dvh,390px)!important;
+  overflow:auto!important;
+  box-shadow:0 14px 38px rgba(23,33,61,.18)!important;
+}
+.tool-popover.portal-popover[data-touch-anchor="1"]:after{
+  content:"";position:absolute;bottom:-6px;left:50%;width:12px;height:12px;
+  background:#fff;border-right:1px solid #e2e7f0;border-bottom:1px solid #e2e7f0;
+  transform:translateX(-50%) rotate(45deg);
+}
+.tool-popover.portal-popover[data-touch-anchor="1"][style*="top: 0"]:after{display:none}
+@media (hover:none), (pointer:coarse){
+  .tool-popover.portal-popover[data-touch-anchor="1"]{
+    left:auto;right:auto;bottom:auto;inset-inline:auto!important;width:auto;max-width:calc(100vw - 20px)!important;
+    padding-bottom:12px!important;
+  }
+  .ink-settings-popover.portal-popover[data-touch-anchor="1"]{min-width:280px!important}
+  .color-palette-popover.portal-popover[data-touch-anchor="1"]{min-width:228px!important}
+  .more-tools-popover.portal-popover[data-touch-anchor="1"]{min-width:190px!important}
+}
+.download-choice-modal{width:min(430px,calc(100vw - 26px))!important}
+.download-choice-file{display:flex;align-items:center;gap:12px;margin:4px 0 18px;padding:13px 14px;border:1px solid #e5e9f2;border-radius:14px;background:#f8f9fc;min-width:0}
+.download-choice-file strong{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:left;min-width:0}
+.download-choice-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.download-choice-actions button{min-height:50px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.download-choice-actions svg{width:19px;height:19px}
+.download-view-btn{border:1px solid #dfe5ef!important;background:#fff!important}
+@media(max-width:480px){.download-choice-actions{grid-template-columns:1fr}.download-choice-actions button{min-height:48px}}
+
 
 /* v26 — native-feeling pinch zoom, sharper PDF display, and iPad toolbar density */
 .pages-stack{transform:none!important;margin-bottom:0!important}
@@ -815,4 +850,71 @@ body>.tool-popover.portal-popover{contain:none!important}
 @media (max-width:699px) and (pointer:coarse){
   .toolbar-tools{overflow-x:auto!important;overflow-y:visible!important;justify-content:flex-start!important;-webkit-overflow-scrolling:touch!important}
   .ink-pens .pen-preset:not(:first-child){display:none!important}
+}
+
+
+/* v27 — single-page vertical flow, compact iPhone toolbar, precise editing */
+.pages-stack{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  justify-items:center!important;
+  align-items:start!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  gap:clamp(16px,3vw,28px)!important;
+}
+.pages-stack>.pdf-page{grid-column:1!important;max-width:100%!important;margin-inline:auto!important}
+.document-viewport{overflow-x:auto!important;overflow-y:auto!important;scrollbar-gutter:stable both-edges}
+
+/* A clear rainbow entry point says “there are more colours here”; presets stay beneath it. */
+.pen-colors-panel{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
+.palette-master{position:relative;display:grid;grid-template-columns:48px 1fr;align-items:center;gap:10px;width:100%;min-height:54px;padding:6px 9px;border:1px solid #e2e7f0;border-radius:14px;background:#f8f9fc;cursor:pointer;overflow:hidden}
+.palette-master input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
+.palette-master b{font-size:12px;font-weight:750;color:#343e55}
+.palette-wheel{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#ff554d,#ffad3d,#ffd84d,#75d872,#43b9d8,#536df6,#8d63ff,#ff4f9a,#ff554d);box-shadow:inset 0 0 0 2px #fff,0 0 0 1px #dce2ed}
+.palette-wheel i{width:20px;height:20px;border-radius:50%;background:#1f2430;border:3px solid #fff;box-shadow:0 1px 4px rgba(23,33,61,.25)}
+.pen-colors-panel .quick-colors{width:100%;justify-content:center;gap:9px;padding-top:2px}
+.pen-colors-panel .quick-colors button{width:31px;height:31px}
+
+/* Text editor */
+.text-editor-modal{width:min(500px,calc(100vw - 24px))!important}
+.text-editor-body{padding:0 22px 18px;display:grid;gap:16px}
+#textEditorInput{width:100%;min-height:94px;resize:vertical;border:1.5px solid #dfe4ee;border-radius:15px;padding:13px 14px;font:600 16px/1.6 inherit;color:#17213d;outline:none;background:#fbfcfe}
+#textEditorInput:focus{border-color:#879bff;box-shadow:0 0 0 3px rgba(83,109,246,.10)}
+.text-editor-section{display:grid;gap:8px}.text-editor-section>span{font-size:12px;font-weight:700;color:#69738a}
+.text-color-grid{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.text-color-grid>button,.text-custom-color{width:35px;height:35px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #dfe4ee;background:var(--swatch);position:relative}
+.text-color-grid>button.active{box-shadow:0 0 0 2px #536df6,0 0 0 4px #fff}
+.text-custom-color{display:grid;place-items:center;background:conic-gradient(#ff554d,#ffd84d,#75d872,#43b9d8,#536df6,#8d63ff,#ff4f9a,#ff554d);overflow:hidden}
+.text-custom-color input{position:absolute;inset:0;opacity:0}.text-custom-color span{width:16px;height:16px;border-radius:50%;background:#1f2430;border:2px solid #fff}
+.text-size-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.text-size-grid button{height:40px;border:1px solid #dfe4ee;background:#f8f9fc;border-radius:11px;font-weight:700}.text-size-grid button.active{background:#eef2ff;border-color:#bdc9ff;color:#375bf5}
+.text-editor-actions{padding:0 22px 22px;display:grid;grid-template-columns:auto 1fr 1fr;gap:8px}.text-editor-actions .danger-quiet{min-height:44px}
+
+/* Timer */
+.timer-modal{width:min(440px,calc(100vw - 24px))!important}.timer-modal-body{padding:0 22px 22px;display:grid;gap:15px}.timer-presets{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.timer-presets button{min-height:58px;border:1px solid #dfe4ee;border-radius:13px;background:#f8f9fc;font-weight:800;color:#34405a}.timer-presets button span{display:block;font-size:9px;font-weight:600;color:#8790a2;margin-top:3px}.timer-presets button.active{background:#eef2ff;border-color:#aebdff;color:#375bf5}.custom-timer{display:grid;gap:7px;font-size:12px;font-weight:700;color:#69738a}.custom-timer input{height:46px;border:1.5px solid #dfe4ee;border-radius:12px;padding:0 13px;font:700 16px 'Manrope',sans-serif;outline:none}.custom-timer input:focus{border-color:#879bff}.timer-start-btn{width:100%;height:48px}
+
+/* Calculator */
+.calculator-modal{width:min(390px,calc(100vw - 20px))!important;padding:18px!important;overflow:hidden!important}.calculator-modal .modal-close{top:12px;inset-inline-end:12px}.calculator-head{display:flex;align-items:center;justify-content:space-between;padding:3px 48px 14px 2px}.calculator-head small{font-size:11px;font-weight:800;color:#536df6}.calculator-mode{display:flex;background:#f0f2f7;border-radius:10px;padding:3px}.calculator-mode button{border:0;background:transparent;height:31px;padding:0 10px;border-radius:8px;font-size:11px;font-weight:700}.calculator-mode button.active{background:#fff;color:#375bf5;box-shadow:0 2px 8px rgba(23,33,61,.08)}.calculator-display{height:90px;border-radius:16px;background:#17213d;color:#fff;padding:14px 16px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;overflow:hidden}.calculator-display small{font-size:10px;color:#9ca9c7;min-height:16px}.calculator-display output{font:700 30px/1.1 'Manrope',sans-serif;max-width:100%;overflow:hidden;text-overflow:ellipsis}.calculator-keys{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:10px}.calculator-keys button{height:47px;border:0;border-radius:12px;background:#f3f5f9;color:#24304a;font:700 15px 'Manrope',sans-serif}.calculator-keys button:active{transform:scale(.96)}.calculator-keys .calc-op{background:#e8edff;color:#375bf5}.calculator-keys .calc-equals{background:#536df6;color:#fff}.calculator-keys .calc-zero{grid-column:span 1}.calculator-keys .scientific-key{display:none;background:#f0ecff;color:#704bdd}.calculator-modal.scientific .scientific-key{display:block}.calculator-modal.scientific .calculator-keys{grid-template-columns:repeat(4,1fr)}
+
+.quick-undo-tool:disabled{opacity:.28!important}
+
+/* Phone: every tool remains reachable by horizontal scroll, without being hidden behind fixed buttons. */
+@media (max-width:699px) and (pointer:coarse){
+  .context-bar{padding-inline:5px!important;gap:3px!important}
+  .document-actions{flex-basis:39px!important;min-width:39px!important}
+  .editor-back,.save-work-btn,.editor-download{width:39px!important;min-width:39px!important;height:40px!important;flex-basis:39px!important}
+  .toolbar-tools{padding-inline:5px 14px!important;gap:4px!important;scroll-padding-inline:6px 16px!important;overscroll-behavior-x:contain!important}
+  .toolbar-tools .tool{width:41px!important;min-width:41px!important;height:41px!important;flex-basis:41px!important}
+  .toolbar-tools::after{content:"";display:block;flex:0 0 10px;height:1px}
+  .calculator-tool,.quick-undo-tool{display:inline-flex!important}
+  .text-editor-actions{grid-template-columns:1fr 1fr}.text-editor-actions .danger-quiet{grid-column:1/-1;order:3}
+  .timer-presets{grid-template-columns:repeat(3,1fr)}
+  .document-viewport{padding-inline:10px!important}
+}
+
+@media (min-width:700px) and (max-width:1180px) and (pointer:coarse){
+  .calculator-tool,.quick-undo-tool{display:inline-flex!important}
+  .toolbar-tools{gap:3px!important}
+  .toolbar-tools .tool{width:40px!important;min-width:40px!important;height:40px!important;flex-basis:40px!important}
 }

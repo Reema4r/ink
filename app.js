@@ -6,11 +6,11 @@
   const cfg = window.INKNOTE_CONFIG || window.INKSY_CONFIG || {};
   const tr = {
     ar: {
-      savedLocal:'',back:'رجوع',upgrade:'',download:'تنزيل',privateBadge:'',heroTitle:'اكتب على ملفك<br><em>كأنه ورق.</em>',heroText:'للكتابة والرسم والتعليق والتوقيع. افتح أي PDF وابدأ فوراً بالقلم أو اللمس.',uploadTitle:'ارفع ملف PDF',uploadHint:'اسحبه هنا أو اختره — حتى 300 MB',chooseFile:'اختيار ملف',continueWork:'متابعة العمل',noUpload:'',penReady:'متوافق مع أقلام الأجهزة',smartInk:'حبر ذكي',palm:'راحة اليد',smart:'تثبيت الخط',straightHoldHint:'ثبّت القلم 3 ثوانٍ ليصبح الخط مستقيماً.',openingFile:'نفتح ملفك…',pages:'الصفحات',saved:'تم الحفظ',adLabel:'إعلان',adSpace:'مساحة إعلانية',removeAds:'',pricingTitle:'',pricingText:'',monthly:'',free:'مجاني',sar:'',perMonth:'',featureNoWatermark:'',featureNoAds:'',featureSave:'',subscriptionDuration:'',featureQuality:'',featureBasicTools:'',featureLocalSave:'',featurePremiumTools:'',freeWatermarkFeature:'',subscribe:'',securePay:'',continueFree:'',signature:'التوقيع',drawSignature:'ارسم توقيعك',signatureHint:'استخدم القلم أو إصبعك.',signHere:'وقّع هنا',clear:'مسح',useSignature:'استخدام التوقيع',exportTitle:'ملفك جاهز',exportText:'سيتم دمج كتابتك داخل الملف ليعمل على أي جهاز.',freeWatermark:'',upgradeRemoves:'',downloadPdf:'تنزيل PDF',downloadChoiceTitle:'ملفك جاهز',downloadChoiceText:'اختر عرض الملف أو تنزيله مباشرة.',viewFile:'عرض',downloadNow:'تنزيل',privacy:'الخصوصية',terms:'الشروط',about:'عن InkNote',howToUse:'طريقة الاستخدام',faq:'الأسئلة الشائعة',contact:'تواصل',expires:'محفوظ حتى',invalidPdf:'اختر ملف PDF صالحًا.',pdfReadFail:'تعذر قراءة الملف من جهازك. جرّب اختياره مرة أخرى.',pdfEngineFail:'تعذر تشغيل قارئ PDF. تحقق من اتصال الإنترنت ثم أعد المحاولة.',pdfOpenFail:'تعذر فتح هذا الملف. قد يكون تالفًا أو محميًا بكلمة مرور.',tooLarge:'الملف أكبر من الحد المسموح.',opened:'تم فتح الملف',saveFailed:'تعذر الحفظ في هذا المتصفح.',restored:'تمت استعادة ملفك',textPrompt:'اكتب النص الذي تريد إضافته',placeSignature:'اضغط على الصفحة لوضع التوقيع',signatureReady:'توقيعك جاهز للوضع',exporting:'جارٍ تجهيز الملف…',exported:'تم تنزيل الملف',exportFail:'تعذر تجهيز الملف. جرّب مرة أخرى.',checkoutMissing:'',emptySignature:'ارسم توقيعك أولًا.',adRemoved:'',pagesCount:'صفحة',freePlan:'مجاني · جميع المزايا',plusPlan:'',rewardPlan:'',rename:'اسم الملف الجديد',whiteboard:'سبورة بيضاء',whiteboardHint:'اكتب وارسم ثم حمّلها PDF',whiteboardName:'سبورة جديدة.pdf',yourFiles:'ملفاتك',recentFiles:'الملفات السابقة',pdfType:'ملف PDF',boardType:'سبورة',openFile:'فتح',deleteFile:'حذف',deleted:'تم حذف الملف',boardLabel:'سبورة بيضاء',inkColor:'اللون',inkSize:'السماكة',panTool:'تحريك الصفحة',undo:'تراجع',redo:'إعادة',chooseBoardOrientation:'اختر اتجاه السبورة',chooseBoardOrientationHint:'اختر الاتجاه المناسب للسبورة قبل البدء. يمكنك تغييره بإنشاء سبورة جديدة.',portrait:'عمودي',landscape:'أفقي',textTool:'نص',stickyNote:'ملاحظة لاصقة',notePrompt:'اكتب الملاحظة',selectTool:'تحديد وتحريك',zoomIn:'تكبير',zoomOut:'تصغير',saveWork:'حفظ',myFiles:'ملفاتي',saveTitle:'احفظ عملك للعودة إليه',saveText:'يُحذف الملف تلقائياً بعد المدة التي تختارها.',hours24:'24 ساعة',hours48:'48 ساعة',hours72:'72 ساعة',days7:'7 أيام',days15:'15 يوماً',defaultChoice:'الافتراضي',maxChoice:'الحد الأقصى',deleteNow:'حذف من ملفاتي الآن',localSaveNote:'',savedUntil:'محفوظ حتى',notSaved:'غير محفوظ',saveExtended:'تم حفظ الملف وتحديث مدة الاحتفاظ',savedDeleted:'تم حذف النسخة المحفوظة',editSticky:'اكتب داخل الملاحظة',stickyHint:'تم وضع الملاحظة أولاً. اكتب الآن ثم عدّل لونها ومحاذاة النص، ويمكنك تغيير حجمها من زوايا التحديد.',stickyPlaceholder:'اكتب ملاحظتك هنا…',noteColor:'لون الملاحظة',textAlign:'محاذاة النص',textSize:'حجم النص',cancel:'إلغاء',done:'تم',bookmarkPage:'علّم الصفحة',bookmarkAdded:'تم تعليم الصفحة',bookmarkRemoved:'تم إلغاء تعليم الصفحة',studyTimer:'مؤقت 25 دقيقة',timerStarted:'بدأ مؤقت 25 دقيقة',timerFinished:'انتهى المؤقت',stop:'إيقاف',focusMode:'وضع التركيز',focusOn:'تم تفعيل وضع التركيز',focusOff:'تم إلغاء وضع التركيز',demoHand:'احتفظ بهذه الفكرة',magicHint:'اكتب أو أشر أثناء لمس الشاشة. تبقى الكتابة لحظة قصيرة بعد رفع يدك ثم تختفي.',
+      savedLocal:'',back:'رجوع',upgrade:'',download:'تنزيل',privateBadge:'',heroTitle:'اكتب على ملفك<br><em>كأنه ورق.</em>',heroText:'للكتابة والرسم والتعليق والتوقيع. افتح أي PDF وابدأ فوراً بالقلم أو اللمس.',uploadTitle:'ارفع ملف PDF',uploadHint:'اسحبه هنا أو اختره — حتى 300 MB',chooseFile:'اختيار ملف',continueWork:'متابعة العمل',noUpload:'',penReady:'متوافق مع أقلام الأجهزة',smartInk:'حبر ذكي',palm:'راحة اليد',smart:'تثبيت الخط',straightHoldHint:'ثبّت القلم 3 ثوانٍ ليصبح الخط مستقيماً.',openingFile:'نفتح ملفك…',pages:'الصفحات',saved:'تم الحفظ',adLabel:'إعلان',adSpace:'مساحة إعلانية',removeAds:'',pricingTitle:'',pricingText:'',monthly:'',free:'مجاني',sar:'',perMonth:'',featureNoWatermark:'',featureNoAds:'',featureSave:'',subscriptionDuration:'',featureQuality:'',featureBasicTools:'',featureLocalSave:'',featurePremiumTools:'',freeWatermarkFeature:'',subscribe:'',securePay:'',continueFree:'',signature:'التوقيع',drawSignature:'ارسم توقيعك',signatureHint:'استخدم القلم أو إصبعك.',signHere:'وقّع هنا',clear:'مسح',useSignature:'استخدام التوقيع',exportTitle:'ملفك جاهز',exportText:'سيتم دمج كتابتك داخل الملف ليعمل على أي جهاز.',freeWatermark:'',upgradeRemoves:'',downloadPdf:'تنزيل PDF',downloadChoiceTitle:'ملفك جاهز',downloadChoiceText:'اختر عرض الملف أو تنزيله مباشرة.',viewFile:'عرض',downloadNow:'تنزيل',privacy:'الخصوصية',terms:'الشروط',about:'عن InkNote',howToUse:'طريقة الاستخدام',faq:'الأسئلة الشائعة',contact:'تواصل',expires:'محفوظ حتى',invalidPdf:'اختر ملف PDF صالحًا.',pdfReadFail:'تعذر قراءة الملف من جهازك. جرّب اختياره مرة أخرى.',pdfEngineFail:'تعذر تشغيل قارئ PDF. تحقق من اتصال الإنترنت ثم أعد المحاولة.',pdfOpenFail:'تعذر فتح هذا الملف. قد يكون تالفًا أو محميًا بكلمة مرور.',tooLarge:'الملف أكبر من الحد المسموح.',opened:'تم فتح الملف',saveFailed:'تعذر الحفظ في هذا المتصفح.',restored:'تمت استعادة ملفك',textPrompt:'اكتب النص الذي تريد إضافته',placeSignature:'اضغط على الصفحة لوضع التوقيع',signatureReady:'توقيعك جاهز للوضع',exporting:'جارٍ تجهيز الملف…',exported:'تم تنزيل الملف',exportFail:'تعذر تجهيز الملف. جرّب مرة أخرى.',checkoutMissing:'',emptySignature:'ارسم توقيعك أولًا.',adRemoved:'',pagesCount:'صفحة',freePlan:'مجاني · جميع المزايا',plusPlan:'',rewardPlan:'',rename:'اسم الملف الجديد',whiteboard:'سبورة بيضاء',whiteboardHint:'اكتب وارسم ثم حمّلها PDF',whiteboardName:'سبورة جديدة.pdf',yourFiles:'ملفاتك',recentFiles:'الملفات السابقة',pdfType:'ملف PDF',boardType:'سبورة',openFile:'فتح',deleteFile:'حذف',deleted:'تم حذف الملف',boardLabel:'سبورة بيضاء',inkColor:'اللون',inkSize:'السماكة',panTool:'تحريك الصفحة',undo:'تراجع',redo:'إعادة',chooseBoardOrientation:'اختر اتجاه السبورة',chooseBoardOrientationHint:'اختر الاتجاه المناسب للسبورة قبل البدء. يمكنك تغييره بإنشاء سبورة جديدة.',portrait:'عمودي',landscape:'أفقي',textTool:'نص',editText:'تحرير النص',textEditorHint:'اكتب النص ثم اختر اللون والحجم. ويمكنك تعديله لاحقاً بأداة التحديد.',textPlaceholder:'اكتب النص هنا…',textColor:'لون النص',deleteText:'حذف النص',moreColors:'ألوان أكثر',timer:'المؤقت',chooseTimer:'اختر مدة المؤقت',timerHint:'اختر مدة جاهزة أو اكتب عدد الدقائق.',minutes:'دقيقة',customMinutes:'مدة مخصصة بالدقائق',startTimer:'ابدأ المؤقت',calculator:'الحاسبة',basicCalc:'أساسية',scientificCalc:'علمية',stickyNote:'ملاحظة لاصقة',notePrompt:'اكتب الملاحظة',selectTool:'تحديد وتحريك',zoomIn:'تكبير',zoomOut:'تصغير',saveWork:'حفظ',myFiles:'ملفاتي',saveTitle:'احفظ عملك للعودة إليه',saveText:'يُحذف الملف تلقائياً بعد المدة التي تختارها.',hours24:'24 ساعة',hours48:'48 ساعة',hours72:'72 ساعة',days7:'7 أيام',days15:'15 يوماً',defaultChoice:'الافتراضي',maxChoice:'الحد الأقصى',deleteNow:'حذف من ملفاتي الآن',localSaveNote:'',savedUntil:'محفوظ حتى',notSaved:'غير محفوظ',saveExtended:'تم حفظ الملف وتحديث مدة الاحتفاظ',savedDeleted:'تم حذف النسخة المحفوظة',editSticky:'اكتب داخل الملاحظة',stickyHint:'تم وضع الملاحظة أولاً. اكتب الآن ثم عدّل لونها ومحاذاة النص، ويمكنك تغيير حجمها من زوايا التحديد.',stickyPlaceholder:'اكتب ملاحظتك هنا…',noteColor:'لون الملاحظة',textAlign:'محاذاة النص',textSize:'حجم النص',cancel:'إلغاء',done:'تم',bookmarkPage:'علّم الصفحة',bookmarkAdded:'تم تعليم الصفحة',bookmarkRemoved:'تم إلغاء تعليم الصفحة',studyTimer:'المؤقت',timerStarted:'بدأ مؤقت 25 دقيقة',timerFinished:'انتهى المؤقت',stop:'إيقاف',focusMode:'وضع التركيز',focusOn:'تم تفعيل وضع التركيز',focusOff:'تم إلغاء وضع التركيز',demoHand:'احتفظ بهذه الفكرة',magicHint:'اكتب أو أشر أثناء لمس الشاشة. تبقى الكتابة لحظة قصيرة بعد رفع يدك ثم تختفي.',
       demoKicker:'ملاحظات — 04',demoTitle:'صمّم بوضوح<br>واكتب بتركيز.',demoText:'الملاحظات الجيدة لا تحفظ كل شيء، بل تجعل الفكرة التالية أسهل في الوصول.',demoFocus:'تركيز',highlightColors:'ألوان التمييز',magicPen:'القلم السحري',magicHint:'اكتب أو أشر أثناء لمس الشاشة. تبقى الكتابة لحظة قصيرة بعد رفع يدك ثم تختفي.',magicSize:'المقاس',small:'صغير',medium:'متوسط',large:'كبير',addImage:'إضافة صورة',imageReady:'اضغط على الصفحة لوضع الصورة',invalidImage:'اختر صورة PNG أو JPG أو WebP أو GIF.',imageReadFail:'تعذر قراءة الصورة.',watchAdUnlock:'',watchAdOnce:'',rewardTitle:'',rewardText:'',rewardDemo:'',rewardProviderHint:'',rewardWatchDemo:'',rewardWatching:'',rewardReady:'',rewardCredits:'',rewardNoCredit:'',recommended:'',googleLogin:'',googleConfigMissing:'',googleLoading:'',googleSigned:'',googleFailed:'',payAppleSahlah:'',loginFirst:'',paymentOpening:'',cleanPassUsed:'',rewardReadyLabel:'',chooseReward:'',rewardCleanTitle:'',rewardCleanText:'',rewardQualityTitle:'',rewardQualityText:'',rewardAdvancedTitle:'',rewardAdvancedText:'',qualityRewardReady:'',advancedRewardReady:'',advancedLocked:'',qualityPassUsed:''
     },
     en: {
-      savedLocal:'',back:'Back',upgrade:'',download:'Download',privateBadge:'',heroTitle:'Write on your file<br><em>like paper.</em>',heroText:'For writing, drawing, annotation, and signatures. Open any PDF and begin with a pen or touch.',uploadTitle:'Upload a PDF',uploadHint:'Drop it here or choose one — up to 300 MB',chooseFile:'Choose file',continueWork:'Continue working',noUpload:'',penReady:'Works with device pens',smartInk:'Smart ink',palm:'Palm rejection',smart:'Straighten',straightHoldHint:'Hold the pen still for 3 seconds to make the stroke straight.',openingFile:'Opening your file…',pages:'Pages',saved:'Saved',adLabel:'Ad',adSpace:'Advertising space',removeAds:'',pricingTitle:'',pricingText:'',monthly:'',free:'Free',sar:'',perMonth:'',featureNoWatermark:'',featureNoAds:'',featureSave:'',subscriptionDuration:'',featureQuality:'',featureBasicTools:'',featureLocalSave:'',featurePremiumTools:'',freeWatermarkFeature:'',subscribe:'',securePay:'',continueFree:'',signature:'Signature',drawSignature:'Draw your signature',signatureHint:'Use a pen or your finger.',signHere:'Sign here',clear:'Clear',useSignature:'Use signature',exportTitle:'Your file is ready',exportText:'Your writing will be embedded in the PDF for use on any device.',freeWatermark:'',upgradeRemoves:'',downloadPdf:'Download PDF',downloadChoiceTitle:'Your file is ready',downloadChoiceText:'Choose to view the file or download it directly.',viewFile:'View',downloadNow:'Download',privacy:'Privacy',terms:'Terms',about:'About',howToUse:'How to use',faq:'FAQ',contact:'Contact',expires:'Saved until',invalidPdf:'Choose a valid PDF file.',pdfReadFail:'Could not read the file from your device. Please choose it again.',pdfEngineFail:'Could not start the PDF reader. Check your internet connection and try again.',pdfOpenFail:'Could not open this PDF. It may be damaged or password-protected.',tooLarge:'This file exceeds the size limit.',opened:'File opened',saveFailed:'This browser could not save your work.',restored:'Your file was restored',textPrompt:'Type the text you want to add',placeSignature:'Tap the page to place your signature',signatureReady:'Your signature is ready to place',exporting:'Preparing your file…',exported:'Your PDF was downloaded',exportFail:'Could not prepare the file. Please try again.',checkoutMissing:'',emptySignature:'Draw your signature first.',adRemoved:'',pagesCount:'pages',freePlan:'Free · all features',plusPlan:'',rewardPlan:'',rename:'New file name',whiteboard:'Whiteboard',whiteboardHint:'Write, draw, then download as PDF',whiteboardName:'New whiteboard.pdf',yourFiles:'Your files',recentFiles:'Recent files',pdfType:'PDF document',boardType:'Whiteboard',openFile:'Open',deleteFile:'Delete',deleted:'File deleted',boardLabel:'Whiteboard',inkColor:'Color',inkSize:'Size',panTool:'Pan page',undo:'Undo',redo:'Redo',chooseBoardOrientation:'Choose whiteboard orientation',chooseBoardOrientationHint:'Choose a portrait or landscape page before you start.',portrait:'Portrait',landscape:'Landscape',textTool:'Text',stickyNote:'Sticky note',notePrompt:'Type your note',selectTool:'Select & move',zoomIn:'Zoom in',zoomOut:'Zoom out',saveWork:'Save',myFiles:'My files',saveTitle:'Save your work for later',saveText:'The file is deleted automatically after the retention period you choose.',hours24:'24 hours',hours48:'48 hours',hours72:'72 hours',days7:'7 days',days15:'15 days',defaultChoice:'Default',maxChoice:'Maximum',deleteNow:'Delete saved copy now',localSaveNote:'',savedUntil:'Saved until',notSaved:'Not saved',saveExtended:'File saved and retention updated',savedDeleted:'Saved copy deleted',editSticky:'Write inside the note',stickyHint:'The note is placed first. Add text now, then change its color and alignment. Resize it from the selection corners.',stickyPlaceholder:'Type your note here…',noteColor:'Note color',textAlign:'Text alignment',textSize:'Text size',cancel:'Cancel',done:'Done',bookmarkPage:'Mark page',bookmarkAdded:'Page marked',bookmarkRemoved:'Page unmarked',studyTimer:'25-minute timer',timerStarted:'25-minute timer started',timerFinished:'Timer finished',stop:'Stop',focusMode:'Focus mode',focusOn:'Focus mode enabled',focusOff:'Focus mode disabled',demoHand:'Keep this idea',magicHint:'Write or point while touching the screen. The ink stays briefly after you lift, then fades away.',
+      savedLocal:'',back:'Back',upgrade:'',download:'Download',privateBadge:'',heroTitle:'Write on your file<br><em>like paper.</em>',heroText:'For writing, drawing, annotation, and signatures. Open any PDF and begin with a pen or touch.',uploadTitle:'Upload a PDF',uploadHint:'Drop it here or choose one — up to 300 MB',chooseFile:'Choose file',continueWork:'Continue working',noUpload:'',penReady:'Works with device pens',smartInk:'Smart ink',palm:'Palm rejection',smart:'Straighten',straightHoldHint:'Hold the pen still for 3 seconds to make the stroke straight.',openingFile:'Opening your file…',pages:'Pages',saved:'Saved',adLabel:'Ad',adSpace:'Advertising space',removeAds:'',pricingTitle:'',pricingText:'',monthly:'',free:'Free',sar:'',perMonth:'',featureNoWatermark:'',featureNoAds:'',featureSave:'',subscriptionDuration:'',featureQuality:'',featureBasicTools:'',featureLocalSave:'',featurePremiumTools:'',freeWatermarkFeature:'',subscribe:'',securePay:'',continueFree:'',signature:'Signature',drawSignature:'Draw your signature',signatureHint:'Use a pen or your finger.',signHere:'Sign here',clear:'Clear',useSignature:'Use signature',exportTitle:'Your file is ready',exportText:'Your writing will be embedded in the PDF for use on any device.',freeWatermark:'',upgradeRemoves:'',downloadPdf:'Download PDF',downloadChoiceTitle:'Your file is ready',downloadChoiceText:'Choose to view the file or download it directly.',viewFile:'View',downloadNow:'Download',privacy:'Privacy',terms:'Terms',about:'About',howToUse:'How to use',faq:'FAQ',contact:'Contact',expires:'Saved until',invalidPdf:'Choose a valid PDF file.',pdfReadFail:'Could not read the file from your device. Please choose it again.',pdfEngineFail:'Could not start the PDF reader. Check your internet connection and try again.',pdfOpenFail:'Could not open this PDF. It may be damaged or password-protected.',tooLarge:'This file exceeds the size limit.',opened:'File opened',saveFailed:'This browser could not save your work.',restored:'Your file was restored',textPrompt:'Type the text you want to add',placeSignature:'Tap the page to place your signature',signatureReady:'Your signature is ready to place',exporting:'Preparing your file…',exported:'Your PDF was downloaded',exportFail:'Could not prepare the file. Please try again.',checkoutMissing:'',emptySignature:'Draw your signature first.',adRemoved:'',pagesCount:'pages',freePlan:'Free · all features',plusPlan:'',rewardPlan:'',rename:'New file name',whiteboard:'Whiteboard',whiteboardHint:'Write, draw, then download as PDF',whiteboardName:'New whiteboard.pdf',yourFiles:'Your files',recentFiles:'Recent files',pdfType:'PDF document',boardType:'Whiteboard',openFile:'Open',deleteFile:'Delete',deleted:'File deleted',boardLabel:'Whiteboard',inkColor:'Color',inkSize:'Size',panTool:'Pan page',undo:'Undo',redo:'Redo',chooseBoardOrientation:'Choose whiteboard orientation',chooseBoardOrientationHint:'Choose a portrait or landscape page before you start.',portrait:'Portrait',landscape:'Landscape',textTool:'Text',editText:'Edit text',textEditorHint:'Type your text, then choose its color and size. You can edit it later with the select tool.',textPlaceholder:'Type text here…',textColor:'Text color',deleteText:'Delete text',moreColors:'More colors',timer:'Timer',chooseTimer:'Choose timer duration',timerHint:'Choose a preset or enter minutes.',minutes:'min',customMinutes:'Custom minutes',startTimer:'Start timer',calculator:'Calculator',basicCalc:'Basic',scientificCalc:'Scientific',stickyNote:'Sticky note',notePrompt:'Type your note',selectTool:'Select & move',zoomIn:'Zoom in',zoomOut:'Zoom out',saveWork:'Save',myFiles:'My files',saveTitle:'Save your work for later',saveText:'The file is deleted automatically after the retention period you choose.',hours24:'24 hours',hours48:'48 hours',hours72:'72 hours',days7:'7 days',days15:'15 days',defaultChoice:'Default',maxChoice:'Maximum',deleteNow:'Delete saved copy now',localSaveNote:'',savedUntil:'Saved until',notSaved:'Not saved',saveExtended:'File saved and retention updated',savedDeleted:'Saved copy deleted',editSticky:'Write inside the note',stickyHint:'The note is placed first. Add text now, then change its color and alignment. Resize it from the selection corners.',stickyPlaceholder:'Type your note here…',noteColor:'Note color',textAlign:'Text alignment',textSize:'Text size',cancel:'Cancel',done:'Done',bookmarkPage:'Mark page',bookmarkAdded:'Page marked',bookmarkRemoved:'Page unmarked',studyTimer:'Timer',timerStarted:'25-minute timer started',timerFinished:'Timer finished',stop:'Stop',focusMode:'Focus mode',focusOn:'Focus mode enabled',focusOff:'Focus mode disabled',demoHand:'Keep this idea',magicHint:'Write or point while touching the screen. The ink stays briefly after you lift, then fades away.',
       demoKicker:'NOTES — 04',demoTitle:'Design with clarity<br>and write with focus.',demoText:'Good notes do not capture everything. They make the next idea easier to find.',demoFocus:'focus',highlightColors:'Highlight colors',magicPen:'Magic pen',magicHint:'Write or point while touching the screen. The ink stays briefly after you lift, then fades away.',magicSize:'Size',small:'Small',medium:'Medium',large:'Large',addImage:'Add image',imageReady:'Tap the page to place the image',invalidImage:'Choose a PNG, JPG, WebP, or GIF image.',imageReadFail:'Could not read this image.',watchAdUnlock:'',watchAdOnce:'',rewardTitle:'',rewardText:'',rewardDemo:'',rewardProviderHint:'',rewardWatchDemo:'',rewardWatching:'',rewardReady:'',rewardCredits:'',rewardNoCredit:'',recommended:'',googleLogin:'',googleConfigMissing:'',googleLoading:'',googleSigned:'',googleFailed:'',payAppleSahlah:'',loginFirst:'',paymentOpening:'',cleanPassUsed:'',rewardReadyLabel:'',chooseReward:'',rewardCleanTitle:'',rewardCleanText:'',rewardQualityTitle:'',rewardQualityText:'',rewardAdvancedTitle:'',rewardAdvancedText:'',qualityRewardReady:'',advancedRewardReady:'',advancedLocked:'',qualityPassUsed:''
     }
   };
@@ -154,7 +154,7 @@
     activePen: 0, penPresets: [{color:'#1f2430',size:4},{color:'#375bf5',size:4},{color:'#d9435f',size:4}],
     highlighterColor: localStorage.getItem('inksyHighlighterColor') || '#ffd84d', magicColor: localStorage.getItem('inksyMagicColor') || '#536df6', magicSize: Math.max(3,Math.min(8,Number(localStorage.getItem('inksyMagicSize')||5))), pendingImage: null,
     retentionHours: Math.max(24,Math.min(360,Number(cfg.defaultRetentionHours||24))), saveDisabled:false, currentExpiresAt:0,
-    stickyEditing:null, magicGhosts:{}, magicAnimations:{}, bookmarks:[], studyTimerEnd:0, studyTimerInterval:0, focusMode:false,
+    stickyEditing:null, textEditing:null, magicGhosts:{}, magicAnimations:{}, bookmarks:[], studyTimerEnd:0, studyTimerInterval:0, timerMinutes:25, calculatorExpression:'', calculatorMode:'basic', focusMode:false,
     activePenPointer:null, touchPointers:new Map(), touchGesture:null, gestureFrame:0, pendingDownload:null, basePageGap:28, zoomRenderTimer:0
   };
   let dbPromise;
@@ -419,8 +419,11 @@
   function stopStudyTimer(showToast=false){
     clearInterval(state.studyTimerInterval);state.studyTimerInterval=0;state.studyTimerEnd=0;const pill=$('#studyTimerPill');if(pill)pill.hidden=true;if(showToast)toast(t('timerFinished'));
   }
-  function startStudyTimer(){
-    stopStudyTimer(false);state.studyTimerEnd=Date.now()+25*60*1000;const pill=$('#studyTimerPill');if(pill)pill.hidden=false;const tick=()=>{const left=Math.max(0,state.studyTimerEnd-Date.now()),sec=Math.ceil(left/1000),m=Math.floor(sec/60),r=sec%60;if($('#studyTimerText'))$('#studyTimerText').textContent=`${String(m).padStart(2,'0')}:${String(r).padStart(2,'0')}`;if(left<=0)stopStudyTimer(true);};tick();state.studyTimerInterval=setInterval(tick,1000);toast(t('timerStarted'));closeToolPopovers();
+  function openTimerModal(){
+    const custom=$('#customTimerMinutes');if(custom)custom.value='';$$('[data-timer-minutes]').forEach(x=>x.classList.toggle('active',Number(x.dataset.timerMinutes)===Number(state.timerMinutes||25)));$('#timerModal')?.showModal();closeToolPopovers();
+  }
+  function startStudyTimer(minutes=25){
+    minutes=Math.max(1,Math.min(999,Math.round(Number(minutes)||25)));state.timerMinutes=minutes;stopStudyTimer(false);state.studyTimerEnd=Date.now()+minutes*60*1000;const pill=$('#studyTimerPill');if(pill)pill.hidden=false;const tick=()=>{const left=Math.max(0,state.studyTimerEnd-Date.now()),sec=Math.ceil(left/1000),m=Math.floor(sec/60),r=sec%60;if($('#studyTimerText'))$('#studyTimerText').textContent=`${String(m).padStart(2,'0')}:${String(r).padStart(2,'0')}`;if(left<=0)stopStudyTimer(true);};tick();state.studyTimerInterval=setInterval(tick,1000);toast(state.lang==='ar'?`بدأ المؤقت لمدة ${minutes} دقيقة`:`${minutes}-minute timer started`);$('#timerModal')?.close();closeToolPopovers();
   }
   function toggleFocusMode(){state.focusMode=!state.focusMode;document.body.classList.toggle('focus-mode',state.focusMode);toast(t(state.focusMode?'focusOn':'focusOff'));closeToolPopovers();}
 
@@ -433,6 +436,45 @@
   async function confirmSaveRetention(){const checked=$('input[name="retention"]:checked');state.retentionHours=Math.max(24,Math.min(360,Number(checked?.value||24)));state.saveDisabled=false;await saveDocument(true);$('#saveModal').close();toast(t('saveExtended'));}
   async function deleteSavedCopy(){if(!state.currentDocId)return;await dbDelete(state.currentDocId);state.saveDisabled=true;state.currentExpiresAt=0;$('#saveState')?.classList.add('is-off');$('#saveState')?.classList.remove('visible');if($('#saveState span'))$('#saveState span').textContent=t('notSaved');$('#saveModal').close();updateRecentFiles();toast(t('savedDeleted'));}
 
+  function openTextEditor(page,index=null,draft=null){
+    const existing=index!=null?state.annotations[page]?.[index]:null;
+    state.textEditing={page,index,draft:draft||null};
+    const color=existing?.color||draft?.color||state.color||'#1f2430',size=Number(existing?.size||draft?.size||22);
+    $('#textEditorInput').value=existing?.text||'';
+    $('#textColorInput').value=color;
+    const sw=$('.text-custom-color span');if(sw)sw.style.background=color;
+    $$('[data-text-color]').forEach(x=>x.classList.toggle('active',x.dataset.textColor.toLowerCase()===color.toLowerCase()));
+    $$('[data-text-size]').forEach(x=>x.classList.toggle('active',Number(x.dataset.textSize)===size));
+    $('#deleteTextAnnotation').hidden=index==null;
+    $('#textEditorModal').showModal();setTimeout(()=>$('#textEditorInput')?.focus(),80);
+  }
+  function chosenTextColor(){const active=$('[data-text-color].active');return active?.dataset.textColor||$('#textColorInput')?.value||state.color||'#1f2430';}
+  function saveTextEditor(){
+    const ed=state.textEditing;if(!ed)return;const text=$('#textEditorInput').value.trim();const size=Number($('[data-text-size].active')?.dataset.textSize||22),color=chosenTextColor();
+    if(ed.index==null){if(text){const draft=ed.draft||{};(state.annotations[ed.page]??=[]).push({type:'text',x:draft.x??.1,y:draft.y??.1,text,color,size});state.selected={page:ed.page,index:state.annotations[ed.page].length-1};commitChange();setTool('select');}}
+    else{const a=state.annotations[ed.page]?.[ed.index];if(a){if(!text){state.annotations[ed.page].splice(ed.index,1);state.selected=null;}else{a.text=text;a.color=color;a.size=size;state.selected={page:ed.page,index:ed.index};}commitChange();redrawPage(ed.page);}}
+    $('#textEditorModal').close();state.textEditing=null;
+  }
+  function deleteTextEditor(){
+    const ed=state.textEditing;if(!ed)return;if(ed.index!=null&&state.annotations[ed.page]?.[ed.index]){state.annotations[ed.page].splice(ed.index,1);state.selected=null;commitChange();redrawPage(ed.page);}$('#textEditorModal').close();state.textEditing=null;
+  }
+
+  function setCalculatorMode(mode){state.calculatorMode=mode==='scientific'?'scientific':'basic';$$('[data-calc-mode]').forEach(x=>x.classList.toggle('active',x.dataset.calcMode===state.calculatorMode));$('#calculatorModal')?.classList.toggle('scientific',state.calculatorMode==='scientific');}
+  function renderCalculator(){const out=$('#calcDisplay'),small=$('#calcExpression');if(out)out.textContent=state.calculatorExpression||'0';if(small)small.textContent=state.calculatorMode==='scientific'?(state.lang==='ar'?'الوضع العلمي':'Scientific mode'):'';}
+  function evaluateCalculator(expr){
+    let x=String(expr||'').replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-').replace(/π/g,'Math.PI').replace(/\^/g,'**');
+    x=x.replace(/\bsin\(/g,'sin(').replace(/\bcos\(/g,'cos(').replace(/\btan\(/g,'tan(').replace(/\bsqrt\(/g,'Math.sqrt(').replace(/\blog\(/g,'Math.log10(').replace(/\bln\(/g,'Math.log(');
+    if(/[^0-9+\-*/().,\sA-Za-z]/.test(x))throw new Error('bad expression');
+    const identifiers=(x.match(/[A-Za-z]+/g)||[]);if(identifiers.some(id=>!['Math','PI','sqrt','log','log10','sin','cos','tan'].includes(id)))throw new Error('bad expression');
+    const sin=v=>Math.sin(v*Math.PI/180),cos=v=>Math.cos(v*Math.PI/180),tan=v=>Math.tan(v*Math.PI/180);
+    const value=Function('sin','cos','tan',`"use strict";return (${x})`)(sin,cos,tan);if(!Number.isFinite(value))throw new Error('bad result');return Math.round((value+Number.EPSILON)*1e10)/1e10;
+  }
+  function handleCalculatorKey(value){
+    if(value==='clear'){state.calculatorExpression='';renderCalculator();return;}
+    if(value==='back'){state.calculatorExpression=state.calculatorExpression.slice(0,-1);renderCalculator();return;}
+    if(value==='equals'){try{state.calculatorExpression=String(evaluateCalculator(state.calculatorExpression));}catch{state.calculatorExpression=state.lang==='ar'?'خطأ':'Error';}renderCalculator();return;}
+    if(state.calculatorExpression==='Error'||state.calculatorExpression==='خطأ')state.calculatorExpression='';state.calculatorExpression+=value;renderCalculator();
+  }
   function openStickyEditor(page,index){
     const a=state.annotations[page]?.[index];if(!a||a.type!=='sticky')return;state.stickyEditing={page,index};$('#stickyText').value=a.text||'';$$('[data-sticky-color]').forEach(x=>x.classList.toggle('active',x.dataset.stickyColor.toLowerCase()===(a.color||'#fff3a3').toLowerCase()));$$('[data-sticky-align]').forEach(x=>x.classList.toggle('active',x.dataset.stickyAlign===(a.align||'right')));$$('[data-sticky-font]').forEach(x=>x.classList.toggle('active',Number(x.dataset.stickyFont)===Number(a.fontScale||1)));$('#stickyEditorModal').showModal();setTimeout(()=>$('#stickyText')?.focus(),80);
   }
@@ -450,7 +492,7 @@
     if(a.type==='stroke'&&a.points?.length){const xs=a.points.map(p=>p.x),ys=a.points.map(p=>p.y),pad=.015;return{x:Math.max(0,Math.min(...xs)-pad),y:Math.max(0,Math.min(...ys)-pad),w:Math.min(1,Math.max(...xs)+pad)-Math.max(0,Math.min(...xs)-pad),h:Math.min(1,Math.max(...ys)+pad)-Math.max(0,Math.min(...ys)-pad)};}
     if(a.type==='image')return{x:a.x,y:a.y,w:a.w||.24,h:a.h||.10};
     if(a.type==='sticky')return{x:a.x,y:a.y,w:a.w||.22,h:a.h||.16};
-    if(a.type==='text')return{x:a.x,y:a.y,w:Math.min(.45,Math.max(.08,(a.text?.length||4)*.012)),h:.055};
+    if(a.type==='text'){const lines=String(a.text||'').split(/\n/),longest=Math.max(1,...lines.map(x=>x.length)),scale=(a.size||22)/22;return{x:a.x,y:a.y,w:Math.min(.72,Math.max(.06,longest*.012*scale)),h:Math.max(.045,lines.length*.045*scale)};}
     return{x:a.x||0,y:a.y||0,w:.05,h:.05};
   }
   function hitTestAnnotation(page,p){const list=state.annotations[page]||[];for(let i=list.length-1;i>=0;i--){const a=list[i],b=annotationBounds(a),pad=.018;if(p.x>=b.x-pad&&p.x<=b.x+b.w+pad&&p.y>=b.y-pad&&p.y<=b.y+b.h+pad){if(a.type!=='stroke'||a.points.some(q=>Math.hypot(q.x-p.x,q.y-p.y)<.035))return i;}}return-1;}
@@ -589,7 +631,7 @@
         if(index>=0){state.drawing={selectMove:true,pageNum,pointerId:e.pointerId,pointerType:e.pointerType,index,start:p,original:JSON.parse(JSON.stringify(state.annotations[pageNum][index])),moved:false};}
         redrawPage(pageNum);return;
       }
-      if(state.tool==='text'){ const value=prompt(t('textPrompt')); if(value){ addAnnotation(pageNum,{type:'text',x:p.x,y:p.y,text:value,color:state.color,size:Math.max(14,state.size*5)}); } return; }
+      if(state.tool==='text'){const hit=hitTestAnnotation(pageNum,p),existing=hit>=0?state.annotations[pageNum]?.[hit]:null;if(existing?.type==='text'){state.selected={page:pageNum,index:hit};redrawPage(pageNum);openTextEditor(pageNum,hit);}else openTextEditor(pageNum,null,{x:p.x,y:p.y,color:state.color,size:22});return;}
       if(state.tool==='sticky'){ const note={type:'sticky',x:Math.max(.02,Math.min(.73,p.x-.11)),y:Math.max(.02,Math.min(.80,p.y-.08)),w:.24,h:.17,text:'',color:'#fff3a3',align:state.lang==='ar'?'right':'left',fontScale:1};addAnnotation(pageNum,note);state.selected={page:pageNum,index:(state.annotations[pageNum]||[]).length-1};setTool('select');redrawPage(pageNum);requestAnimationFrame(()=>openStickyEditor(pageNum,state.selected.index));return; }
       if(state.tool==='signature'){ if(!state.signatureData){ openSignature(); return; } addAnnotation(pageNum,{type:'image',x:p.x,y:p.y,w:.24,h:.10,data:state.signatureData}); setTool('select'); return; }
       if(state.tool==='image'){if(!state.pendingImage){$('#imageInput')?.click();return;}const aspect=state.pendingImage.aspect||1.4,w=.30,h=Math.min(.38,w*(canvas.width/canvas.height)/aspect),x=Math.max(.01,Math.min(1-w,p.x-w/2)),y=Math.max(.01,Math.min(1-h,p.y-h/2));addAnnotation(pageNum,{type:'image',x,y,w,h,data:state.pendingImage.data});state.pendingImage=null;setTool('select');return;}
@@ -621,7 +663,7 @@
       const d=state.drawing;
       if(d.pan){state.drawing=null;return;}
       if(d.resizeSticky){state.drawing=null;if(d.moved)commitChange();else redrawPage(pageNum);return;}
-      if(d.selectMove){state.drawing=null;if(d.moved)commitChange();else{redrawPage(pageNum);const a=state.annotations[pageNum]?.[d.index];if(a?.type==='sticky')setTimeout(()=>openStickyEditor(pageNum,d.index),40);}return;}
+      if(d.selectMove){state.drawing=null;if(d.moved)commitChange();else{redrawPage(pageNum);const a=state.annotations[pageNum]?.[d.index];if(a?.type==='sticky')setTimeout(()=>openStickyEditor(pageNum,d.index),40);else if(a?.type==='text')setTimeout(()=>openTextEditor(pageNum,d.index),40);}return;}
       clearStraightHold(d);
       if(d.magic){const ghost={...d.stroke,startedAt:performance.now(),duration:1200};(state.magicGhosts[pageNum]??=[]).push(ghost);state.drawing=null;animateMagicPage(pageNum);return;}
       if(d.stroke){const st=d.stroke;(state.annotations[pageNum]??=[]).push(st);redrawPage(pageNum);}
@@ -632,7 +674,41 @@
     canvas.addEventListener('lostpointercapture',e=>{if(state.drawing?.pointerId===e.pointerId)finish(e);});
   }
   function addAnnotation(page,obj){ (state.annotations[page]??=[]).push(obj); redrawPage(page); commitChange(); }
-  function eraseAt(page,p,redraw=true){ const list=state.annotations[page]||[]; const before=list.length; state.annotations[page]=list.filter(a=>{ if(a.type==='stroke') return !a.points.some(q=>Math.hypot(q.x-p.x,q.y-p.y)<.025); if(a.type==='text'||a.type==='image'||a.type==='sticky'){const b=annotationBounds(a);return !(p.x>=b.x-.02&&p.x<=b.x+b.w+.02&&p.y>=b.y-.02&&p.y<=b.y+b.h+.02);}  return true; }); const changed=before!==state.annotations[page].length; if(changed&&redraw)redrawPage(page); return changed; }
+  function splitStrokeAtPoint(stroke,p,radius=.022){
+    const pts=stroke.points||[];if(pts.length<2)return pts.some(q=>Math.hypot(q.x-p.x,q.y-p.y)<radius)?[]:[stroke];
+    const chunks=[];let chunk=[];
+    for(const q of pts){
+      if(Math.hypot(q.x-p.x,q.y-p.y)<radius){if(chunk.length>1)chunks.push(chunk);chunk=[];}
+      else chunk.push(q);
+    }
+    if(chunk.length>1)chunks.push(chunk);
+    if(chunks.length===1&&chunks[0].length===pts.length)return [stroke];
+    return chunks.map(points=>({...stroke,points:points.map(q=>({...q}))}));
+  }
+  function textCharIndexAtPoint(page,a,p){
+    const chars=Array.from(String(a.text||''));if(!chars.length)return -1;
+    const b=annotationBounds(a),rel=clamp((p.x-b.x)/Math.max(.0001,b.w),0,.9999);let idx=Math.floor(rel*chars.length);
+    if(state.lang==='ar')idx=chars.length-1-idx;return clamp(idx,0,chars.length-1);
+  }
+  function eraseAt(page,p,redraw=true){
+    const list=state.annotations[page]||[];let changed=false,next=[];
+    for(const a of list){
+      if(a.type==='stroke'){
+        const pieces=splitStrokeAtPoint(a,p,.023);if(pieces.length!==1||pieces[0]!==a)changed=true;next.push(...pieces);continue;
+      }
+      if(a.type==='text'){
+        const b=annotationBounds(a),inside=p.x>=b.x-.018&&p.x<=b.x+b.w+.018&&p.y>=b.y-.018&&p.y<=b.y+b.h+.018;
+        if(inside){const idx=textCharIndexAtPoint(page,a,p);if(idx>=0){const chars=Array.from(a.text||'');chars.splice(idx,1);const value=chars.join('');changed=true;if(value)next.push({...a,text:value});continue;}}
+        next.push(a);continue;
+      }
+      if(a.type==='image'||a.type==='sticky'){
+        const b=annotationBounds(a),inside=p.x>=b.x-.018&&p.x<=b.x+b.w+.018&&p.y>=b.y-.018&&p.y<=b.y+b.h+.018;
+        if(inside){changed=true;continue;}next.push(a);continue;
+      }
+      next.push(a);
+    }
+    if(changed){state.annotations[page]=next;if(state.selected?.page===page)state.selected=null;if(redraw)redrawPage(page);}return changed;
+  }
   function schedulePageRedraw(page){ if(state.eraseFrame)return; state.eraseFrame=requestAnimationFrame(()=>{state.eraseFrame=0;redrawPage(page);}); }
   function drawMagicPoint(canvas,s,p){const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height,r=Math.max(2,s.size*(w/760)*.82);ctx.save();ctx.fillStyle=s.color;ctx.globalAlpha=.94;ctx.beginPath();ctx.arc(p.x*w,p.y*h,r,0,Math.PI*2);ctx.fill();ctx.restore();}
   function drawLiveSegment(canvas,s,a,b){
@@ -667,7 +743,7 @@
   function redrawPage(pageNum,preview){ const p=state.pages[pageNum-1]; if(!p?.overlay)return; const c=p.overlay,ctx=c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height); const list=state.annotations[pageNum]||[]; for(const a of list) drawAnnotation(ctx,a,c.width,c.height); const ghosts=state.magicGhosts[pageNum]||[];if(ghosts.length){const now=performance.now();for(const g of ghosts){const alpha=magicGhostAlpha(g,now);if(alpha>0)drawStroke(ctx,g,c.width,c.height,alpha);}} if(preview) drawStroke(ctx,preview,c.width,c.height); if(state.selected?.page===pageNum&&list[state.selected.index])drawSelection(ctx,list[state.selected.index],c.width,c.height); }
   function drawAnnotation(ctx,a,w,h){
     if(a.type==='stroke') return drawStroke(ctx,a,w,h);
-    if(a.type==='text'){ ctx.save(); ctx.fillStyle=a.color; ctx.font=`${a.size*(w/760)}px ${state.lang==='ar'?'IBM Plex Sans Arabic':'Manrope'},sans-serif`; ctx.textBaseline='top'; ctx.fillText(a.text,a.x*w,a.y*h); ctx.restore(); }
+    if(a.type==='text'){ctx.save();const fontSize=(a.size||22)*(w/760),lines=String(a.text||'').split(/\n/);ctx.fillStyle=a.color||'#1f2430';ctx.font=`${fontSize}px ${state.lang==='ar'?'IBM Plex Sans Arabic':'Manrope'},sans-serif`;ctx.textBaseline='top';ctx.textAlign='start';ctx.direction=state.lang==='ar'?'rtl':'ltr';const x=a.x*w,y=a.y*h,lineH=fontSize*1.35;for(let i=0;i<lines.length;i++)ctx.fillText(lines[i],x,y+i*lineH);ctx.restore();}
     if(a.type==='sticky'){const x=a.x*w,y=a.y*h,ww=(a.w||.24)*w,hh=(a.h||.17)*h,r=Math.min(14,w*.018),fold=Math.min(20,ww*.13,hh*.16);ctx.save();ctx.fillStyle=a.color||'#fff3a3';ctx.shadowColor='rgba(31,42,72,.11)';ctx.shadowBlur=Math.max(4,w*.010);ctx.shadowOffsetY=Math.max(2,w*.004);ctx.beginPath();ctx.roundRect(x,y,ww,hh,r);ctx.fill();ctx.shadowColor='transparent';ctx.fillStyle='rgba(255,255,255,.42)';ctx.beginPath();ctx.moveTo(x+ww-fold,y);ctx.lineTo(x+ww,y);ctx.lineTo(x+ww,y+fold);ctx.closePath();ctx.fill();const scale=Math.max(.72,Math.min(1.35,Number(a.fontScale||1))),fontSize=Math.max(11,w*.018*scale),lineHeight=Math.max(15,fontSize*1.45),align=a.align||((state.lang==='ar')?'right':'left');ctx.fillStyle='#2c3343';ctx.font=`${fontSize}px ${state.lang==='ar'?'IBM Plex Sans Arabic':'Manrope'},sans-serif`;ctx.textBaseline='top';ctx.textAlign=align;ctx.direction=state.lang==='ar'?'rtl':'ltr';const tx=align==='center'?x+ww*.5:(align==='right'?x+ww*.90:x+ww*.10),maxLines=Math.max(2,Math.floor((hh*.72)/lineHeight));wrapCanvasText(ctx,a.text,tx,y+hh*.14,ww*.80,lineHeight,maxLines);ctx.restore();return;}
     if(a.type==='image'){
       let img=imageCache.get(a.data);const page=state.pages.find(p=>p?.overlay===ctx.canvas)?.number;
@@ -695,7 +771,7 @@
   function commitChange(){ pushHistory(); updateHistoryButtons(); const saveLabel=$('#saveState span');if(saveLabel)saveLabel.textContent='…';$('#saveState')?.classList.add('visible'); scheduleSave(); }
   function undo(){ if(state.historyIndex<=0)return; state.historyIndex--; state.selected=null; state.annotations=JSON.parse(state.history[state.historyIndex]); redrawAll(); updateHistoryButtons(); scheduleSave(); }
   function redo(){ if(state.historyIndex>=state.history.length-1)return; state.historyIndex++; state.selected=null; state.annotations=JSON.parse(state.history[state.historyIndex]); redrawAll(); updateHistoryButtons(); scheduleSave(); }
-  function updateHistoryButtons(){ const noUndo=state.historyIndex<=0,noRedo=state.historyIndex>=state.history.length-1;$('#undoBtn').disabled=noUndo;$('#redoBtn').disabled=noRedo;if($('#menuUndoBtn'))$('#menuUndoBtn').disabled=noUndo;if($('#menuRedoBtn'))$('#menuRedoBtn').disabled=noRedo; }
+  function updateHistoryButtons(){ const noUndo=state.historyIndex<=0,noRedo=state.historyIndex>=state.history.length-1;$('#undoBtn').disabled=noUndo;$('#redoBtn').disabled=noRedo;if($('#menuUndoBtn'))$('#menuUndoBtn').disabled=noUndo;if($('#menuRedoBtn'))$('#menuRedoBtn').disabled=noRedo;if($('#quickUndoBtn'))$('#quickUndoBtn').disabled=noUndo; }
   function scheduleSave(){ clearTimeout(state.saveTimer); state.saveTimer=setTimeout(saveDocument,800); }
   async function saveDocument(force=false){
     if(!state.mode||!state.currentDocId)return;
@@ -711,7 +787,7 @@
   function syncPenUI(){
     const preset=state.penPresets[state.activePen];
     $$('.pen-preset').forEach((el,i)=>{el.classList.toggle('active',state.tool==='pen'&&i===state.activePen);const sw=el.querySelector('.pen-swatch');if(sw)sw.style.background=state.penPresets[i].color;});
-    if(preset){$('#colorInput').value=preset.color;$('#colorDot').style.background=preset.color;$$('.size-dots button').forEach(x=>x.classList.toggle('active',+x.dataset.size===preset.size));}
+    if(preset){$('#colorInput').value=preset.color;const paletteSelected=$('#paletteSelected');if(paletteSelected)paletteSelected.style.background=preset.color;$$('.size-dots button').forEach(x=>x.classList.toggle('active',+x.dataset.size===preset.size));}
     $$('.quick-colors button').forEach(x=>x.classList.toggle('active',x.dataset.color.toLowerCase()===(preset?.color||'').toLowerCase()));
     if($('#highlighterDot'))$('#highlighterDot').style.background=state.highlighterColor;
     if($('#magicDot'))$('#magicDot').style.background=state.magicColor;
@@ -765,8 +841,14 @@
   function clearSignature(){ const c=$('#signaturePad');c.getContext('2d').clearRect(0,0,c.width,c.height);c.dataset.used='false'; }
   function useSignature(){ const c=$('#signaturePad');if(c.dataset.used!=='true'){toast(t('emptySignature'));return;} state.signatureData=c.toDataURL('image/png');$('#signatureModal').close();setTool('signature');toast(t('signatureReady')); }
 
+  async function cleanupLegacyDownloadWorkers(){
+    try{
+      if('serviceWorker' in navigator){const regs=await navigator.serviceWorker.getRegistrations();for(const reg of regs){const url=reg.active?.scriptURL||reg.waiting?.scriptURL||reg.installing?.scriptURL||'';if(/download-sw(?:-v\d+)?\.js/.test(url))await reg.unregister();}}
+      if('caches' in window){const names=await caches.keys();await Promise.all(names.filter(n=>n.startsWith('inknote-native-downloads-')).map(n=>caches.delete(n)));}
+    }catch(err){console.warn('[InkNote] download worker cleanup skipped',err);}
+  }
   let downloadWorkerPromise=null;
-  const DOWNLOAD_CACHE_V26='inknote-native-downloads-v26';
+  const DOWNLOAD_CACHE_V26='inknote-native-downloads-v27';
   function safeAttachmentName(name){
     let value=String(name||'inknote.pdf').replace(/[\/\r\n]/g,'_').trim();if(!value.toLowerCase().endsWith('.pdf'))value+='.pdf';return value||'inknote.pdf';
   }
@@ -780,8 +862,8 @@
     if(!('serviceWorker' in navigator)||!window.isSecureContext||location.protocol!=='https:')return Promise.resolve(null);
     downloadWorkerPromise=(async()=>{
       try{
-        const reg=await navigator.serviceWorker.register('./download-sw-v26.js?v=26',{scope:'./',updateViaCache:'none'});await navigator.serviceWorker.ready;try{await reg.update();}catch{}
-        const active=()=>navigator.serviceWorker.controller&&/download-sw-v26\.js(?:\?|$)/.test(navigator.serviceWorker.controller.scriptURL||'');
+        const reg=await navigator.serviceWorker.register('./download-sw-v27.js?v=27',{scope:'./',updateViaCache:'none'});await navigator.serviceWorker.ready;try{await reg.update();}catch{}
+        const active=()=>navigator.serviceWorker.controller&&/download-sw-v27\.js(?:\?|$)/.test(navigator.serviceWorker.controller.scriptURL||'');
         if(!active())await new Promise(resolve=>{let done=false;const finish=()=>{if(done)return;done=true;resolve();};navigator.serviceWorker.addEventListener('controllerchange',finish,{once:true});setTimeout(finish,2200);});
         return reg;
       }catch(err){console.warn('[InkNote] Native download worker unavailable:',err);return null;}
@@ -789,7 +871,7 @@
   }
   async function stageAttachment(blob,filename){
     const reg=await warmDownloadWorker();if(!reg||!('caches' in window))return null;
-    const controller=navigator.serviceWorker.controller;if(!controller||!/download-sw-v26\.js(?:\?|$)/.test(controller.scriptURL||''))return null;
+    const controller=navigator.serviceWorker.controller;if(!controller||!/download-sw-v27\.js(?:\?|$)/.test(controller.scriptURL||''))return null;
     const token=`${Date.now()}-${Math.random().toString(36).slice(2)}`,safe=safeAttachmentName(filename);
     const href=new URL(`./__inknote_download__/${encodeURIComponent(token)}/${encodeURIComponent(safe)}`,location.href).href;
     try{
@@ -822,24 +904,23 @@
 
   function clearPendingDownload(){
     const pending=state.pendingDownload;
-    if(pending?.previewUrl){try{URL.revokeObjectURL(pending.previewUrl)}catch{}}
+    if(pending?.previewUrl){try{URL.revokeObjectURL(pending.previewUrl)}catch{}}if(pending?.downloadUrl){try{URL.revokeObjectURL(pending.downloadUrl)}catch{}}
     state.pendingDownload=null;
   }
   function showDownloadChoice(blob,filename){
     clearPendingDownload();
-    state.pendingDownload={blob,filename,previewUrl:null};
+    const previewBlob=blob.type==='application/pdf'?blob:new Blob([blob],{type:'application/pdf'});
+    // iOS Safari currently handles a generated PDF more reliably as an octet-stream
+    // when the user explicitly chooses Download. Keep a separate PDF URL for View.
+    const downloadBlob=isAppleMobile()?new Blob([blob],{type:'application/octet-stream'}):blob;
+    state.pendingDownload={blob,filename,previewUrl:URL.createObjectURL(previewBlob),downloadUrl:URL.createObjectURL(downloadBlob)};
     const name=$('#downloadChoiceName');if(name)name.textContent=filename;
     $('#downloadChoiceModal')?.showModal();
   }
-  function viewPendingDownload(){
+  function viewPendingDownload(){const pending=state.pendingDownload;if(!pending)return;window.open(pending.previewUrl,'_blank','noopener');}
+  function downloadPendingFile(){
     const pending=state.pendingDownload;if(!pending)return;
-    if(!pending.previewUrl)pending.previewUrl=URL.createObjectURL(pending.blob);
-    window.open(pending.previewUrl,'_blank','noopener');
-  }
-  async function downloadPendingFile(){
-    const pending=state.pendingDownload;if(!pending)return;
-    const ok=await directDownload(pending.blob,pending.filename);
-    if(ok){toast(t('exported'));$('#downloadChoiceModal')?.close();}
+    const a=document.createElement('a');a.href=pending.downloadUrl;a.download=safeAttachmentName(pending.filename);a.rel='noopener';a.style.display='none';document.body.append(a);a.click();a.remove();toast(t('exported'));$('#downloadChoiceModal')?.close();
   }
 
   function updateExportMeta(){
@@ -849,7 +930,7 @@
     $('#exportMeta').textContent=`${count} ${t('pagesCount')} · ${t('freePlan')}`;
   }
   async function exportPdf(){
-    if(!state.mode)return;
+    if(!state.mode)return;toast(t('exporting'));
     const btn=$('#confirmExport');
     btn.disabled=true;
     btn.querySelector('span').textContent=t('exporting');
@@ -886,10 +967,8 @@
         }
       }
       const out=await pdfDoc.save(),blob=new Blob([out],{type:'application/pdf'}),downloadName=state.filename.replace(/\.pdf$/i,'')+'-inknote.pdf';
-      $('#exportModal').close();
-      if(isAppleMobile()){
-        const ok=await directDownload(blob,downloadName);if(ok)toast(t('exported'));else showDownloadChoice(blob,downloadName);
-      }else showDownloadChoice(blob,downloadName);
+      if($('#exportModal')?.open)$('#exportModal').close();
+      showDownloadChoice(blob,downloadName);
     }catch(e){
       console.error(e);toast(t('exportFail'));
     }finally{
@@ -991,12 +1070,15 @@
     $('#createToolsBtn').setAttribute('aria-controls','createToolsPopover');$('#createToolsBtn').setAttribute('aria-haspopup','dialog');$('#moreToolsBtn').setAttribute('aria-controls','moreToolsPopover');$('#moreToolsBtn').setAttribute('aria-haspopup','dialog');$('#createToolsBtn').onclick=e=>{e.preventDefault();e.stopPropagation();toggleToolPopover('createToolsPopover',$('#createToolsBtn'))}; $('#moreToolsBtn').onclick=e=>{e.preventDefault();e.stopPropagation();toggleToolPopover('moreToolsPopover',$('#moreToolsBtn'))};
     $('#addImageBtn').onclick=e=>{e.stopPropagation();closeToolPopovers();$('#imageInput').click();};$('#imageInput').onchange=e=>{chooseImage(e.target.files[0]);e.target.value='';};
     $('#colorInput').oninput=e=>{state.color=e.target.value;state.penPresets[state.activePen].color=state.color;syncPenUI()}; $$('.quick-colors button').forEach(el=>el.onclick=e=>{e.preventDefault();e.stopPropagation();state.color=el.dataset.color;state.penPresets[state.activePen].color=state.color;syncPenUI();openToolPopover('toolSettingsPopover',$$('.pen-preset')[state.activePen]);}); $$('.size-dots button').forEach(el=>el.onclick=e=>{e.preventDefault();e.stopPropagation();state.size=+el.dataset.size;state.penPresets[state.activePen].size=state.size;syncPenUI();openToolPopover('toolSettingsPopover',$$('.pen-preset')[state.activePen]);}); syncPenUI();
-    const openExport=()=>{$('#exportModal').showModal();updateExportMeta()};
-    $('#undoBtn').onclick=undo;$('#redoBtn').onclick=redo;$('#menuUndoBtn').onclick=()=>{undo();closeToolPopovers()};$('#menuRedoBtn').onclick=()=>{redo();closeToolPopovers()};$('#zoomIn').onclick=()=>setZoom(state.zoom+.1);$('#zoomOut').onclick=()=>setZoom(state.zoom-.1);$('#menuZoomIn').onclick=()=>{setZoom(state.zoom+.1);closeToolPopovers()};$('#menuZoomOut').onclick=()=>{setZoom(state.zoom-.1);closeToolPopovers()};$('#downloadBtn').onclick=openExport;$('#editorDownloadBtn').onclick=openExport;$('#confirmExport').onclick=exportPdf;$('#saveWorkBtn').onclick=openSaveModal;
-    $('#bookmarkPageBtn').onclick=toggleCurrentBookmark;$('#studyTimerBtn').onclick=startStudyTimer;$('#focusModeBtn').onclick=toggleFocusMode;$('#stopStudyTimer').onclick=()=>stopStudyTimer(false);
+    const openExport=()=>{updateExportMeta();exportPdf();};
+    $('#undoBtn').onclick=undo;$('#redoBtn').onclick=redo;if($('#quickUndoBtn'))$('#quickUndoBtn').onclick=undo;$('#menuUndoBtn').onclick=()=>{undo();closeToolPopovers()};$('#menuRedoBtn').onclick=()=>{redo();closeToolPopovers()};$('#zoomIn').onclick=()=>setZoom(state.zoom+.1);$('#zoomOut').onclick=()=>setZoom(state.zoom-.1);$('#menuZoomIn').onclick=()=>{setZoom(state.zoom+.1);closeToolPopovers()};$('#menuZoomOut').onclick=()=>{setZoom(state.zoom-.1);closeToolPopovers()};$('#downloadBtn').onclick=openExport;$('#editorDownloadBtn').onclick=openExport;$('#confirmExport').onclick=exportPdf;$('#saveWorkBtn').onclick=openSaveModal;if($('#viewDownloadBtn'))$('#viewDownloadBtn').onclick=viewPendingDownload;if($('#directDownloadBtn'))$('#directDownloadBtn').onclick=downloadPendingFile;
+    $('#bookmarkPageBtn').onclick=toggleCurrentBookmark;$('#studyTimerBtn').onclick=openTimerModal;$('#focusModeBtn').onclick=toggleFocusMode;if($('#calculatorBtn'))$('#calculatorBtn').onclick=()=>{setCalculatorMode(state.calculatorMode);renderCalculator();$('#calculatorModal').showModal();};$('#stopStudyTimer').onclick=()=>stopStudyTimer(false);
     $$('input[name="retention"]').forEach(el=>el.onchange=updateSaveExpiryPreview);$('#confirmSaveWork').onclick=confirmSaveRetention;$('#deleteSavedCopy').onclick=deleteSavedCopy;
+    $$('[data-text-color]').forEach(el=>el.onclick=()=>{$$('[data-text-color]').forEach(x=>x.classList.toggle('active',x===el));if($('#textColorInput'))$('#textColorInput').value=el.dataset.textColor;const sw=$('.text-custom-color span');if(sw)sw.style.background=el.dataset.textColor;});if($('#textColorInput'))$('#textColorInput').oninput=e=>{$$('[data-text-color]').forEach(x=>x.classList.remove('active'));const sw=$('.text-custom-color span');if(sw)sw.style.background=e.target.value;};$$('[data-text-size]').forEach(el=>el.onclick=()=>{$$('[data-text-size]').forEach(x=>x.classList.toggle('active',x===el));});if($('#saveTextAnnotation'))$('#saveTextAnnotation').onclick=saveTextEditor;if($('#deleteTextAnnotation'))$('#deleteTextAnnotation').onclick=deleteTextEditor;
+    $$('[data-timer-minutes]').forEach(el=>el.onclick=()=>{$$('[data-timer-minutes]').forEach(x=>x.classList.toggle('active',x===el));if($('#customTimerMinutes'))$('#customTimerMinutes').value='';state.timerMinutes=Number(el.dataset.timerMinutes)||25;});if($('#customTimerMinutes'))$('#customTimerMinutes').oninput=e=>{$$('[data-timer-minutes]').forEach(x=>x.classList.remove('active'));};if($('#startTimerNow'))$('#startTimerNow').onclick=()=>{const custom=Number($('#customTimerMinutes')?.value||0),preset=Number($('[data-timer-minutes].active')?.dataset.timerMinutes||0);startStudyTimer(custom||preset||state.timerMinutes||25);};
+    $$('[data-calc-mode]').forEach(el=>el.onclick=()=>setCalculatorMode(el.dataset.calcMode));$$('[data-calc]').forEach(el=>el.onclick=()=>handleCalculatorKey(el.dataset.calc));
     $$('[data-sticky-color]').forEach(el=>el.onclick=()=>{$$('[data-sticky-color]').forEach(x=>x.classList.toggle('active',x===el));});$$('[data-sticky-align]').forEach(el=>el.onclick=()=>{$$('[data-sticky-align]').forEach(x=>x.classList.toggle('active',x===el));});$$('[data-sticky-font]').forEach(el=>el.onclick=()=>{$$('[data-sticky-font]').forEach(x=>x.classList.toggle('active',x===el));});$('#saveStickyEdit').onclick=saveStickyEditor;
-    $('#openPages').onclick=()=>$('#pagesPanel').classList.add('open');$('#closePages').onclick=()=>$('#pagesPanel').classList.remove('open');    $$('[data-close]').forEach(el=>el.onclick=()=>$('#'+el.dataset.close).close());$$('.modal').forEach(d=>d.addEventListener('click',e=>{if(e.target===d)d.close()}));
+    $('#openPages').onclick=()=>$('#pagesPanel').classList.add('open');$('#closePages').onclick=()=>$('#pagesPanel').classList.remove('open');    $$('[data-close]').forEach(el=>el.onclick=()=>$('#'+el.dataset.close).close());$$('.modal').forEach(d=>d.addEventListener('click',e=>{if(e.target===d)d.close()}));$('#textEditorModal')?.addEventListener('close',()=>{state.textEditing=null});
     $('#clearSignature').onclick=clearSignature;$('#useSignature').onclick=useSignature;
     const renameDocument=()=>{const n=prompt(t('rename'),state.filename);if(n){state.filename=n.toLowerCase().endsWith('.pdf')?n:n+'.pdf';$('#documentName').textContent=state.filename;$('#floatingDocumentName').textContent=state.filename;scheduleSave()}};
     $('#renameBtn').onclick=renameDocument;$('#floatingRenameBtn').onclick=renameDocument;$('#exitEditor').onclick=async()=>{await saveDocument();resetToWelcome()};
@@ -1033,5 +1115,5 @@
     register({name:'open_pdf_export_review',title:'Review export',description:'Open the export review for the current PDF or whiteboard. This does not download until the user confirms.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute:()=>{if(!state.mode)throw new Error('Open a document first.');updateExportMeta();$('#exportModal').showModal();return{status:'export_review_opened',watermark:false}}});
   }
 
-  window.addEventListener('DOMContentLoaded',()=>{ setLanguage(state.lang); bindUI(); resetToWelcome(); warmDownloadWorker(); updateAdUI(); loadAds(); registerWebMCP(); setInterval(updateRecentFiles,30*60*1000); });
+  window.addEventListener('DOMContentLoaded',()=>{ setLanguage(state.lang); bindUI(); resetToWelcome(); cleanupLegacyDownloadWorkers(); updateAdUI(); loadAds(); registerWebMCP(); setInterval(updateRecentFiles,30*60*1000); });
 })();

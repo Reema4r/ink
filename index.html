@@ -44,6 +44,7 @@
     <symbol fill="none" id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4V8Z"/></symbol>
     <symbol fill="none" id="i-save" viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5V4Z"/><path d="M8 4v6h8V4M8 20v-6h8v6"/></symbol>
     <symbol fill="none" id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol fill="none" id="i-calc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2m4 0h2M8 15h2m4 0h2M8 18h2m4 0h2"/></symbol>
     <symbol fill="none" id="i-bookmark" viewBox="0 0 24 24"><path d="M7 4h10v16l-5-3-5 3V4Z"/></symbol>
     <symbol fill="none" id="i-focus" viewBox="0 0 24 24"><path d="M8 3H4v4M16 3h4v4M8 21H4v-4m12 4h4v-4"/><circle cx="12" cy="12" r="3"/></symbol>
     <symbol fill="none" id="i-align-left" viewBox="0 0 24 24"><path d="M4 6h16M4 10h11M4 14h16M4 18h9"/></symbol>
@@ -134,8 +135,13 @@
               <button class="tool pen-preset" data-pen-preset="1" type="button" data-tip-ar="قلم أزرق" data-tip-en="Blue pen"><svg><use href="#i-pen"/></svg><i class="pen-swatch"></i></button>
               <button class="tool pen-preset" data-pen-preset="2" type="button" data-tip-ar="قلم أحمر" data-tip-en="Red pen"><svg><use href="#i-pen"/></svg><i class="pen-swatch"></i></button>
               <div class="tool-popover settings-popover ink-settings-popover" id="toolSettingsPopover" hidden>
-                <div class="popover-row popover-colors">
+                <div class="popover-row popover-colors pen-colors-panel">
                   <span class="popover-label" data-i18n="inkColor">اللون</span>
+                  <label class="palette-master" aria-label="اختيار لون مخصص">
+                    <input id="colorInput" type="color" value="#1f2430">
+                    <span class="palette-wheel" aria-hidden="true"><i id="paletteSelected"></i></span>
+                    <b data-i18n="moreColors">ألوان أكثر</b>
+                  </label>
                   <div class="quick-colors" id="quickColors" role="group" aria-label="ألوان القلم">
                     <button type="button" data-color="#1f2430" style="--swatch:#1f2430"></button>
                     <button type="button" data-color="#375bf5" style="--swatch:#375bf5"></button>
@@ -144,7 +150,6 @@
                     <button type="button" data-color="#7c4dff" style="--swatch:#7c4dff"></button>
                     <button type="button" data-color="#f08a24" style="--swatch:#f08a24"></button>
                   </div>
-                  <label class="color-wrap custom-color" aria-label="لون مخصص"><input id="colorInput" type="color" value="#1f2430"><span id="colorDot"></span></label>
                 </div>
                 <div class="popover-row popover-size-row">
                   <span class="popover-label" data-i18n="inkSize">السماكة</span>
@@ -193,6 +198,8 @@
               </div>
             </div>
             <button class="tool" data-tool="eraser" type="button" data-tip-ar="ممحاة" data-tip-en="Eraser"><svg><use href="#i-eraser"/></svg></button>
+            <button class="tool quick-undo-tool" id="quickUndoBtn" type="button" data-tip-ar="تراجع" data-tip-en="Undo" aria-label="تراجع" disabled><svg><use href="#i-undo"/></svg></button>
+            <button class="tool calculator-tool" id="calculatorBtn" type="button" data-tip-ar="الحاسبة" data-tip-en="Calculator" aria-label="الحاسبة"><svg><use href="#i-calc"/></svg></button>
             <span class="toolbar-divider" aria-hidden="true"></span>
 
             <div class="toolbar-popover-wrap">
@@ -266,6 +273,60 @@
       </button>
     </div>
   </dialog>
+
+  <dialog class="modal text-editor-modal" id="textEditorModal">
+    <button class="modal-close" data-close="textEditorModal" type="button"><svg><use href="#i-close"/></svg></button>
+    <div class="modal-title"><small data-i18n="textTool">نص</small><h2 data-i18n="editText">تحرير النص</h2><p data-i18n="textEditorHint">اكتب النص ثم اختر اللون والحجم. يمكنك العودة إليه بالضغط عليه بأداة التحديد.</p></div>
+    <div class="text-editor-body">
+      <textarea id="textEditorInput" rows="3" maxlength="1000" data-i18n-placeholder="textPlaceholder" placeholder="اكتب النص هنا…"></textarea>
+      <div class="text-editor-section"><span data-i18n="textColor">لون النص</span><div class="text-color-grid">
+        <button type="button" data-text-color="#1f2430" style="--swatch:#1f2430"></button>
+        <button type="button" data-text-color="#375bf5" style="--swatch:#375bf5"></button>
+        <button type="button" data-text-color="#d9435f" style="--swatch:#d9435f"></button>
+        <button type="button" data-text-color="#0b8f6a" style="--swatch:#0b8f6a"></button>
+        <button type="button" data-text-color="#7c4dff" style="--swatch:#7c4dff"></button>
+        <label class="text-custom-color"><input id="textColorInput" type="color" value="#1f2430"><span></span></label>
+      </div></div>
+      <div class="text-editor-section"><span data-i18n="textSize">حجم النص</span><div class="text-size-grid">
+        <button type="button" data-text-size="16" data-i18n="small">صغير</button>
+        <button type="button" data-text-size="22" class="active" data-i18n="medium">متوسط</button>
+        <button type="button" data-text-size="30" data-i18n="large">كبير</button>
+      </div></div>
+    </div>
+    <div class="text-editor-actions"><button class="danger-quiet" id="deleteTextAnnotation" type="button" data-i18n="deleteText">حذف النص</button><button class="quiet-btn" data-close="textEditorModal" type="button" data-i18n="cancel">إلغاء</button><button class="primary-btn" id="saveTextAnnotation" type="button" data-i18n="done">تم</button></div>
+  </dialog>
+
+  <dialog class="modal timer-modal" id="timerModal">
+    <button class="modal-close" data-close="timerModal" type="button"><svg><use href="#i-close"/></svg></button>
+    <div class="modal-title"><small data-i18n="timer">المؤقت</small><h2 data-i18n="chooseTimer">اختر مدة المؤقت</h2><p data-i18n="timerHint">اختر مدة جاهزة أو اكتب عدد الدقائق.</p></div>
+    <div class="timer-modal-body">
+      <div class="timer-presets">
+        <button type="button" data-timer-minutes="5">5 <span data-i18n="minutes">دقائق</span></button>
+        <button type="button" data-timer-minutes="15">15 <span data-i18n="minutes">دقيقة</span></button>
+        <button type="button" data-timer-minutes="25" class="active">25 <span data-i18n="minutes">دقيقة</span></button>
+        <button type="button" data-timer-minutes="45">45 <span data-i18n="minutes">دقيقة</span></button>
+        <button type="button" data-timer-minutes="60">60 <span data-i18n="minutes">دقيقة</span></button>
+      </div>
+      <label class="custom-timer"><span data-i18n="customMinutes">مدة مخصصة بالدقائق</span><input id="customTimerMinutes" type="number" inputmode="numeric" min="1" max="999" placeholder="30"></label>
+      <button class="primary-btn timer-start-btn" id="startTimerNow" type="button"><svg><use href="#i-play"/></svg><span data-i18n="startTimer">ابدأ المؤقت</span></button>
+    </div>
+  </dialog>
+
+  <dialog class="modal calculator-modal" id="calculatorModal">
+    <button class="modal-close" data-close="calculatorModal" type="button"><svg><use href="#i-close"/></svg></button>
+    <div class="calculator-head"><small data-i18n="calculator">الحاسبة</small><div class="calculator-mode"><button type="button" data-calc-mode="basic" class="active" data-i18n="basicCalc">أساسية</button><button type="button" data-calc-mode="scientific" data-i18n="scientificCalc">علمية</button></div></div>
+    <div class="calculator-display"><small id="calcExpression"></small><output id="calcDisplay">0</output></div>
+    <div class="calculator-keys" id="calculatorKeys">
+      <button data-calc="clear" class="calc-fn">AC</button><button data-calc="back" class="calc-fn">⌫</button><button data-calc="(" class="calc-fn">(</button><button data-calc=")" class="calc-fn">)</button>
+      <button class="scientific-key" data-calc="sin(">sin</button><button class="scientific-key" data-calc="cos(">cos</button><button class="scientific-key" data-calc="tan(">tan</button><button class="scientific-key" data-calc="sqrt(">√</button>
+      <button class="scientific-key" data-calc="log(">log</button><button class="scientific-key" data-calc="ln(">ln</button><button class="scientific-key" data-calc="π">π</button><button class="scientific-key" data-calc="^">xʸ</button>
+      <button data-calc="7">7</button><button data-calc="8">8</button><button data-calc="9">9</button><button data-calc="÷" class="calc-op">÷</button>
+      <button data-calc="4">4</button><button data-calc="5">5</button><button data-calc="6">6</button><button data-calc="×" class="calc-op">×</button>
+      <button data-calc="1">1</button><button data-calc="2">2</button><button data-calc="3">3</button><button data-calc="−" class="calc-op">−</button>
+      <button data-calc="0" class="calc-zero">0</button><button data-calc=".">.</button><button data-calc="+" class="calc-op">+</button><button data-calc="equals" class="calc-equals">=</button>
+    </div>
+  </dialog>
+
   <dialog class="modal signature-modal" id="signatureModal">
     <button class="modal-close" data-close="signatureModal" type="button"><svg><use href="#i-close"/></svg></button>
     <div class="modal-title"><small data-i18n="signature">التوقيع</small><h2 data-i18n="drawSignature">ارسم توقيعك</h2><p data-i18n="signatureHint">استخدم القلم أو إصبعك.</p></div>
