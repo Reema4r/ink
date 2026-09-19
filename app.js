@@ -107,7 +107,8 @@
         try{
           const width=runtime.FPDF_GetPageWidthF(pagePtr),height=runtime.FPDF_GetPageHeightF(pagePtr),cssScale=cssWidth/Math.max(width,1);
           // Keep iOS memory usage bounded while retaining enough resolution for handwriting/zoom.
-          const safeDpr=Math.max(1,Math.min(Number(dpr)||1,isAppleMobile()?1.65:1.8));
+          const qualityCap=isAppleMobile()?(cssWidth<=520?2.2:1.85):1.9;
+          const safeDpr=Math.max(1,Math.min(Number(dpr)||1,qualityCap));
           const pw=Math.max(1,Math.round(width*cssScale*safeDpr)),ph=Math.max(1,Math.round(height*cssScale*safeDpr));
           const bitmap=runtime.FPDFBitmap_Create(pw,ph,0);if(!bitmap)throw new Error('PDFium bitmap allocation failed');
           try{
@@ -262,7 +263,7 @@
     state.annotations=annotations||{};state.currentDocId=docId||newDocumentId();enterEditor(name||'document.pdf','pdf');$('#loadingState').hidden=false;state.pdfBytes=new Uint8Array(bytes);
     try{
       try{
-        // v23: the display copy is always rasterized by PDFium. We never hand PDF font shaping to Safari/iOS.
+        // v24: the display copy is always rasterized by PDFium. We never hand PDF font shaping to Safari/iOS.
         state.pdfiumDoc=await openPdfiumDocument(state.pdfBytes.slice());state.pdfEngine='pdfium';state.pdf={numPages:state.pdfiumDoc.numPages};
         document.documentElement.dataset.pdfEngine='pdfium-raster';
         const first=await state.pdfiumDoc.getPageSize(0),ratio=first.height/Math.max(1,first.width);for(let i=1;i<=state.pdf.numPages;i++)createPageShell(i,ratio);
@@ -284,6 +285,9 @@
       }
       if(token!==state.loadToken)return false;$('#floatingPageCount').textContent=`${state.pdf.numPages} ${t('pagesCount')}`;await renderPage(1);
       if(token!==state.loadToken)return false;if(!state.pages[0]?.rendered||!state.pages[0]?.base)throw new Error('First page did not render');
+      // Open every PDF in scroll/pan mode so touch gestures move the document first.
+      // The user explicitly switches to a pen only when they want to write.
+      setTool('hand');
       pushHistory(true);setupLazyPageRendering();observePages();$('#loadingState').hidden=true;updatePageLabel();updateToolMode();scheduleSave();return true;
     }catch(err){console.error('[InkNote] PDF open/render failed:',err);closeActivePdfEngine();if(token===state.loadToken){$('#loadingState').hidden=true;toast(t('pdfOpenFail'));resetToWelcome();}return false;}
   }
@@ -319,7 +323,7 @@
       let naturalWidth,naturalHeight,page=null;
       if(state.pdfEngine==='pdfium'){const size=await state.pdfiumDoc.getPageSize(number-1);naturalWidth=size.width;naturalHeight=size.height;}
       else{page=entry.page||await state.pdf.getPage(number);const n=page.getViewport({scale:1});naturalWidth=n.width;naturalHeight=n.height;}
-      const cssWidth=getPageWidth(naturalWidth),cssScale=cssWidth/naturalWidth,pixelRatio=Math.min(devicePixelRatio||1,isAppleMobile()?1.75:1.6),cssHeight=naturalHeight*cssScale;
+      const cssWidth=getPageWidth(naturalWidth),cssScale=cssWidth/naturalWidth,pixelRatio=Math.min(devicePixelRatio||1,isAppleMobile()?(cssWidth<=520?2.2:1.85):1.9),cssHeight=naturalHeight*cssScale;
       const base=document.createElement('canvas'),overlay=document.createElement('canvas');overlay.className='annotation-canvas';base.style.width=overlay.style.width=`${cssWidth}px`;base.style.height=overlay.style.height=`${cssHeight}px`;
       entry.wrap.style.width=`${cssWidth}px`;entry.wrap.style.height=`${cssHeight}px`;entry.wrap.querySelector('.page-placeholder')?.replaceWith(base);entry.wrap.insertBefore(overlay,entry.wrap.querySelector('.page-number-chip'));entry.wrap.classList.remove('is-pending');
       if(state.pdfEngine==='pdfium'){const dims=await state.pdfiumDoc.renderPage(number-1,base,cssWidth,pixelRatio);overlay.width=base.width;overlay.height=base.height;overlay.style.width=`${dims.width}px`;overlay.style.height=`${dims.height}px`;entry.cssHeight=dims.height;}
@@ -698,62 +702,67 @@
     if(!('serviceWorker' in navigator)||!window.isSecureContext||location.protocol!=='https:')return Promise.resolve(null);
     downloadWorkerPromise=(async()=>{
       try{
-        const reg=await navigator.serviceWorker.register('./download-sw-v21.js?v=21',{scope:'./',updateViaCache:'none'});
+        const reg=await navigator.serviceWorker.register('./download-sw-v24.js?v=24',{scope:'./',updateViaCache:'none'});
         await navigator.serviceWorker.ready;
         try{await reg.update();}catch{}
-        const isV20=w=>!!w&&/download-sw-v21\.js(?:\?|$)/.test(w.scriptURL||'');
-        if(!isV20(navigator.serviceWorker.controller)){
-          const candidate=reg.installing||reg.waiting||reg.active;
-          if(candidate&&candidate.state!=='activated'){
-            await new Promise(resolve=>{
-              let done=false;const finish=()=>{if(done)return;done=true;resolve();};
-              candidate.addEventListener('statechange',()=>{if(candidate.state==='activated')finish();});
-              setTimeout(finish,2600);
-            });
-          }
+        const isV24=w=>!!w&&/download-sw-v24\.js(?:\?|$)/.test(w.scriptURL||'');
+        const candidate=reg.installing||reg.waiting||reg.active;
+        if(candidate&&candidate.state!=='activated'){
           await new Promise(resolve=>{
             let done=false;const finish=()=>{if(done)return;done=true;resolve();};
-            if(isV20(navigator.serviceWorker.controller))return finish();
+            candidate.addEventListener('statechange',()=>{if(candidate.state==='activated')finish();});
+            setTimeout(finish,2800);
+          });
+        }
+        if(!isV24(navigator.serviceWorker.controller)){
+          await new Promise(resolve=>{
+            let done=false;const finish=()=>{if(done)return;done=true;resolve();};
             navigator.serviceWorker.addEventListener('controllerchange',finish,{once:true});
-            setTimeout(finish,2600);
+            setTimeout(finish,1800);
           });
         }
         return reg;
-      }catch(err){console.warn('[InkNote] Could not warm download worker:',err);return null;}
+      }catch(err){console.warn('[InkNote] Could not prepare native download worker:',err);return null;}
     })();
     return downloadWorkerPromise;
   }
   async function serviceWorkerDownload(blob,filename){
     try{
       const reg=await warmDownloadWorker();if(!reg)return false;
-      const worker=navigator.serviceWorker.controller;if(!worker||!/download-sw-v21\.js(?:\?|$)/.test(worker.scriptURL||''))return false;
+      const worker=(navigator.serviceWorker.controller&&/download-sw-v24\.js(?:\?|$)/.test(navigator.serviceWorker.controller.scriptURL||''))?navigator.serviceWorker.controller:(reg.active||reg.waiting);
+      if(!worker)return false;
       const token=`${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      const safePathName=String(filename||'inknote.pdf').replace(/[\\/]/g,'_');
+      const href=`./__inknote_download__/${encodeURIComponent(token)}/${encodeURIComponent(safePathName)}`;
+      const bytes=await blob.arrayBuffer();
       await new Promise((resolve,reject)=>{
-        const channel=new MessageChannel();const timer=setTimeout(()=>reject(new Error('download worker timeout')),3500);
-        channel.port1.onmessage=ev=>{clearTimeout(timer);ev.data?.ok?resolve():reject(new Error('download worker rejected file'));};
-        worker.postMessage({type:'INKNOTE_DOWNLOAD',token,filename,mime:'application/pdf',blob},[channel.port2]);
+        const channel=new MessageChannel();const timer=setTimeout(()=>reject(new Error('download worker timeout')),6000);
+        channel.port1.onmessage=ev=>{clearTimeout(timer);ev.data?.ok?resolve():reject(new Error(ev.data?.error||'download worker rejected file'));};
+        worker.postMessage({type:'INKNOTE_DOWNLOAD_V24',token,path:href,filename:safePathName,mime:'application/pdf',buffer:bytes},[bytes,channel.port2]);
       });
-      const href=`./__inknote_download__/${encodeURIComponent(token)}/${encodeURIComponent(filename)}`;
-      if(isAppleMobile()){
-        // A same-origin navigation that returns Content-Disposition: attachment
-        // is what makes iOS Safari show its native Download / View prompt.
-        window.location.assign(href);
-      }else{
-        const a=document.createElement('a');a.href=href;a.download=filename;a.rel='noopener';a.style.display='none';document.body.append(a);a.click();setTimeout(()=>a.remove(),1500);
+      // Safari shows its own native "View / Download" sheet when a same-origin
+      // navigation returns Content-Disposition: attachment. This is intentional.
+      if(isAppleMobile())window.location.assign(href);
+      else{
+        const a=document.createElement('a');a.href=href;a.rel='noopener';a.style.display='none';document.body.append(a);a.click();setTimeout(()=>a.remove(),1200);
       }
       return true;
-    }catch(err){console.warn('[InkNote] Service-worker download fallback:',err);return false;}
+    }catch(err){console.warn('[InkNote] Native download path failed:',err);return false;}
   }
   async function directDownload(blob,filename){
-    if(typeof window.showSaveFilePicker==='function'&&!isAppleMobile()){
+    if(isAppleMobile()){
+      // Prefer the Safari-native attachment prompt. Do not open a PDF preview tab.
+      if(await serviceWorkerDownload(blob,filename))return true;
+    }else if(typeof window.showSaveFilePicker==='function'){
       try{
         const handle=await window.showSaveFilePicker({suggestedName:filename,types:[{description:'PDF',accept:{'application/pdf':['.pdf']}}]});
         const writable=await handle.createWritable();await writable.write(blob);await writable.close();return true;
       }catch(err){if(err?.name==='AbortError')return false;}
-    }
-    if(await serviceWorkerDownload(blob,filename))return true;
-    // If a Service Worker cannot run (for example file:// or non-HTTPS), Safari
-    // controls the final behavior. Use a normal blob download as the last fallback.
+      if(await serviceWorkerDownload(blob,filename))return true;
+    }else if(await serviceWorkerDownload(blob,filename))return true;
+
+    // Last-resort browser download. This is used only when Service Workers are
+    // unavailable (for example file:// or non-HTTPS development).
     const a=document.createElement('a'),url=URL.createObjectURL(blob);
     a.href=url;a.download=filename;a.rel='noopener';a.style.display='none';document.body.append(a);a.click();a.remove();
     setTimeout(()=>URL.revokeObjectURL(url),60000);
@@ -821,25 +830,71 @@
   }
 
   const toolPopoverIds=['toolSettingsPopover','highlighterPopover','magicPopover','createToolsPopover','moreToolsPopover'];
+  function portalizeToolPopovers(){
+    for(const id of toolPopoverIds){
+      const pop=$('#'+id);if(!pop)continue;
+      if(pop.parentElement!==document.body)document.body.appendChild(pop);
+      pop.classList.add('portal-popover');
+    }
+  }
+  function isTouchToolbar(){
+    return navigator.maxTouchPoints>0 || matchMedia('(pointer: coarse)').matches || innerWidth<=820;
+  }
+  function clearPopoverPosition(pop){
+    for(const prop of ['top','bottom','left','right','inset-inline-start','inset-inline-end','width','max-width','transform'])pop.style.removeProperty(prop);
+    pop.removeAttribute('data-touch-sheet');
+  }
+  function positionToolPopover(pop,button){
+    clearPopoverPosition(pop);
+    if(isTouchToolbar()){
+      pop.setAttribute('data-touch-sheet','1');
+      pop.style.setProperty('position','fixed','important');
+      pop.style.setProperty('top','auto','important');
+      pop.style.setProperty('bottom','max(12px, env(safe-area-inset-bottom))','important');
+      pop.style.setProperty('left','12px','important');
+      pop.style.setProperty('right','12px','important');
+      pop.style.setProperty('transform','none','important');
+      pop.style.setProperty('width','auto','important');
+      pop.style.setProperty('max-width','none','important');
+      return;
+    }
+    const rect=button.getBoundingClientRect();
+    const width=Math.min(360,Math.max(280,pop.scrollWidth||300));
+    const left=Math.max(12,Math.min(innerWidth-width-12,rect.left+rect.width/2-width/2));
+    const top=Math.min(innerHeight-180,rect.bottom+10);
+    pop.style.setProperty('position','fixed','important');
+    pop.style.setProperty('top',`${Math.max(12,top)}px`,'important');
+    pop.style.setProperty('bottom','auto','important');
+    pop.style.setProperty('left',`${left}px`,'important');
+    pop.style.setProperty('right','auto','important');
+    pop.style.setProperty('transform','none','important');
+    pop.style.setProperty('width',`${width}px`,'important');
+  }
   function closeToolPopovers(except=null){
-    for(const id of toolPopoverIds){const el=$('#'+id);if(!el||id===except)continue;el.hidden=true;el.classList.remove('is-open');}
-    $$('.toolbar-popover-wrap > .tool, .ink-pens > .tool').forEach(btn=>{if(!except||btn.getAttribute('aria-controls')!==except)btn.setAttribute('aria-expanded','false');});
-    if(except!=='createToolsPopover')$('#createToolsBtn')?.setAttribute('aria-expanded','false');
-    if(except!=='moreToolsPopover')$('#moreToolsBtn')?.setAttribute('aria-expanded','false');
+    for(const id of toolPopoverIds){
+      const el=$('#'+id);if(!el||id===except)continue;
+      el.hidden=true;el.classList.remove('is-open');clearPopoverPosition(el);
+    }
+    $$('[aria-controls]').forEach(btn=>{const controlled=btn.getAttribute('aria-controls');if(toolPopoverIds.includes(controlled)&&controlled!==except)btn.setAttribute('aria-expanded','false');});
   }
   function openToolPopover(id,button){
     const pop=$('#'+id);if(!pop||!button)return;
-    closeToolPopovers(id);$$('[aria-controls="'+id+'"]').forEach(btn=>btn.setAttribute('aria-expanded','false'));pop.hidden=false;pop.classList.add('is-open');button.setAttribute('aria-expanded','true');
-    // Keep the selected control visible before the fixed touch sheet opens on iPad/iPhone.
-    try{button.scrollIntoView({block:'nearest',inline:'nearest',behavior:'auto'});}catch{}
+    closeToolPopovers(id);
+    $$('[aria-controls="'+id+'"]').forEach(btn=>btn.setAttribute('aria-expanded','false'));
+    pop.hidden=false;pop.classList.add('is-open');button.setAttribute('aria-expanded','true');
+    requestAnimationFrame(()=>positionToolPopover(pop,button));
   }
-  function toggleToolPopover(id,button){const pop=$('#'+id);if(!pop)return;if(pop.hidden)openToolPopover(id,button);else closeToolPopovers();}
+  function toggleToolPopover(id,button){
+    const pop=$('#'+id);if(!pop)return;
+    if(pop.hidden||!pop.classList.contains('is-open'))openToolPopover(id,button);else closeToolPopovers();
+  }
 
   function materializeToolbarIcons(){
     $$('.context-bar svg use,.tool-popover svg use').forEach(use=>{const href=use.getAttribute('href')||use.getAttribute('xlink:href');if(!href||!href.startsWith('#'))return;const symbol=document.querySelector(href),svg=use.closest('svg');if(!symbol||!svg)return;svg.setAttribute('viewBox',symbol.getAttribute('viewBox')||'0 0 24 24');svg.setAttribute('fill','none');svg.innerHTML=symbol.innerHTML;});
   }
 
   function bindUI(){
+    portalizeToolPopovers();
     materializeToolbarIcons();
     $('#langBtn').onclick=()=>setLanguage(state.lang==='ar'?'en':'ar'); if($('#editorLangBtn')) $('#editorLangBtn').onclick=()=>setLanguage(state.lang==='ar'?'en':'ar'); $('#chooseFile').onclick=e=>{e.stopPropagation();$('#fileInput').click()}; $('#dropZone').onclick=e=>{if(e.target.closest('button'))return;$('#fileInput').click()}; $('#dropZone').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('#fileInput').click()}}; $('#fileInput').onchange=e=>openFile(e.target.files[0]);
     for(const event of ['dragenter','dragover']) $('#dropZone').addEventListener(event,e=>{e.preventDefault();$('#dropZone').classList.add('dragover')}); for(const event of ['dragleave','drop']) $('#dropZone').addEventListener(event,e=>{e.preventDefault();$('#dropZone').classList.remove('dragover')}); $('#dropZone').addEventListener('drop',e=>openFile(e.dataTransfer.files[0]));
@@ -869,8 +924,9 @@
     document.addEventListener('dragstart',e=>{if(isEditorNonEditableTarget(e.target))e.preventDefault();},{passive:false});
     document.addEventListener('contextmenu',e=>{if(viewport?.contains(e.target)){e.preventDefault();clearNativeSelection();}},{passive:false});
     document.addEventListener('selectionchange',()=>{if(!editorRoot||editorRoot.hidden)return;const sel=window.getSelection?.();const node=sel?.anchorNode;if(node&&editorRoot.contains(node.nodeType===1?node:node.parentElement))clearNativeSelection();});
-    document.addEventListener('pointerdown',e=>{if(!e.target.closest('.toolbar-popover-wrap'))closeToolPopovers()}); window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();e.shiftKey?redo():undo()}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();if(state.mode)openSaveModal();}});
+    document.addEventListener('pointerdown',e=>{if(!e.target.closest('.toolbar-popover-wrap,.tool-popover.portal-popover'))closeToolPopovers()}); window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();e.shiftKey?redo():undo()}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();if(state.mode)openSaveModal();}});
     window.addEventListener('beforeunload',()=>{if(state.mode)saveDocument()});
+    window.addEventListener('resize',()=>{const open=$('.tool-popover.portal-popover.is-open');if(open){const btn=$(`[aria-controls="${open.id}"][aria-expanded="true"]`);if(btn)positionToolPopover(open,btn);}});
     $('#documentViewport').addEventListener('wheel',e=>{if(state.mode==='whiteboard'&&(e.ctrlKey||e.metaKey)){e.preventDefault();setZoom(state.zoom+(e.deltaY<0?.1:-.1));}},{passive:false});
   }
 

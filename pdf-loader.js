@@ -62,8 +62,8 @@
       };
     }
 
-    var module = await import('./vendor/pdf.min.js?v=21');
-    module.GlobalWorkerOptions.workerSrc = './vendor/pdf.worker.min.js?v=21';
+    var module = await import('./vendor/pdf.min.js?v=24');
+    module.GlobalWorkerOptions.workerSrc = './vendor/pdf.worker.min.js?v=24';
     window.pdfjsLib = module;
     return module;
   }
@@ -114,7 +114,7 @@
     if (window.pdfLibReady) return window.pdfLibReady;
     window.pdfLibReady = new Promise(function (resolve, reject) {
       var script = document.createElement('script');
-      script.src = './vendor/pdf-lib.min.js?v=21';
+      script.src = './vendor/pdf-lib.min.js?v=24';
       script.onload = function () { resolve(window.PDFLib); };
       script.onerror = reject;
       document.head.appendChild(script);
