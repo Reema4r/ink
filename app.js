@@ -19,16 +19,68 @@
   // because it preserves embedded CID glyphs even when a PDF has a malformed
   // ToUnicode map (the supplied test PDF has exactly that defect).
   let pdfiumRuntimePromise=null;
+  const PDFIUM_SOURCES=[
+    {
+      name:'jsdelivr-2.15.1',
+      module:'https://cdn.jsdelivr.net/npm/@embedpdf/pdfium@2.15.1/+esm',
+      wasm:'https://cdn.jsdelivr.net/npm/@embedpdf/pdfium@2.15.1/dist/pdfium.wasm'
+    },
+    {
+      name:'esmsh-2.15.1',
+      module:'https://esm.sh/@embedpdf/pdfium@2.15.1?bundle',
+      wasm:'https://unpkg.com/@embedpdf/pdfium@2.15.1/dist/pdfium.wasm'
+    },
+    {
+      name:'jsdelivr-2.15.0',
+      module:'https://cdn.jsdelivr.net/npm/@embedpdf/pdfium@2.15.0/+esm',
+      wasm:'https://cdn.jsdelivr.net/npm/@embedpdf/pdfium@2.15.0/dist/pdfium.wasm'
+    }
+  ];
+  function promiseTimeout(promise,ms,label){
+    let timer;
+    return Promise.race([
+      promise.finally(()=>clearTimeout(timer)),
+      new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error(`${label||'operation'} timed out`)),ms);})
+    ]);
+  }
+  async function fetchArrayBufferWithTimeout(url,ms=18000){
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),ms);
+    try{
+      const response=await fetch(url,{mode:'cors',cache:'force-cache',signal:controller.signal});
+      if(!response.ok)throw new Error(`HTTP ${response.status} for ${url}`);
+      return await response.arrayBuffer();
+    }finally{clearTimeout(timer);}
+  }
+  async function initPdfiumFromSource(source){
+    const mod=await promiseTimeout(import(source.module),18000,`PDFium module ${source.name}`);
+    const initFn=mod?.init||mod?.default?.init||(typeof mod?.default==='function'?mod.default:null);
+    if(typeof initFn!=='function')throw new Error(`PDFium init() unavailable from ${source.name}`);
+    const wasmBinary=await fetchArrayBufferWithTimeout(source.wasm,22000);
+    const runtime=await promiseTimeout(initFn({wasmBinary}),22000,`PDFium init ${source.name}`);
+    if(typeof runtime?.PDFiumExt_Init==='function')runtime.PDFiumExt_Init();
+    else if(typeof runtime?.FPDF_InitLibrary==='function')runtime.FPDF_InitLibrary();
+    if(typeof runtime?.FPDF_LoadMemDocument!=='function')throw new Error(`PDFium API incomplete from ${source.name}`);
+    runtime.__inknoteSource=source.name;
+    return runtime;
+  }
   async function getPdfiumRuntime(){
     if(pdfiumRuntimePromise)return pdfiumRuntimePromise;
     pdfiumRuntimePromise=(async()=>{
-      const mod=await import('https://cdn.jsdelivr.net/npm/@embedpdf/pdfium@2.15.0/+esm');
-      if(!mod?.init)throw new Error('PDFium init() unavailable');
-      const response=await fetch('https://cdn.jsdelivr.net/npm/@embedpdf/pdfium@2.15.0/dist/pdfium.wasm',{mode:'cors',cache:'force-cache'});
-      if(!response.ok)throw new Error(`PDFium WASM HTTP ${response.status}`);
-      const runtime=await mod.init({wasmBinary:await response.arrayBuffer()});
-      runtime.PDFiumExt_Init();
-      return runtime;
+      const errors=[];
+      for(const source of PDFIUM_SOURCES){
+        try{
+          const runtime=await initPdfiumFromSource(source);
+          console.info('[InkNote] Safe PDF raster engine ready:',source.name);
+          document.documentElement.dataset.pdfEngine='pdfium-raster';
+          return runtime;
+        }catch(err){
+          errors.push(`${source.name}: ${err?.message||err}`);
+          console.warn('[InkNote] PDFium source failed:',source.name,err);
+        }
+      }
+      document.documentElement.dataset.pdfEngine='unavailable';
+      throw new Error(`All PDFium sources failed. ${errors.join(' | ')}`);
     })().catch(err=>{pdfiumRuntimePromise=null;throw err;});
     return pdfiumRuntimePromise;
   }
@@ -43,6 +95,7 @@
     let closed=false;
     return {
       numPages,
+      engineSource:runtime.__inknoteSource||'pdfium',
       async getPageSize(pageIndex){
         if(closed)throw new Error('PDFium document closed');
         const pagePtr=runtime.FPDF_LoadPage(docPtr,pageIndex);if(!pagePtr)throw new Error(`PDFium page ${pageIndex+1} failed`);
@@ -53,16 +106,31 @@
         const pagePtr=runtime.FPDF_LoadPage(docPtr,pageIndex);if(!pagePtr)throw new Error(`PDFium page ${pageIndex+1} failed`);
         try{
           const width=runtime.FPDF_GetPageWidthF(pagePtr),height=runtime.FPDF_GetPageHeightF(pagePtr),cssScale=cssWidth/Math.max(width,1);
-          const pw=Math.max(1,Math.round(width*cssScale*dpr)),ph=Math.max(1,Math.round(height*cssScale*dpr));
+          // Keep iOS memory usage bounded while retaining enough resolution for handwriting/zoom.
+          const safeDpr=Math.max(1,Math.min(Number(dpr)||1,isAppleMobile()?1.65:1.8));
+          const pw=Math.max(1,Math.round(width*cssScale*safeDpr)),ph=Math.max(1,Math.round(height*cssScale*safeDpr));
           const bitmap=runtime.FPDFBitmap_Create(pw,ph,0);if(!bitmap)throw new Error('PDFium bitmap allocation failed');
           try{
             runtime.FPDFBitmap_FillRect(bitmap,0,0,pw,ph,0xFFFFFFFF);
-            runtime.FPDF_RenderPageBitmap(bitmap,pagePtr,0,0,pw,ph,0,16);
+            // ANNOT | LCD_TEXT | NO_NATIVETEXT = rasterize glyphs inside PDFium; Safari never shapes PDF fonts.
+            const FPDF_ANNOT=0x01,FPDF_LCD_TEXT=0x02,FPDF_NO_NATIVETEXT=0x04;
+            runtime.FPDF_RenderPageBitmap(bitmap,pagePtr,0,0,pw,ph,0,FPDF_ANNOT|FPDF_LCD_TEXT|FPDF_NO_NATIVETEXT);
             const bufferPtr=runtime.FPDFBitmap_GetBuffer(bitmap);if(!bufferPtr)throw new Error('PDFium bitmap buffer failed');
-            const copy=new Uint8Array(runtime.pdfium.HEAPU8.buffer,runtime.pdfium.HEAPU8.byteOffset+bufferPtr,pw*ph*4).slice();
+            const stride=typeof runtime.FPDFBitmap_GetStride==='function'?runtime.FPDFBitmap_GetStride(bitmap):pw*4;
+            const heap=runtime.pdfium.HEAPU8;
+            const raw=new Uint8Array(heap.buffer,heap.byteOffset+bufferPtr,stride*ph);
+            // FPDFBitmap_Create() produces BGRA. Convert explicitly to RGBA instead of relying on browser byte interpretation.
+            const rgba=new Uint8ClampedArray(pw*ph*4);
+            for(let y=0;y<ph;y++){
+              let src=y*stride,dst=y*pw*4;
+              for(let x=0;x<pw;x++,src+=4,dst+=4){
+                rgba[dst]=raw[src+2];rgba[dst+1]=raw[src+1];rgba[dst+2]=raw[src];rgba[dst+3]=raw[src+3];
+              }
+            }
             canvas.width=pw;canvas.height=ph;canvas.style.width=`${cssWidth}px`;canvas.style.height=`${height*cssScale}px`;
-            canvas.getContext('2d',{alpha:false}).putImageData(new ImageData(new Uint8ClampedArray(copy.buffer),pw,ph),0,0);
-            return {width:cssWidth,height:height*cssScale};
+            const ctx=canvas.getContext('2d',{alpha:false,desynchronized:true});
+            ctx.putImageData(new ImageData(rgba,pw,ph),0,0);
+            return {width:cssWidth,height:height*cssScale,pixelWidth:pw,pixelHeight:ph};
           }finally{runtime.FPDFBitmap_Destroy(bitmap);}
         }finally{runtime.FPDF_ClosePage(pagePtr);}
       },
@@ -194,15 +262,24 @@
     state.annotations=annotations||{};state.currentDocId=docId||newDocumentId();enterEditor(name||'document.pdf','pdf');$('#loadingState').hidden=false;state.pdfBytes=new Uint8Array(bytes);
     try{
       try{
+        // v23: the display copy is always rasterized by PDFium. We never hand PDF font shaping to Safari/iOS.
         state.pdfiumDoc=await openPdfiumDocument(state.pdfBytes.slice());state.pdfEngine='pdfium';state.pdf={numPages:state.pdfiumDoc.numPages};
+        document.documentElement.dataset.pdfEngine='pdfium-raster';
         const first=await state.pdfiumDoc.getPageSize(0),ratio=first.height/Math.max(1,first.width);for(let i=1;i<=state.pdf.numPages;i++)createPageShell(i,ratio);
+        // Engine preflight: render a small off-screen first page before exposing the document.
+        const probe=document.createElement('canvas');await state.pdfiumDoc.renderPage(0,probe,Math.min(320,Math.max(240,getPageWidth(first.width))),1);
+        if(!probe.width||!probe.height)throw new Error('PDFium preflight render returned an empty page');
       }catch(pdfiumErr){
-        console.warn('[InkNote] PDFium fallback:',pdfiumErr);closeActivePdfEngine();let pdfjs;
-        try{pdfjs=await window.pdfjsReady;}catch(engineErr){console.error(engineErr);if(token===state.loadToken){$('#loadingState').hidden=true;toast(t('pdfEngineFail'));resetToWelcome();}return false;}
+        console.error('[InkNote] Safe PDF raster engine failed:',pdfiumErr);closeActivePdfEngine();
+        // On Apple devices a PDF.js fallback can visibly corrupt complex embedded Arabic/Latin fonts. Do not show a wrong document.
+        if(isAppleMobile())throw new Error(`SAFE_RASTER_REQUIRED: ${pdfiumErr?.message||pdfiumErr}`);
+        // Non-Apple browsers may use PDF.js only as an emergency fallback.
+        let pdfjs;try{pdfjs=await window.pdfjsReady;}catch(engineErr){throw pdfiumErr;}
         if(token!==state.loadToken)return false;
         const pdfVersion=String(pdfjs?.version||'3.11.174'),assetVersion=/^5\./.test(pdfVersion)?'5.6.205':'3.11.174';
-        const task=pdfjs.getDocument({data:state.pdfBytes.slice(),useWorkerFetch:false,isEvalSupported:false,disableFontFace:false,useSystemFonts:false,fontExtraProperties:false,isOffscreenCanvasSupported:isAppleMobile()?false:undefined,isImageDecoderSupported:isAppleMobile()?false:undefined,cMapUrl:`https://cdn.jsdelivr.net/npm/pdfjs-dist@${assetVersion}/cmaps/`,cMapPacked:true,standardFontDataUrl:`https://cdn.jsdelivr.net/npm/pdfjs-dist@${assetVersion}/standard_fonts/`});
+        const task=pdfjs.getDocument({data:state.pdfBytes.slice(),useWorkerFetch:false,isEvalSupported:false,disableFontFace:true,useSystemFonts:false,fontExtraProperties:false,isOffscreenCanvasSupported:false,isImageDecoderSupported:false,cMapUrl:`https://cdn.jsdelivr.net/npm/pdfjs-dist@${assetVersion}/cmaps/`,cMapPacked:true,standardFontDataUrl:`https://cdn.jsdelivr.net/npm/pdfjs-dist@${assetVersion}/standard_fonts/`});
         state.pdf=await task.promise;state.pdfEngine='pdfjs';if(!state.pdf?.numPages)throw new Error('PDF has no pages');
+        document.documentElement.dataset.pdfEngine='pdfjs-emergency';
         const firstPage=await state.pdf.getPage(1),natural=firstPage.getViewport({scale:1}),ratio=natural.height/Math.max(1,natural.width);for(let i=1;i<=state.pdf.numPages;i++)createPageShell(i,ratio);state.pages[0].page=firstPage;
       }
       if(token!==state.loadToken)return false;$('#floatingPageCount').textContent=`${state.pdf.numPages} ${t('pagesCount')}`;await renderPage(1);
