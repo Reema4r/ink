@@ -8,11 +8,11 @@
   <meta name="robots" content="index,follow">
   <title>InkNote — اكتب على ملفات PDF والسبورة بسهولة</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="styles.css?v=16">
+  <link rel="stylesheet" href="styles.css?v=17">
   <script src="config.js"></script>
   <script defer src="site-meta.js"></script>
-  <script src="pdf-loader.js?v=16"></script>
-  <script defer src="app.js?v=16"></script>
+  <script src="pdf-loader.js?v=17"></script>
+  <script defer src="app.js?v=17"></script>
 </head>
 <body>
   <svg class="svg-sprite" aria-hidden="true">
@@ -121,6 +121,7 @@
           <div class="document-actions">
             <button class="editor-back back-btn" id="exitEditor" type="button" aria-label="العودة"><svg><use href="#i-back"/></svg><span data-i18n="back">رجوع</span></button>
             <button class="floating-file-name" id="floatingRenameBtn" type="button"><span id="floatingDocumentName">Untitled.pdf</span><small id="floatingPageCount">1 page</small></button>
+            <span class="top-save-state" id="saveState" aria-live="polite"><i></i><span data-i18n="saved">تم الحفظ</span></span>
           </div>
 
           <div class="toolbar-tools" role="toolbar" aria-label="أدوات الكتابة">
@@ -238,7 +239,7 @@
           <div class="loading-state" id="loadingState" hidden><span></span><strong data-i18n="openingFile">نفتح ملفك…</strong></div>
           <div class="pages-stack" id="pagesStack"></div>
         </div>
-        <div class="page-status"><span id="pageLabel">1 / 1</span><span class="save-state" id="saveState"><i></i><span data-i18n="saved">تم الحفظ</span></span></div>
+        <div class="page-status"><span id="pageLabel">1 / 1</span></div>
       </div>
 
       <aside class="pages-panel" id="pagesPanel">

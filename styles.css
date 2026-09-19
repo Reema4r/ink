@@ -418,3 +418,123 @@ html[dir="rtl"] .recent-files{padding:1px 0 2px 4px}
 @media(max-width:620px){.demo-toolbar .demo-tool{width:27px;height:27px}.demo-toolbar .demo-tool svg{width:15px;height:15px}.demo-toolbar .demo-palette{width:20px;height:20px}}
 
 .straight-hold-hint{display:block;margin-top:8px;padding-top:8px;border-top:1px solid #edf0f5;color:#7b8498;font-size:9.5px;line-height:1.55;font-weight:600}
+
+/* v17 — iPhone/iPad input maintenance */
+.annotation-canvas,
+.signature-pad-wrap canvas{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+  touch-action:none;
+}
+.annotation-canvas{cursor:crosshair}
+.pdf-page.hand-mode .annotation-canvas{cursor:grab}
+
+/* Saving is reported next to the open document, not in the bottom page chip. */
+.document-actions{position:relative}
+.top-save-state{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  min-width:max-content;
+  height:28px;
+  padding:0 9px;
+  margin-inline-start:3px;
+  border:1px solid #dce8e3;
+  border-radius:9px;
+  background:#f4fbf7;
+  color:#2f7d5e;
+  font-size:10px;
+  font-weight:800;
+  opacity:0;
+  transform:translateY(-2px);
+  transition:opacity .18s ease,transform .18s ease;
+  pointer-events:none;
+}
+.top-save-state i{width:6px;height:6px;border-radius:50%;background:#35ad78;flex:none}
+.top-save-state.visible{opacity:1;transform:none}
+.top-save-state.is-off{display:none}
+.page-status{padding-inline:13px}
+
+/* Apple touch devices: keep controls comfortably tappable while the toolbar stays horizontally scrollable. */
+@supports (-webkit-touch-callout:none){
+  .toolbar-tools{scroll-snap-type:x proximity}
+  .toolbar-tools .tool{scroll-snap-align:center}
+  .document-viewport{-webkit-overflow-scrolling:touch}
+  .pdf-page,.whiteboard-page{contain:layout paint style}
+}
+@media (max-width:860px){
+  .top-save-state{position:absolute;top:45px;inset-inline-start:46px;z-index:20;box-shadow:0 5px 16px rgba(31,42,72,.08)}
+}
+@media (max-width:540px){
+  .toolbar-tools .tool{min-width:40px!important;width:40px!important;height:40px!important}
+  .editor-back,.editor-download,.save-work-btn{min-width:40px!important;height:40px!important}
+  .context-bar{height:56px}
+  .document-viewport{padding-top:74px!important}
+  .top-save-state{top:48px;inset-inline-start:44px;height:26px;padding-inline:8px}
+}
+
+/* v17.1 — reliable pen option sheets on iPhone/iPad + selected-color indicators */
+.color-tool:before{display:none!important}
+.color-tool .tool-color-dot{
+  display:block!important;
+  width:10px;height:10px;
+  bottom:4px;inset-inline-end:5px;
+  border:2px solid #fff;
+  box-shadow:0 0 0 1px rgba(32,41,68,.18)!important;
+  z-index:3;
+}
+.magic-tool .tool-color-dot{box-shadow:0 0 0 1px rgba(32,41,68,.18)!important}
+.color-tool:after{
+  content:""!important;
+  display:block!important;
+  position:absolute;
+  bottom:4px;inset-inline-start:5px;
+  width:5px;height:5px;
+  border-inline-end:1.6px solid currentColor;
+  border-bottom:1.6px solid currentColor;
+  transform:rotate(45deg);
+  opacity:.58;
+  pointer-events:none;
+}
+.tool-popover.is-open{display:grid!important}
+.pen-preset,.color-tool,.quick-colors button,.palette-grid button,.size-dots button,.magic-size-options button{
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+
+/* iPad and touch screens get a fixed options sheet that cannot be clipped by the scrollable toolbar. */
+@media (max-width:1100px), (pointer:coarse){
+  .tool-popover{
+    position:fixed!important;
+    top:max(78px,calc(env(safe-area-inset-top) + 68px))!important;
+    left:50%!important;
+    right:auto!important;
+    inset-inline-start:auto!important;
+    inset-inline-end:auto!important;
+    transform:translateX(-50%)!important;
+    width:min(360px,calc(100vw - 24px))!important;
+    max-height:min(62dvh,440px);
+    overflow:auto;
+    overscroll-behavior:contain;
+    z-index:120!important;
+    border-radius:18px;
+    padding:12px;
+    box-shadow:0 22px 65px rgba(20,30,58,.22);
+  }
+  .ink-settings-popover{min-width:0!important}
+  .palette-grid{grid-template-columns:repeat(6,minmax(32px,1fr));gap:9px}
+  .magic-popover .palette-grid{grid-template-columns:repeat(5,minmax(34px,1fr))}
+  .palette-grid button{width:34px;height:34px;justify-self:center}
+  .quick-colors button{width:30px;height:30px}
+  .size-dots button{min-width:36px;min-height:34px}
+}
+@media (max-width:540px){
+  .tool-popover{
+    top:max(66px,calc(env(safe-area-inset-top) + 60px))!important;
+    width:calc(100vw - 20px)!important;
+    max-height:58dvh;
+  }
+  .palette-grid{grid-template-columns:repeat(6,minmax(30px,1fr))}
+  .magic-popover .palette-grid{grid-template-columns:repeat(5,minmax(30px,1fr))}
+}
